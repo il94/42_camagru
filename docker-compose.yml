@@ -7,7 +7,7 @@ services:
       - "8080:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./src:/var/www/html
+      - ./app:/var/www/html
     depends_on:
       - php
     env_file:
@@ -16,7 +16,7 @@ services:
   php:
     image: php:7.4-fpm
     volumes:
-      - ./src:/var/www/html
+      - ./app:/var/www/html
     env_file:
       - .env
 
