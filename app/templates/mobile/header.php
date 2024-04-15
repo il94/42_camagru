@@ -6,15 +6,3 @@
 		Following
 	</button>
 </div>
-
-
-
-
-
-<style>
-	<?php include("style/header.css"); ?>
-</style>
-
-<script>
-	<?php include("script/header.js"); ?>
-</script>
