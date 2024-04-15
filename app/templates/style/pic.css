@@ -1,0 +1,55 @@
+.pic {
+
+	display: flex;
+	flex-direction: column;
+
+	margin-top: 15px;
+	margin-bottom: 10px;
+
+	min-width: 97%;
+	aspect-ratio: 48/61;
+
+}
+
+.pic-header {
+
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	height: 10.66%;
+
+	border-radius: 22.5px 45px 0 0;
+
+
+}
+.pic-header > img {
+
+	margin-left: 2.29%;
+
+	width: 9.21%;
+	height: 82.52%;
+
+	border-radius: 50%;
+
+}
+
+.pic-image {
+
+	width: 100%;
+	height: 100%;
+
+	background-position: center;
+	background-size: cover;
+
+}
+
+.pic-footer {
+
+	width: 100%;
+	height: 10.66%;
+
+	border-radius: 0 0 22.5px 45px;
+
+}
+

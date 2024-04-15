@@ -7,24 +7,20 @@
 	color: var(--text);
 }
 
-
 html {
-
 	width: 100%;
 	height: 100%;
-
 }
 
 body {
 
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 
 	width: 100%;
 	height: 100%;
 
-	/* Smartphone */
+	/* Mobile */
 	@media screen and (max-width: 480px) {
 		background-color: var(--body);
 	}
