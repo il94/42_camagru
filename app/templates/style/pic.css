@@ -6,7 +6,8 @@
 	margin-top: 15px;
 	margin-bottom: 10px;
 
-	min-width: 97%;
+	width: 97.46%;
+	min-width: 97.46%;
 	aspect-ratio: 48/61;
 
 }
@@ -21,23 +22,64 @@
 
 	border-radius: 22.5px 45px 0 0;
 
+}
+
+.pic-header-user-datas {
+
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
 
 }
-.pic-header > img {
+.pic-header-user-datas > img {
 
 	margin-left: 2.29%;
 
-	width: 9.21%;
-	height: 82.52%;
-
+	width: 11.18%;
+	height: 64.66%;
+	
 	border-radius: 50%;
 
+}
+.pic-header-user-datas > p {
+
+	margin-left: 2.5%;
+
+	font-size: 4vw;
+	text-align: center;
+}
+
+.pic-header-icons {
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 21.46%;
+	height: 100%;
+
+	padding-right: 5%;
+}
+.pic-header-icons > button {
+
+	height: 58.46%;
+	aspect-ratio: 29/35;
+
+	opacity: 0.5;
+	transition: opacity 0.3s;
+
+}
+.pic-header-icons > button:hover {
+	opacity: 1;
+	transition: opacity 0.3s;
 }
 
 .pic-image {
 
 	width: 100%;
-	height: 100%;
+	height: 76.68%;
 
 	background-position: center;
 	background-size: cover;
