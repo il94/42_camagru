@@ -57,23 +57,17 @@
 	align-items: center;
 	justify-content: space-between;
 
+	padding-right: 5%;
+
 	width: 21.46%;
 	height: 100%;
 
-	padding-right: 5%;
 }
 .pic-header-icons > button {
 
 	height: 58.46%;
 	aspect-ratio: 29/35;
 
-	opacity: 0.5;
-	transition: opacity 0.3s;
-
-}
-.pic-header-icons > button:hover {
-	opacity: 1;
-	transition: opacity 0.3s;
 }
 
 .pic-image {
@@ -83,15 +77,22 @@
 
 	background-position: center;
 	background-size: cover;
+	background-repeat: no-repeat;
 
 }
 
 .pic-footer {
 
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	
 	width: 100%;
 	height: 10.66%;
 
 	border-radius: 0 0 22.5px 45px;
 
 }
-
+.pic-footer > button {
+	height: 58.46%;
+}
