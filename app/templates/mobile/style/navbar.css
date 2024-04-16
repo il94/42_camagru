@@ -10,20 +10,7 @@
 	background-color: var(--navbar);
 
 }
-
-.mobile-navbar-icon {
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
+.mobile-navbar > button {
 	width: 9.66%;
-
-	opacity: 0.5;
-	transition: opacity 0.3s;
-
-}
-.mobile-navbar-icon:hover {
-	opacity: 1;
-	transition: opacity 0.3s;
+	height: 38px;
 }
