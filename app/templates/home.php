@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="components.css">
 	<link rel="stylesheet" type="text/css" href="colors.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/home.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/feed.css">
