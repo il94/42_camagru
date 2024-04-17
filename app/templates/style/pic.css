@@ -11,9 +11,12 @@
 	min-width: 97.46%;
 	aspect-ratio: 48/61;
 
+	border-radius: 22.5px 45px 22.5px 45px;
+
 	transition: transform 0.6s;
 	transform-style: preserve-3d;
 }
+
 .flip {
 	transform: rotateY(180deg);
 }
@@ -31,25 +34,22 @@
 }
 
 .pic-header {
-
 	display: flex;
 	align-items: center;
 
 	width: 100%;
 	height: 10.66%;
 
-	border-radius: 22.5px 45px 0 0;
-
+	font-size: 4vw;
+	text-align: center;
 }
 
 .pic-header-user-datas {
-
 	display: flex;
 	align-items: center;
 
 	width: 100%;
 	height: 100%;
-
 }
 .pic-header-user-datas > img {
 
@@ -62,15 +62,21 @@
 
 }
 .pic-header-user-datas > p {
-
 	margin-left: 2.5%;
+}
 
-	font-size: 4vw;
-	text-align: center;
+.pic-header-stats {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+
+	width: 100%;
+	height: 100%;
+
+	font-weight: 550;
 }
 
 .pic-header-icons {
-
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -79,7 +85,6 @@
 
 	width: 21.46%;
 	height: 100%;
-
 }
 .pic-header-icons > button {
 
@@ -91,7 +96,7 @@
 .pic-image {
 
 	width: 100%;
-	height: 76.68%;
+	aspect-ratio: 1;
 
 	background-position: center;
 	background-size: cover;
@@ -107,9 +112,6 @@
 	
 	width: 100%;
 	height: 10.66%;
-
-	border-radius: 0 0 22.5px 45px;
-
 }
 .pic-footer > button {
 	height: 58.46%;

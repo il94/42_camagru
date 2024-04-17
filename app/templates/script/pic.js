@@ -16,14 +16,9 @@ const pics = document.querySelectorAll(".pic")
 
 for (const pic of pics) {
 
-	const randomColor = getRandomColor();
+	pic.style.backgroundColor = getRandomColor();
 	
-	const headerPic = pic.querySelector(".pic-header");
 	const imagePic = pic.querySelector(".pic-image");
-	const footerPic = pic.querySelector(".pic-footer");
-	
-	headerPic.style.backgroundColor = randomColor;
-	footerPic.style.backgroundColor = randomColor;
 
 	/* ============================ TEMPORAIRE ===============================*/
 
