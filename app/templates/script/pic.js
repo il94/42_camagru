@@ -38,5 +38,10 @@ for (const pic of pics) {
 	imagePic.style.backgroundImage = `url(${images[randomImage]})`;
 
 	/* =======================================================================*/
+	
+	pic.addEventListener('click', () => {
+		pic.classList.toggle('flip')
+
+	})	
 
 }
