@@ -15,6 +15,7 @@
 
 	transition: transform 0.6s;
 	transform-style: preserve-3d;
+	transform: rotateY(180deg);
 }
 
 .flip {
@@ -152,28 +153,41 @@
 
 .pic-input {
 	display: flex;
-	flex-direction: column;
-	justify-content: end;
+	justify-content: space-between;
+	align-items: end;
 
 	position: relative;
 
 	width: 92.5%;
-	height: 42px;
+	min-height: 42px;
 
 	border-radius: 12.5px;
 
 	background-color: rgba(0, 0, 0, 0.25);
 }
-.pic-input > input {
+.pic-input > textarea {
 	margin-left: 16px;
 	margin-bottom: 4px;
+	
+	width: 100%;
+	min-height: 21.5px;
+	max-height: 43px;
 	font-size: 18px;
 }
+/* .pic-input > input {
+	margin-left: 16px;
+	margin-bottom: 4px;
+	
+	width: 100%;
+	height: auto;
+	font-size: 18px;
+} */
 .pic-input > img {
-	position: absolute;
-	right: 14px;
-	top: 50%;
-	transform: translateY(-50%);
+	/* position: absolute; */
+	align-self: center;
+	margin-right: 14px;
+	/* top: 50%;
+	transform: translateY(-50%); */
 
 	height: 30px;
 	aspect-ratio: 1;
@@ -185,7 +199,8 @@
 	top: 50%;
 	transform: translate(-50%, -50%);
 
-	width: 237.63px;
+	/* width: 237.63px; */
+	width: 248px;
 
 	opacity: 0.5;
 

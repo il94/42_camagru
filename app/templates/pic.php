@@ -50,7 +50,8 @@
 		<div class="pic-footer-verso">
 			<div class="pic-input">
 				<span class="placeholder">Do you like this pic ? Let us know !</span>
-				<input type="text" class="pic-input-text"></input>
+				<textarea class="pic-input-text"></textarea>
+				<!-- <input type="text" class="pic-input-text"></input> -->
 				<img src="assets/arrow_up.svg" />
 			</div>
 		</div>

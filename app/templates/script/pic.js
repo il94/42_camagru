@@ -37,8 +37,11 @@ for (const pic of pics) {
 		pic.classList.toggle('flip');
 	})
 
+	const inputWrapper = pic.querySelector(".pic-input");
 	const input = pic.querySelector(".pic-input-text");
 	const placeHolder = pic.querySelector(".placeholder");
+	input.style.height = "21.5px"
+	inputWrapper.style.height = "42px"
 
 	input.addEventListener('focus', () => {
 		if (!placeHolder.classList.contains(".reduce"))
@@ -47,5 +50,21 @@ for (const pic of pics) {
 	input.addEventListener('blur', (event) => {
 		if (!event.target.value)
 			placeHolder.classList.remove("reduce");
+	})
+	input.addEventListener('input', (event) => {
+
+		console.log("inputWrapper.style.height", inputWrapper.clientHeight)
+		console.log("input.scrollHeight", input.scrollHeight)
+
+
+		// inputWrapper.style.height = input.scrollHeight + 42 + 'px'
+		if (input.clientHeight !== input.scrollHeight)
+		{
+		// 	console.log("IF")
+
+		input.style.height = input.scrollHeight + 'px'
+		// inputWrapper.style.height = inputWrapper.clientHeight + input.scrollHeight + 'px'
+		}
+
 	})
 }
