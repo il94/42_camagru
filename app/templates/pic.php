@@ -46,7 +46,13 @@
 				<?php require("comment.php") ?>
 				<?php require("comment.php") ?>
 			</div>
-			<div class="pic-input"></div>
+		</div>
+		<div class="pic-footer-verso">
+			<div class="pic-input">
+				<span class="placeholder">Do you like this pic ? Let us know !</span>
+				<input type="text" class="pic-input-text"></input>
+				<img src="assets/arrow_up.svg" />
+			</div>
 		</div>
 	</div>
 </div>

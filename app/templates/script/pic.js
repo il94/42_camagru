@@ -34,8 +34,18 @@ for (const pic of pics) {
 
 	/* =======================================================================*/
 	pic.addEventListener('click', () => {
-		pic.classList.toggle('flip')
+		pic.classList.toggle('flip');
+	})
 
-	})	
+	const input = pic.querySelector(".pic-input-text");
+	const placeHolder = pic.querySelector(".placeholder");
 
+	input.addEventListener('focus', () => {
+		if (!placeHolder.classList.contains(".reduce"))
+			placeHolder.classList.add("reduce");
+	})
+	input.addEventListener('blur', (event) => {
+		if (!event.target.value)
+			placeHolder.classList.remove("reduce");
+	})
 }
