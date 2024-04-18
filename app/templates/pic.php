@@ -14,7 +14,7 @@
 				</button>
 			</div>
 		</div>
-		<div class="pic-image"></div>
+		<div class="pic-body-recto"></div>
 		<div class="pic-footer">
 			<button class="icon">
 				<img src="assets/like.svg" />
@@ -39,6 +39,9 @@
 				</button>
 			</div>
 		</div>
+		<div class="pic-body-verso">
+			<div class="pic-comments"></div>
+			<div class="pic-input"></div>
+		</div>
 	</div>
-
 </div>

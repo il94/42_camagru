@@ -18,7 +18,7 @@ for (const pic of pics) {
 
 	pic.style.backgroundColor = getRandomColor();
 	
-	const imagePic = pic.querySelector(".pic-image");
+	const bodyRecto = pic.querySelector(".pic-body-recto");
 
 	/* ============================ TEMPORAIRE ===============================*/
 
@@ -30,10 +30,9 @@ for (const pic of pics) {
 	];
 
 	const randomImage = Math.floor(Math.random() * images.length);
-	imagePic.style.backgroundImage = `url(${images[randomImage]})`;
+	bodyRecto.style.backgroundImage = `url(${images[randomImage]})`;
 
 	/* =======================================================================*/
-	
 	pic.addEventListener('click', () => {
 		pic.classList.toggle('flip')
 
