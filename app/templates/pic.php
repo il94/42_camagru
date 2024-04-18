@@ -40,7 +40,12 @@
 			</div>
 		</div>
 		<div class="pic-body-verso">
-			<div class="pic-comments"></div>
+			<div class="pic-comments">
+				<?php require("comment.php") ?>
+				<?php require("comment.php") ?>
+				<?php require("comment.php") ?>
+				<?php require("comment.php") ?>
+			</div>
 			<div class="pic-input"></div>
 		</div>
 	</div>

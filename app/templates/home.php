@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="templates/style/home.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/feed.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/pic.css">
+	<link rel="stylesheet" type="text/css" href="templates/style/comment.css">
 	<link rel="stylesheet" type="text/css" href="templates/mobile/style/header.css">
 	<link rel="stylesheet" type="text/css" href="templates/mobile/style/navbar.css">
 
