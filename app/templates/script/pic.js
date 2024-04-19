@@ -16,11 +16,13 @@ const pics = document.querySelectorAll(".pic")
 
 for (const pic of pics) {
 
+	// Applique une couleur random a la pic
 	pic.style.backgroundColor = getRandomColor();
 	
-	const bodyRecto = pic.querySelector(".pic-body-recto");
-
+	// Ajoute l'image a la pic
 	/* ============================ TEMPORAIRE ===============================*/
+
+	const bodyRecto = pic.querySelector(".pic-body-recto");
 
 	const images = [
 		"/assets/pic_example_1.jpg",
@@ -33,38 +35,48 @@ for (const pic of pics) {
 	bodyRecto.style.backgroundImage = `url(${images[randomImage]})`;
 
 	/* =======================================================================*/
+
+	// Effet de flip
 	pic.addEventListener('click', () => {
 		pic.classList.toggle('flip');
 	})
 
-	const inputWrapper = pic.querySelector(".pic-input");
-	const input = pic.querySelector(".pic-input-text");
+	// Deplacments du placeholder
+	const inputText = pic.querySelector(".pic-input-text");
 	const placeHolder = pic.querySelector(".placeholder");
-	input.style.height = "21.5px"
-	inputWrapper.style.height = "42px"
 
-	input.addEventListener('focus', () => {
+	// Reduit le placeholder au clic sur la zone de texte
+	inputText.addEventListener('focus', () => {
 		if (!placeHolder.classList.contains(".reduce"))
 			placeHolder.classList.add("reduce");
 	})
-	input.addEventListener('blur', (event) => {
+	
+	// Si la zone de texte est vide, recentre le placeholder
+	inputText.addEventListener('blur', (event) => {
 		if (!event.target.value)
 			placeHolder.classList.remove("reduce");
 	})
-	input.addEventListener('input', (event) => {
 
-		console.log("inputWrapper.style.height", inputWrapper.clientHeight)
-		console.log("input.scrollHeight", input.scrollHeight)
+	// Gere la taille de la zone de texte, en l'agrandissant et en reduisant les commentaires
+	const bodyVerso = pic.querySelector(".pic-body-verso")
+	const footerVerso = pic.querySelector(".pic-footer-verso")
+	const input = pic.querySelector(".pic-input");
 
+	inputText.addEventListener('input', (event) => {
 
-		// inputWrapper.style.height = input.scrollHeight + 42 + 'px'
-		if (input.clientHeight !== input.scrollHeight)
+		const charHeight = 20.5 // Height d'une ligne de caracteres d'une font size de 18px
+		const headerHeight = 52 // Height du header
+
+		// Si le texte va depasser de la zone et que la zone est inferieure a la moitie de la pic
+		if (inputText.clientHeight !== inputText.scrollHeight &&
+			input.clientHeight < pic.clientHeight / 2)
 		{
-		// 	console.log("IF")
-
-		input.style.height = input.scrollHeight + 'px'
-		// inputWrapper.style.height = inputWrapper.clientHeight + input.scrollHeight + 'px'
+			inputText.style.height = inputText.scrollHeight + 'px'
+			input.style.height = inputText.scrollHeight + charHeight + 'px'
+			
+			const footerNewSize = inputText.scrollHeight + charHeight + 22
+			footerVerso.style.height = footerNewSize + 'px'
+			bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
 		}
-
 	})
 }
