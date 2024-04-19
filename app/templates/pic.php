@@ -9,7 +9,7 @@
 				<button class="icon">
 					<img src="assets/trash.svg" />
 				</button>
-				<button class="icon">
+				<button class="icon more">
 					<img src="assets/more.svg" />
 				</button>
 			</div>
@@ -34,7 +34,7 @@
 				<button class="icon">
 					<img src="assets/trash.svg" />
 				</button>
-				<button class="icon">
+				<button class="icon more">
 					<img src="assets/more.svg" />
 				</button>
 			</div>

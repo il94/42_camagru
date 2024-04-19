@@ -37,9 +37,10 @@ for (const pic of pics) {
 	/* =======================================================================*/
 
 	// Effet de flip
-	pic.addEventListener('click', () => {
+	const moreButtons = pic.querySelectorAll(".more")
+	moreButtons.forEach((moreButton) => moreButton.addEventListener('click', () => {
 		pic.classList.toggle('flip');
-	})
+	}))
 
 	// Deplacments du placeholder
 	const inputText = pic.querySelector(".pic-input-text");
