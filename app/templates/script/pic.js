@@ -63,10 +63,21 @@ for (const pic of pics) {
 	const footerVerso = pic.querySelector(".pic-footer-verso")
 	const input = pic.querySelector(".pic-input");
 
-	inputText.addEventListener('input', (event) => {
+	const charHeight = 22 // Height d'une ligne de caracteres d'une font size de 18px
+	const headerHeight = 52 // Height du header
 
-		const charHeight = 20.5 // Height d'une ligne de caracteres d'une font size de 18px
-		const headerHeight = 52 // Height du header
+	inputText.addEventListener('keydown', (event) => {
+		if (event.key === "Backspace" && event.target.value) {
+			console.log("HERE")
+			inputText.style.height = inputText.scrollHeight - charHeight + 'px'
+			input.style.height = inputText.scrollHeight + 'px'
+			
+			const footerNewSize = inputText.scrollHeight + charHeight
+			footerVerso.style.height = footerNewSize + 'px'
+			bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
+		}
+	});
+	inputText.addEventListener('input', () => {
 
 		// Si le texte va depasser de la zone et que la zone est inferieure a la moitie de la pic
 		if (inputText.clientHeight !== inputText.scrollHeight &&
@@ -75,9 +86,9 @@ for (const pic of pics) {
 			inputText.style.height = inputText.scrollHeight + 'px'
 			input.style.height = inputText.scrollHeight + charHeight + 'px'
 			
-			const footerNewSize = inputText.scrollHeight + charHeight + 22
+			const footerNewSize = inputText.scrollHeight + charHeight * 2
 			footerVerso.style.height = footerNewSize + 'px'
 			bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
 		}
-	})
+	});
 }

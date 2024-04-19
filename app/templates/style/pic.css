@@ -161,7 +161,16 @@
 
 	background-color: rgba(0, 0, 0, 0.25);
 }
-.pic-input > textarea {
+.pic-input > img {
+	align-self: center;
+
+	margin-right: 14px;
+
+	height: 30px;
+	aspect-ratio: 1;
+}
+
+.pic-input-text {
 	margin-left: 16px;
 	margin-bottom: 4px;
 	
@@ -170,13 +179,8 @@
 
 	font-size: 18px;
 }
-.pic-input > img {
-	align-self: center;
-
-	margin-right: 14px;
-
-	height: 30px;
-	aspect-ratio: 1;
+.pic-input-text::-webkit-scrollbar {
+	display: none;
 }
 
 .placeholder {
