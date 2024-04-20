@@ -91,4 +91,11 @@ for (const pic of pics) {
 			bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
 		}
 	});
+
+	const likeIcon = pic.querySelector(".like-icon")
+
+	likeIcon.addEventListener("click", () => {
+		likeIcon.classList.toggle("like")
+	})
+
 }

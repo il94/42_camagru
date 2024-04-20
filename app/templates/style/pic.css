@@ -99,6 +99,22 @@
 	height: 30px;
 }
 
+.like-icon > svg {
+	/* fill: red; */
+	/* transition: opacity 5s ease ; */
+	fill: none;
+}
+.like > svg {
+	opacity: 1;
+	fill: red;
+}
+
+@keyframes like {
+	100% {
+		fill: red;
+	}	
+}
+
 .pic-header-stats {
 	display: flex;
 	align-items: center;
@@ -189,7 +205,8 @@
 	top: 50%;
 	transform: translate(-50%, -50%);
 
-	width: 237.63px; /* Taille de la string apres ecriture (arbitraire) */
+	/* width: 237.63px; /* Taille de la string apres ecriture (arbitraire) PC */
+	width: 248px; /* Taille de la string apres ecriture (arbitraire) M3 */
 
 	opacity: 0.5;
 

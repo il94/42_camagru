@@ -16,8 +16,8 @@
 		</div>
 		<div class="pic-body-recto"></div>
 		<div class="pic-footer">
-			<button class="icon">
-				<img src="assets/like.svg" />
+			<button class="icon like-icon">
+				<?php require("assets/like.svg") ?>
 			</button>
 			<button class="icon">
 				<img src="assets/comment.svg" />
@@ -51,7 +51,6 @@
 			<div class="pic-input">
 				<span class="placeholder">Do you like this pic ? Let us know !</span>
 				<textarea class="pic-input-text"></textarea>
-				<!-- <input type="text" class="pic-input-text"></input> -->
 				<img src="assets/arrow_up.svg" />
 			</div>
 		</div>

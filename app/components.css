@@ -2,11 +2,14 @@
 	opacity: 0.5;
 	transition: opacity 0.3s;
 }
-.icon > img {
+.icon > img, svg, path {
 	width: 100%;
 	height: 100%;
 }
 .icon:hover {
 	opacity: 1;
 	transition: opacity 0.3s;
+}
+.icon.like {
+	opacity: 1;
 }
