@@ -1,0 +1,30 @@
+.search-result {
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	height: 42px;
+
+	font-size: 16px;
+}
+.search-result > img {
+	margin-right: 10px;
+	margin-left: 20%;
+
+	width: 30px;
+	height: 30px;
+
+	border-radius: 50%;
+}
+
+.search-result-empty {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 42px;
+
+	font-size: 16px;
+	text-align: center;
+}

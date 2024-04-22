@@ -1,0 +1,37 @@
+#search-popup {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+    padding-top: 26px;
+
+    position: absolute;
+	top: 42px;
+    left: 50%;
+	transform: translateX(-50%);
+
+	width: 300px;
+	max-width: 100%; /* a voir */
+	
+	border: solid 2px white;
+	border-radius: 45px;
+	box-sizing: border-box;
+
+    background-color: var(--popup);
+}
+#search-popup > input[type="text"] {
+    width: 100%;
+
+	font-size: 18px;
+	text-align: center;
+}
+
+.search-results {
+	padding-top: 10.5px;
+	padding-bottom: 12.5px;
+
+	width: 100%;
+	min-height: 3px;
+	max-height: 210px;
+}

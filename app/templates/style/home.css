@@ -13,7 +13,6 @@ html {
 }
 
 body {
-
 	display: flex;
 	flex-direction: column;
 
@@ -26,7 +25,6 @@ body {
 	}
 
 	background-color: #a33030;
-
 }
 
 button {
@@ -42,7 +40,6 @@ button {
 }
 
 input[type="text"] {
-
     border: none;
 
     outline: none;
