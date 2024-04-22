@@ -9,7 +9,7 @@
 
 	width: 314px;
 	max-width: 100%; /* a voir */
-	height: 254px;
+	max-height: 254px;
 	
 	border-radius: 0 0 0 45px;
 
