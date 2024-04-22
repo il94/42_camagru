@@ -25,6 +25,9 @@
 	text-align: center;
 	font-weight: 500;
 }
+#angle-popup-title-username {
+	font-weight: bold;
+}
 
 #angle-popup-content {
 	padding-bottom: 12.5px;
@@ -36,4 +39,28 @@
 	border-radius: 0 0 0 45px;
 
 	overflow-y: scroll;
+}
+
+.section {
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	height: 48px;
+
+	font-size: 18px;
+}
+.section:hover > img {
+	opacity: 1;
+	transition: opacity 0.3s;
+}
+.section > img {
+	margin-left: 40px;
+	margin-right: 40px;
+
+	width: 34px;
+	height: 34px;
+
+	opacity: 0.5;
+	transition: opacity 0.3s;
 }
