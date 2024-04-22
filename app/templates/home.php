@@ -11,6 +11,8 @@
 	<link rel="stylesheet" type="text/css" href="templates/style/comment.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/search_popup.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/search_result.css">
+	<link rel="stylesheet" type="text/css" href="templates/style/angle_popup.css">
+	<link rel="stylesheet" type="text/css" href="templates/style/notification.css">
 	<link rel="stylesheet" type="text/css" href="templates/mobile/style/header.css">
 	<link rel="stylesheet" type="text/css" href="templates/mobile/style/navbar.css">
 
