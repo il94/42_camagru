@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="components.css">
 	<link rel="stylesheet" type="text/css" href="colors.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/home.css">
+	<link rel="stylesheet" type="text/css" href="templates/style/main.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/feed.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/pic.css">
 	<link rel="stylesheet" type="text/css" href="templates/style/comment.css">
@@ -20,12 +21,14 @@
 	<link rel="stylesheet" type="text/css" href="templates/mobile/style/header.css">
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/header.css">
 	<link rel="stylesheet" type="text/css" href="templates/mobile/style/navbar.css">
+	<link rel="stylesheet" type="text/css" href="templates/desktop/style/following_list.css">
+	<link rel="stylesheet" type="text/css" href="templates/desktop/style/follow.css">
 
 	<title>Crafty Pic</title>
 </head>
 <body>
 	<?php require("header.php"); ?>
-	<?php require("feed.php"); ?>
+	<?php require("main.php"); ?>
 	<?php require("mobile/navbar.php"); ?>
 </body>
 </html>
