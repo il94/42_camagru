@@ -5,9 +5,9 @@ const feedHeader = document.getElementById("feed-header")
 
 let feedLastScrollValue = 0
 feedHeader.style.top = "65px"
-feed.addEventListener('scroll', (event) => {
+feed.addEventListener('scroll', () => {
 
-	if (feedLastScrollValue < feed.scrollTop && feedHeader.style.top === "65px") {
+	if (feedLastScrollValue < feed.scrollTop && feedHeader.style.top === "65px" && feed.scrollTop > 10) {
 		feedHeader.style.top = "0px"
 	}
 	else if (feedLastScrollValue > feed.scrollTop && feedHeader.style.top === "0px") {
