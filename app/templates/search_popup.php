@@ -1,5 +1,5 @@
 <div id="search-popup">
-	<input type="text" placeholder="Search a user...">
+	<input id="search-popup-input" type="text" placeholder="Search a user...">
 	<div class="search-results">
 
 		<?php require("search_result.php") ?>
@@ -26,3 +26,5 @@
 
 	</div>
 </div>
+
+<script src="templates/script/search_popup.js"></script>
