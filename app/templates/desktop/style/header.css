@@ -25,3 +25,16 @@
 	font-family: "Twinkle Star", cursive;
 	font-size: 48px;
 }
+
+#desktop-header-icons {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	margin-right: 16px;
+
+	width: 160px;
+}
+#desktop-header-icons > button {
+	height: 46px;
+}
