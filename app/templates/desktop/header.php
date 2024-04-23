@@ -1,5 +1,5 @@
 <div class="desktop-header">
-	<p id="dektop-header-logo">CraftyPic</p>
+	<button id="dektop-header-logo">CraftyPic</button>
 	<div id="desktop-header-icons">
 		<button class="icon">
 			<img src="assets/loop.svg" />

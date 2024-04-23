@@ -4,7 +4,12 @@
 	align-items: center;
 
     position: absolute;
-	top: 0;
+	@media screen and (max-width: 480px) {
+		top: 40px;
+	}
+	@media screen and (min-width: 480px) {
+		top: 65px;
+	}
     right: 0;
 
 	width: 314px;
