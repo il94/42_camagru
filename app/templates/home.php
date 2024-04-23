@@ -23,6 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="templates/mobile/style/navbar.css">
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/following_list.css">
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/follow.css">
+	<link rel="stylesheet" type="text/css" href="templates/desktop/style/feed_header.css">
 
 	<title>Crafty Pic</title>
 </head>

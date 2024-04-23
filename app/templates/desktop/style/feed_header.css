@@ -1,0 +1,47 @@
+#feed-header {
+	display: flex;
+
+	position: fixed;
+	top: 65px;
+	z-index: 1;
+
+	width: 468px;
+	height: 40px;
+	min-height: 40px;
+
+	transition: top 0.5s ease;
+}
+
+.feed-header-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 50%;
+
+	white-space: nowrap;
+	overflow: hidden;
+
+	font-size: 19.5px;
+	background-color: var(--button);
+}
+
+.feed-header-button:hover {
+	background-color: #777777;
+	transition: 0.3s ease;
+}
+
+.feed-header-button-click {
+	background-color: #777777;
+}
+
+.feed-header-button-blocked {
+	background-color: #000000;
+}
+
+#feed-header-button-foryou {
+	border-radius: 0 0 0 45px;
+}
+#feed-header-button-following {
+	border-radius: 0 0 45px 0;
+}

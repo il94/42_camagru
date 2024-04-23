@@ -12,9 +12,7 @@ function getRandomColor() {
     return hexColor;
 }
 
-const pics = document.querySelectorAll(".pic")
-
-for (const pic of pics) {
+export function initPic(pic) {
 
 	// Applique une couleur random a la pic
 	pic.style.backgroundColor = getRandomColor();
@@ -97,5 +95,4 @@ for (const pic of pics) {
 	likeIcon.addEventListener("click", () => {
 		likeIcon.classList.toggle("like")
 	})
-
 }
