@@ -1,6 +1,11 @@
 .mobile-navbar {
+	@media screen and (max-width: 480px) {
+		display: flex;
+	}
+	@media screen and (min-width: 480px) {
+		display: none;
+	}
 
-	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
 
