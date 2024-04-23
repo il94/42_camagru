@@ -12,7 +12,6 @@
 	z-index: 999;
 
 	width: 100%;
-	min-height: 64px;
 	height: 64px;
 
 	border-bottom: solid 1px var(--border);
