@@ -1,0 +1,27 @@
+.desktop-header {
+	@media screen and (min-width: 480px) {
+		display: flex;
+	}
+	@media screen and (max-width: 480px) {
+		display: none;
+	}
+
+	justify-content: space-between;
+	align-items: center;
+
+	width: 100%;
+	min-height: 64px;
+	height: 64px;
+
+	border-bottom: solid 1px var(--border);
+
+	background-color: var(--navbar);
+}
+
+#dektop-header-logo {
+	margin-left: 16px;
+
+	text-align: center;
+	font-family: "Twinkle Star", cursive;
+	font-size: 48px;
+}

@@ -8,8 +8,10 @@
 	/* BUTTONS */
 	--button: #222222;
 
-
 	/* FONTS */
 	--text: white;
 	--text-alt: black;
+
+	/* BORDER */
+	--border: #7D7D7D;
   }

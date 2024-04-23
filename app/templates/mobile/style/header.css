@@ -1,15 +1,17 @@
 .mobile-header {
-
-	display: flex;
+	@media screen and (max-width: 480px) {
+		display: flex;
+	}
+	@media screen and (min-width: 480px) {
+		display: none;
+	}
 
 	width: 100%;
 	height: 40px;
 	min-height: 40px;
-
 }
 
 .mobile-header-button {
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -21,7 +23,6 @@
 
 	font-size: 19.5px;
 	background-color: var(--button);
-
 }
 
 .mobile-header-button:hover {

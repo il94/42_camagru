@@ -7,9 +7,14 @@
 	margin-top: 15px;
 	margin-bottom: 10px;
 
-	width: 97.46%;
-	min-width: 97.46%;
-	aspect-ratio: 48/61;
+	@media screen and (max-width: 480px) {
+		min-width: 97.46%;
+		aspect-ratio: 48/61;
+	}
+	@media screen and (min-width: 480px) {
+		width: 468px;
+		min-height: 594.5px;
+	}
 
 	border-radius: 22.5px 45px 22.5px 45px;
 
