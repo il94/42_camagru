@@ -1,0 +1,41 @@
+#create-button-5 {
+	margin-bottom: 16px;
+
+	width: 468px;
+	height: 93px;
+	min-height: 93px;
+
+	border-radius: 45px;
+
+	font-size: 36px;
+	font-weight: 300;
+
+	background-color: var(--button);
+
+	transition: 0.15s ease;
+
+}
+#create-button-5:hover {
+	transform: scale(1.05);
+}
+
+#create-button-5 > span {
+	background: linear-gradient(to right, #FF8383, #FDFF83, #9CFF83, #83A5FF, #D783FF, #FF8383, #FDFF83, #9CFF83, #83A5FF, #D783FF, #FF8383, #FDFF83, #9CFF83, #83A5FF, #D783FF, #FF8383);
+	background-size: 300%;
+	background-position: -200%;
+    background-clip: text;
+    color: transparent;
+}
+
+#create-button-5:hover > span {
+	animation: scroll-color-gradient 10s linear infinite;
+}
+
+@keyframes scroll-color-gradient { 
+    from {
+		background-position:300%;
+	}
+    to {
+		background-position:-200%;
+	}
+}

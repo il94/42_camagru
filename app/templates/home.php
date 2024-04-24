@@ -25,6 +25,10 @@
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/follow.css">
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/create_button_1.css">
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/create_button_2.css">
+	<link rel="stylesheet" type="text/css" href="templates/desktop/style/create_button_3.css">
+	<link rel="stylesheet" type="text/css" href="templates/desktop/style/create_button_4.css">
+	<link rel="stylesheet" type="text/css" href="templates/desktop/style/create_button_5.css">
+	<link rel="stylesheet" type="text/css" href="templates/desktop/style/create_button_6.css">
 
 	<title>Crafty Pic</title>
 </head>
