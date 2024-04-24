@@ -1,4 +1,4 @@
-const logo = document.getElementById("dektop-header-logo")
+const logo = document.getElementById("desktop-navbar-logo")
 
 function getGradient() {
 

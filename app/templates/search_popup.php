@@ -27,4 +27,4 @@
 	</div>
 </div>
 
-<script src="templates/script/search_popup.js"></script>
+<script src="templates/script/search_popup.js" type="module"></script>

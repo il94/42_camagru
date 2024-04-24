@@ -1,6 +1,6 @@
-<div class="desktop-header">
-	<button id="dektop-header-logo">CraftyPic</button>
-	<div id="desktop-header-icons">
+<div class="desktop-navbar">
+	<button id="desktop-navbar-logo">CraftyPic</button>
+	<div id="desktop-navbar-icons">
 		<button class="icon">
 			<img src="assets/loop.svg" />
 		</button>
@@ -13,4 +13,4 @@
 	</div>
 </div>
 
-<script src="templates/desktop/script/header.js"></script>
+<script src="templates/desktop/script/navbar.js" type="module"></script>

@@ -4,10 +4,10 @@
 	width: 100%;
 	/* MOBILE */
 	@media screen and (max-width: 480px) {
-		height: calc(100% - 92px); /* 92px = header mobile 40px + navbar 52px */
+		height: calc(100% - 52px); /* 52px = navbar mobile 52px */
 	}
 	/* DESKTOP */
 	@media screen and (min-width: 480px) {
-		height: calc(100% - 65px); /* 65px = header desktop */
+		height: calc(100% - 65px); /* 65px = navbar desktop 65px */
 	}
 }

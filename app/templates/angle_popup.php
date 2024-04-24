@@ -1,10 +1,3 @@
-<!-- <div id="angle-popup">
-	<p id="angle-popup-title">Notifications</p>
-	<div id="angle-popup-content">
-		<?php /* require("notification.php") */ ?>
-	</div>
-</div> -->
-
 <div id="angle-popup">
 	<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
 	<div id="angle-popup-content">

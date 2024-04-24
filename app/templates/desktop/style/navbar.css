@@ -1,4 +1,4 @@
-.desktop-header {
+.desktop-navbar {
 	/* MOBILE */
 	@media screen and (max-width: 480px) {
 		display: none;
@@ -21,7 +21,7 @@
 	background-color: var(--navbar);
 }
 
-#dektop-header-logo {
+#desktop-navbar-logo {
 	margin-left: 16px;
 
 	text-align: center;
@@ -29,7 +29,7 @@
 	font-size: 48px;
 }
 
-#desktop-header-icons {
+#desktop-navbar-icons {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -38,6 +38,6 @@
 
 	width: 160px;
 }
-#desktop-header-icons > button {
+#desktop-navbar-icons > button {
 	height: 46px;
 }

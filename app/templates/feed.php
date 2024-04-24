@@ -1,5 +1,5 @@
 <div id="feed">
-	<?php require("desktop/feed_header.php"); ?>
+	<?php require("feed_header.php"); ?>
 	<?php require("pic.php"); ?>
 	<?php require("pic.php"); ?>
 </div>
