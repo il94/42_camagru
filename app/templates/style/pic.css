@@ -6,10 +6,12 @@
 
 	margin-bottom: 25px;
 
+	/* MOBILE */
 	@media screen and (max-width: 480px) {
 		min-width: 97.46%;
 		aspect-ratio: 48/61;
 	}
+	/* DESKTOP */
 	@media screen and (min-width: 480px) {
 		width: 468px;
 		min-height: 594.5px;

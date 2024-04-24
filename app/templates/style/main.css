@@ -2,10 +2,12 @@
 	display: flex;
 
 	width: 100%;
-	@media screen and (min-width: 480px) {
-		height: calc(100% - 65px); /* 65px = header desktop */
-	}
+	/* MOBILE */
 	@media screen and (max-width: 480px) {
 		height: calc(100% - 92px); /* 92px = header mobile 40px + navbar 52px */
+	}
+	/* DESKTOP */
+	@media screen and (min-width: 480px) {
+		height: calc(100% - 65px); /* 65px = header desktop */
 	}
 }

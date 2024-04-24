@@ -7,11 +7,13 @@
     padding-top: 26px;
 
     position: absolute;
+	/* MOBILE */
 	@media screen and (max-width: 480px) {
 		top: 42px;
 		left: 50%;
 		transform: translateX(-50%);
 	}
+	/* DESKTOP */
 	@media screen and (min-width: 480px) {
 		top: 50%;
 		left: 50%;

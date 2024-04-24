@@ -4,9 +4,11 @@
 	align-items: center;
 
     position: absolute;
+	/* MOBILE */
 	@media screen and (max-width: 480px) {
 		top: 40px;
 	}
+	/* DESKTOP */
 	@media screen and (min-width: 480px) {
 		top: 65px;
 	}

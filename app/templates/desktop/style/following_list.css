@@ -1,9 +1,9 @@
 .following-list {
-	@media screen and (min-width: 762px) {
-		display: flex;
-	}
 	@media screen and (max-width: 762px) {
 		display: none;
+	}
+	@media screen and (min-width: 762px) {
+		display: flex;
 	}
 
 	flex-direction: column;
