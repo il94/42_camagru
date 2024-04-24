@@ -1,15 +1,11 @@
 function getRandomColor() {
-    const r = Math.floor(Math.random() * 156) + 100;
-    const g = Math.floor(Math.random() * 156) + 100;
-    const b = Math.floor(Math.random() * 156) + 100;
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
 
-    const hexR = r.toString(16).padStart(2, '0');
-    const hexG = g.toString(16).padStart(2, '0');
-    const hexB = b.toString(16).padStart(2, '0');
+    const color = `rgba(${r}, ${g}, ${b}, 0.5)`
 
-    const hexColor = '#' + hexR + hexG + hexB + '80';
-
-    return hexColor;
+    return (color);
 }
 
 export function initPic(pic) {
