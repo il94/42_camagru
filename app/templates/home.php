@@ -24,6 +24,7 @@
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/following_list.css">
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/follow.css">
 	<link rel="stylesheet" type="text/css" href="templates/desktop/style/create_button_1.css">
+	<link rel="stylesheet" type="text/css" href="templates/desktop/style/create_button_2.css">
 
 	<title>Crafty Pic</title>
 </head>
