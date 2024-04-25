@@ -153,6 +153,16 @@
 
 	background-color: rgba(0, 0, 0, 0.1);
 }
+.pic-comments.empty {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	height: 100%;
+
+	text-align: center;
+}
 
 .pic-footer-verso {
 	display: flex;
