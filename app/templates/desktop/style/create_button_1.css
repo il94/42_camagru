@@ -1,4 +1,9 @@
 #create-button-1 {
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		display: none;
+	}
+
 	margin-bottom: 16px;
 
 	width: 468px;

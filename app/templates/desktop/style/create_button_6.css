@@ -1,4 +1,9 @@
 #create-button-6 {
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		display: none;
+	}
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
