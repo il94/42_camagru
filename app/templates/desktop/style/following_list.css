@@ -8,13 +8,16 @@
 
 	flex-direction: column;
 
-	min-width: 294px;
+	margin-left: 8px;
+
+
+	min-width: 286px;
+	max-width: 286px;
 	height: 500px;
 }
 
 .following-list-title {
 	margin-top: 29px;
-	margin-left: 8px;
 
 	font-size: 22px;
 }
