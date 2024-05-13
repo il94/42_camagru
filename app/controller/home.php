@@ -1,7 +1,7 @@
 <?php
 
-// require('src/refresh.php');
+require('model/home.php');
 
-// require('templates/home.php');
+$createButton = getRandomCreateButton();
 
 require_once('view/home.php');

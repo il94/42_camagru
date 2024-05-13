@@ -8,8 +8,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" href="components.css">
-	<link rel="stylesheet" type="text/css" href="colors.css">
+	<link rel="stylesheet" type="text/css" href="view/assets/components.css">
+	<link rel="stylesheet" type="text/css" href="view/assets/colors.css">
 	<link rel="stylesheet" type="text/css" href="view/assets/home.css">
 	<link rel="stylesheet" type="text/css" href="view/assets/main.css">
 	<link rel="stylesheet" type="text/css" href="view/assets/feed.css">
@@ -76,9 +76,7 @@
 
 			<!-- CREATE BUTTON -->
 
-			<button id="create-button-1"><span id="create-button-1-word-1">Craft</span> <span
-					id="create-button-1-word-2">a</span> <span id="create-button-1-word-3">new</span> <span
-					id="create-button-1-word-4">pic</span> <span id="create-button-1-word-5">!</span></button>
+			<?php require($createButton); ?>
 
 			<!-- PIC -->
 
