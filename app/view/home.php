@@ -41,14 +41,14 @@
 	<div class="desktop-navbar">
 		<button id="desktop-navbar-logo">CraftyPic</button>
 		<div id="desktop-navbar-icons">
-			<button class="icon">
-				<img src="view/assets/loop.svg" />
+			<button id="loop-button" class="button-icon selectable">
+				<?php require ("view/assets/icons/loop.svg"); ?>
 			</button>
-			<button class="icon">
-				<img src="view/assets/notification.svg" />
+			<button class="button-icon selectable">
+				<?php require ("view/assets/icons/notification.svg"); ?>
 			</button>
-			<button class="icon">
-				<img src="view/assets/profile.svg" />
+			<button class="button-icon selectable">
+				<?php require ("view/assets/icons/profile.svg"); ?>
 			</button>
 		</div>
 	</div>
@@ -76,7 +76,7 @@
 
 			<!-- CREATE BUTTON -->
 
-			<?php require($createButton); ?>
+			<?php require ($createButton); ?>
 
 			<!-- PIC -->
 
@@ -84,25 +84,25 @@
 				<div class="pic-recto">
 					<div class="pic-header">
 						<div class="pic-header-user-datas">
-							<img src="view/assets/pic_example_4.jpg">
+							<img src="view/assets/temp/pic_example_4.jpg">
 							<p>Lorem ipsum</p>
 						</div>
 						<div class="pic-header-icons">
-							<button class="icon">
-								<img src="view/assets/trash.svg" />
+							<button class="button-icon selectable">
+								<?php require ("view/assets/icons/trash.svg"); ?>
 							</button>
-							<button class="icon more">
-								<img src="view/assets/more.svg" />
+							<button class="button-icon more">
+								<?php require ("view/assets/icons/more.svg"); ?>
 							</button>
 						</div>
 					</div>
 					<div class="pic-body-recto"></div>
 					<div class="pic-footer">
-						<button class="icon like-icon">
-							<?php require ("view/assets/like.svg") ?>
+						<button class="button-icon selectable">
+							<?php require ("view/assets/icons/like.svg") ?>
 						</button>
-						<button class="icon">
-							<img src="view/assets/comment.svg" />
+						<button class="button-icon">
+							<?php require ("view/assets/icons/comment.svg"); ?>
 						</button>
 					</div>
 				</div>
@@ -113,11 +113,11 @@
 							<p>42 comments</p>
 						</div>
 						<div class="pic-header-icons">
-							<button class="icon">
-								<img src="view/assets/trash.svg" />
+							<button class="button-icon selectable">
+								<?php require ("view/assets/icons/trash.svg"); ?>
 							</button>
-							<button class="icon more">
-								<img src="view/assets/more.svg" />
+							<button class="button-icon more">
+								<?php require ("view/assets/icons/more.svg"); ?>
 							</button>
 						</div>
 					</div>
@@ -127,7 +127,7 @@
 							<!-- COMMENT -->
 
 							<div class="comment">
-								<img src="view/assets/pic_example_4.jpg">
+								<img src="view/assets/temp/pic_example_4.jpg">
 								<div class="comment-text">
 									<p class="comment-text-username">Lorem ipsum</p>
 									<p class="comment-text-content">Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -143,7 +143,9 @@
 						<div class="pic-input">
 							<span class="placeholder">Do you like this pic ? Let us know !</span>
 							<textarea class="pic-input-text"></textarea>
-							<img src="view/assets/arrow_up.svg" />
+							<button class="button-icon">
+								<?php require ("view/assets/icons/arrow_up.svg"); ?>
+							</butto>
 						</div>
 					</div>
 				</div>
@@ -159,7 +161,7 @@
 				<!-- FOLLOW -->
 
 				<button class="follow">
-					<img src="view/assets/pic_example_4.jpg">
+					<img src="view/assets/temp/pic_example_4.jpg">
 					<p>Lorem ipsum</p>
 				</button>
 
@@ -175,7 +177,7 @@
 				<!-- SEARCH RESULT -->
 
 				<div class="search-result">
-					<img src="view/assets/pic_example_2.jpg">
+					<img src="view/assets/temp/pic_example_2.jpg">
 					<p>Lorem ipsum</p>
 				</div>
 
@@ -189,19 +191,19 @@
 			<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
 			<div id="angle-popup-content">
 				<button class="section">
-					<img src="view/assets/gallery.svg">
+					<?php require ("view/assets/icons/gallery.svg"); ?>
 					<p>Your pics</p>
 				</button>
 				<button class="section">
-					<img src="view/assets/moon.svg">
+					<?php require ("view/assets/icons/moon.svg"); ?>
 					<p>Dark mode</p>
 				</button>
 				<button class="section">
-					<img src="view/assets/settings.svg">
+					<?php require ("view/assets/icons/settings.svg"); ?>
 					<p>Settings account</p>
 				</button>
 				<button class="section">
-					<img src="view/assets/logout.svg">
+					<?php require ("view/assets/icons/logout.svg"); ?>
 					<p>Logout</p>
 				</button>
 			</div>
@@ -213,20 +215,20 @@
 	<!-- MOBILE NAVBAR -->
 
 	<div class="mobile-navbar">
-		<button class="icon">
-			<img src="view/assets/home.svg" />
+		<button class="button-icon selectable">
+			<?php require ("view/assets/icons/home.svg"); ?>
 		</button>
-		<button class="icon">
-			<img src="view/assets/loop.svg" />
+		<button id="loop-button" class="button-icon selectable">
+			<?php require ("view/assets/icons/loop.svg"); ?>
 		</button>
-		<button class="icon">
-			<img src="view/assets/add.svg" />
+		<button class="button-icon selectable">
+			<?php require ("view/assets/icons/add.svg"); ?>
 		</button>
-		<button class="icon">
-			<img src="view/assets/notification.svg" />
+		<button class="button-icon selectable">
+			<?php require ("view/assets/icons/notification.svg"); ?>
 		</button>
-		<button class="icon">
-			<img src="view/assets//profile.svg" />
+		<button class="button-icon selectable">
+			<?php require ("view/assets/icons/profile.svg"); ?>
 		</button>
 	</div>
 
@@ -236,5 +238,7 @@
 <script src="view/scripts/feed.js" type="module"></script>
 <script src="view/scripts/pic.js" type="module"></script>
 <script src="view/scripts/search_popup.js" type="module"></script>
+<script src="view/scripts/icon.js" type="module"></script>
+
 
 </html>

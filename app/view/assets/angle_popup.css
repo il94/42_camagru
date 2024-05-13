@@ -58,11 +58,11 @@
 
 	font-size: 18px;
 }
-.section:hover > img {
+.section:hover > .icon {
 	opacity: 1;
 	transition: opacity 0.3s;
 }
-.section > img {
+.section > .icon {
 	margin-left: 40px;
 	margin-right: 40px;
 
