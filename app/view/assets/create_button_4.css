@@ -23,11 +23,11 @@
 		#AD00FF 80%, #AD00FF 100%);
 	transition: 0.15s ease;
 
+	animation: scroll-background-bottom-right 5s step-start infinite;
 }
 #create-button-4:hover {
 	transform: scale(1.05);
 	animation: scroll-background-bottom-right 1s step-start infinite;
-
 }
 
 @keyframes scroll-background-bottom-right {

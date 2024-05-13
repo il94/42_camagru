@@ -30,6 +30,8 @@
 	background-position: -200%;
     background-clip: text;
     color: transparent;
+
+	animation: scroll-color-gradient 30s linear infinite;
 }
 
 #create-button-5:hover > span {
