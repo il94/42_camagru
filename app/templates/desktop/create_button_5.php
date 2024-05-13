@@ -1,1 +1,0 @@
-<button id="create-button-5"><span>Craft a new pic !</span></button>

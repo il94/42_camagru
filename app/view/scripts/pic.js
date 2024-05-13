@@ -19,10 +19,10 @@ export function initPic(pic) {
 	const bodyRecto = pic.querySelector(".pic-body-recto");
 
 	const images = [
-		"/assets/pic_example_1.jpg",
-		"/assets/pic_example_2.jpg",
-		"/assets/pic_example_3.jpg",
-		"/assets/pic_example_4.jpg"
+		"view/assets/pic_example_1.jpg",
+		"view/assets/pic_example_2.jpg",
+		"view/assets/pic_example_3.jpg",
+		"view/assets/pic_example_4.jpg"
 	];
 
 	const randomImage = Math.floor(Math.random() * images.length);
