@@ -187,28 +187,43 @@
 
 		<!-- ANGLE POPUP -->
 
-		<div id="angle-popup" profile>
-			<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
-			<div id="angle-popup-content">
-				<button class="section">
-					<?php require ("view/assets/icons/gallery.svg"); ?>
-					<p>Your pics</p>
-				</button>
-				<button class="section">
-					<?php require ("view/assets/icons/moon.svg"); ?>
-					<p>Dark mode</p>
-				</button>
-				<button class="section">
-					<?php require ("view/assets/icons/settings.svg"); ?>
-					<p>Settings account</p>
-				</button>
-				<button class="section">
-					<?php require ("view/assets/icons/logout.svg"); ?>
-					<p>Logout</p>
-				</button>
+		<div id="angle-popup">
+			<div id="angle-popup-profile">
+				<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
+				<div id="angle-popup-content">
+					<button class="section">
+						<?php require ("view/assets/icons/gallery.svg"); ?>
+						<p>Your pics</p>
+					</button>
+					<button class="section">
+						<?php require ("view/assets/icons/moon.svg"); ?>
+						<p>Dark mode</p>
+					</button>
+					<button class="section">
+						<?php require ("view/assets/icons/settings.svg"); ?>
+						<p>Settings account</p>
+					</button>
+					<button class="section">
+						<?php require ("view/assets/icons/logout.svg"); ?>
+						<p>Logout</p>
+					</button>
+				</div>
+			</div>
+			<div id="angle-popup-notification">
+				<p id="angle-popup-title">Notifications</p>
+				<div id="angle-popup-content">
+				<div class="notification">
+					<img src="view/assets/temp/pic_example_3.jpg">
+					<p>Lorem ipsum liked your pic !</p>
+				</div>
+
+				<div class="notification">
+					<img src="view/assets/temp/pic_example_3.jpg">
+					<p>Lorem ipsum commented your pic : “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”.</p>
+				</div>
 			</div>
 		</div>
-
+			
 
 	</div>
 
