@@ -18,7 +18,6 @@
 	background-color: var(--button);
 
 	transition: 0.15s ease;
-
 }
 #create-button-1:hover {
 	transform: scale(1.05);
@@ -26,41 +25,46 @@
 
 #create-button-1-word-1 {
 	color: #FF8383;
+	animation: scroll-color-word-1 5s step-start infinite;
 }
 #create-button-1-word-2 {
 	color: #FDFF83;
+	animation: scroll-color-word-2 5s step-start infinite;
 }
 #create-button-1-word-3 {
 	color: #9CFF83;
+	animation: scroll-color-word-3 5s step-start infinite;
 }
 #create-button-1-word-4 {
 	color: #83A5FF;
+	animation: scroll-color-word-4 5s step-start infinite;
 }
 #create-button-1-word-5 {
 	color: #D783FF;
+	animation: scroll-color-word-5 5s step-start infinite;
 }
 
 #create-button-1:hover #create-button-1-word-1 {
-	animation: scroll-color-1 0.75s step-start infinite;
+	animation: scroll-color-word-1 0.75s step-start infinite;
 }
 
 #create-button-1:hover #create-button-1-word-2 {
-	animation: scroll-color-2 0.75s step-start infinite;
+	animation: scroll-color-word-2 0.75s step-start infinite;
 }
 
 #create-button-1:hover #create-button-1-word-3 {
-	animation: scroll-color-3 0.75s step-start infinite;
+	animation: scroll-color-word-3 0.75s step-start infinite;
 }
 
 #create-button-1:hover #create-button-1-word-4 {
-	animation: scroll-color-4 0.75s step-start infinite;
+	animation: scroll-color-word-4 0.75s step-start infinite;
 }
 
 #create-button-1:hover #create-button-1-word-5 {
-	animation: scroll-color-5 0.75s step-start infinite;
+	animation: scroll-color-word-5 0.75s step-start infinite;
 }
 
-@keyframes scroll-color-1 {
+@keyframes scroll-color-word-1 {
 	0% {
 		color: #FF8383;
 	}
@@ -76,19 +80,46 @@
 	80% {
 		color: #D783FF;
 	}
+	100% {
+		color: #FF8383;
+	}
 }
 
-@keyframes scroll-color-2 {
+@keyframes scroll-color-word-2 {
 	0% {
 		color: #D783FF;
 	}
-	25% {
+	20% {
 		color: #FF8383;
 	}
-	50% {
+	40% {
 		color: #FDFF83;
 	}
-	75% {
+	60% {
+		color: #9CFF83;
+	}
+	80% {
+		color: #83A5FF;
+	}
+	100% {
+		color: #D783FF;
+	}
+}
+
+@keyframes scroll-color-word-3 {
+	0% {
+		color: #83A5FF;
+	}
+	20% {
+		color: #D783FF;
+	}
+	40% {
+		color: #FF8383;
+	}
+	60% {
+		color: #FDFF83;
+	}
+	80% {
 		color: #9CFF83;
 	}
 	100% {
@@ -96,17 +127,21 @@
 	}
 }
 
-@keyframes scroll-color-3 {
+
+@keyframes scroll-color-word-4 {
 	0% {
+		color: #9CFF83;
+	}
+	20% {
 		color: #83A5FF;
 	}
-	25% {
+	40% {
 		color: #D783FF;
 	}
-	50% {
+	60% {
 		color: #FF8383;
 	}
-	75% {
+	80% {
 		color: #FDFF83;
 	}
 	100% {
@@ -114,39 +149,23 @@
 	}
 }
 
-@keyframes scroll-color-4 {
+@keyframes scroll-color-word-5 {
 	0% {
+		color: #FDFF83;
+	}
+	20% {
 		color: #9CFF83;
 	}
-	25% {
+	40% {
 		color: #83A5FF;
 	}
-	50% {
+	60% {
 		color: #D783FF;
 	}
-	75% {
+	80% {
 		color: #FF8383;
 	}
 	100% {
 		color: #FDFF83;
-	}
-}
-
-
-@keyframes scroll-color-5 {
-	0% {
-		color: #FDFF83;
-	}
-	25% {
-		color: #9CFF83;
-	}
-	50% {
-		color: #83A5FF;
-	}
-	75% {
-		color: #D783FF;
-	}
-	100% {
-		color: #FF8383;
 	}
 }

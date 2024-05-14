@@ -33,13 +33,21 @@
 @keyframes scroll-background-bottom-right {
 	0% {
 		background: linear-gradient(to bottom right,
+		#FFA800 0%, #FFA800 20%,
+		#00AD11 20%, #00AD11 40%,
+		#1F5EFF 40%, #1F5EFF 60%,
+		#AD00FF 60%, #AD00FF 80%,
+		#FF0000 80%, #FF0000 100%);
+	}
+	20% {
+		background: linear-gradient(to bottom right,
 		#FF0000 0%, #FF0000 20%,
 		#FFA800 20%, #FFA800 40%,
 		#00AD11 40%, #00AD11 60%,
 		#1F5EFF 60%, #1F5EFF 80%,
 		#AD00FF 80%, #AD00FF 100%);
 	}
-	20% {
+	40% {
 		background: linear-gradient(to bottom right,
 		#AD00FF 0%, #AD00FF 20%,
 		#FF0000 20%, #FF0000 40%,
@@ -47,7 +55,7 @@
 		#00AD11 60%, #00AD11 80%,
 		#1F5EFF 80%, #1F5EFF 100%);
 	}
-	40% {
+	60% {
 		background: linear-gradient(to bottom right,
 		#1F5EFF 0%, #1F5EFF 20%,
 		#AD00FF 20%, #AD00FF 40%,
@@ -55,7 +63,7 @@
 		#FFA800 60%, #FFA800 80%,
 		#00AD11 80%, #00AD11 100%);
 	}
-	60% {
+	80% {
 		background: linear-gradient(to bottom right,
 		#00AD11 0%, #00AD11 20%,
 		#1F5EFF 20%, #1F5EFF 40%,
@@ -63,7 +71,7 @@
 		#FF0000 60%, #FF0000 80%,
 		#FFA800 80%, #FFA800 100%);
 	}
-	80% {
+	100% {
 		background: linear-gradient(to bottom right,
 		#FFA800 0%, #FFA800 20%,
 		#00AD11 20%, #00AD11 40%,

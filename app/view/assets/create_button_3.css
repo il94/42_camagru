@@ -4,6 +4,10 @@
 		display: none;
 	}
 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	margin-bottom: 16px;
 
 	width: 468px;
@@ -13,62 +17,57 @@
 	border-radius: 45px;
 
 	font-size: 36px;
-	font-weight: 600;
+	font-weight: 300;
 
-	background: linear-gradient(to bottom,
-		#FF0000 0%, #FF0000 20%,
-		#FFA800 20%, #FFA800 40%,
-		#00AD11 40%, #00AD11 60%,
-		#1F5EFF 60%, #1F5EFF 80%,
-		#AD00FF 80%, #AD00FF 100%);
+	background-color: var(--button);
+
 	transition: 0.15s ease;
 
-	animation: scroll-background-bottom 5s step-start infinite;
 }
 #create-button-3:hover {
 	transform: scale(1.05);
-	animation: scroll-background-bottom 1s step-start infinite;
 }
 
-@keyframes scroll-background-bottom {
-	0% {
-		background: linear-gradient(to bottom,
-		#FF0000 0%, #FF0000 20%,
-		#FFA800 20%, #FFA800 40%,
-		#00AD11 40%, #00AD11 60%,
-		#1F5EFF 60%, #1F5EFF 80%,
-		#AD00FF 80%, #AD00FF 100%);
-	}
-	20% {
-		background: linear-gradient(to bottom,
-		#AD00FF 0%, #AD00FF 20%,
-		#FF0000 20%, #FF0000 40%,
-		#FFA800 40%, #FFA800 60%,
-		#00AD11 60%, #00AD11 80%,
-		#1F5EFF 80%, #1F5EFF 100%);
-	}
-	40% {
-		background: linear-gradient(to bottom,
-		#1F5EFF 0%, #1F5EFF 20%,
-		#AD00FF 20%, #AD00FF 40%,
-		#FF0000 40%, #FF0000 60%,
-		#FFA800 60%, #FFA800 80%,
-		#00AD11 80%, #00AD11 100%);
-	}
-	60% {
-		background: linear-gradient(to bottom,
-		#00AD11 0%, #00AD11 20%,
-		#1F5EFF 20%, #1F5EFF 40%,
-		#AD00FF 40%, #AD00FF 60%,
-		#FF0000 60%, #FF0000 80%,
-		#FFA800 80%, #FFA800 100%);
-	}
-	80% {
-		background: linear-gradient(to bottom,
-		#FFA800 0%, #FFA800 20%,
-		#00AD11 20%, #00AD11 40%,
-		#1F5EFF 40%, #1F5EFF 60%,
-		#AD00FF 60%, #AD00FF 80%,
-		#FF0000 80%, #FF0000 100%);
-	}
+#create-button-3 > div {
+	display: flex;
+}
+#create-button-3-word-1 {
+	color: #FF8383;
+	animation: scroll-color-word-1 5s step-start infinite;
+}
+#create-button-3-word-2 {
+	color: #FDFF83;
+	animation: scroll-color-word-2 5s step-start infinite;
+}
+#create-button-3-word-3 {
+	color: #9CFF83;
+	animation: scroll-color-word-3 5s step-start infinite;
+}
+#create-button-3-word-4 {
+	color: #83A5FF;
+	animation: scroll-color-word-4 5s step-start infinite;
+}
+#create-button-3-word-5 {
+	color: #D783FF;
+	animation: scroll-color-word-5 5s step-start infinite;
+}
+
+#create-button-3:hover #create-button-3-word-1 {
+	animation: scroll-color-word-1 0.75s step-start infinite;
+}
+
+#create-button-3:hover #create-button-3-word-2 {
+	animation: scroll-color-word-2 0.75s step-start infinite;
+}
+
+#create-button-3:hover #create-button-3-word-3 {
+	animation: scroll-color-word-3 0.75s step-start infinite;
+}
+
+#create-button-3:hover #create-button-3-word-4 {
+	animation: scroll-color-word-4 0.75s step-start infinite;
+}
+
+#create-button-3:hover #create-button-3-word-5 {
+	animation: scroll-color-word-5 0.75s step-start infinite;
 }
