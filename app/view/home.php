@@ -80,76 +80,82 @@
 
 			<!-- PIC -->
 
-			<div class="pic">
-				<div class="pic-recto">
-					<div class="pic-header">
-						<div class="pic-header-user-datas">
-							<img src="view/assets/temp/pic_example_4.jpg">
-							<p>Lorem ipsum</p>
-						</div>
-						<div class="pic-header-icons">
-							<button class="button-icon selectable">
-								<?php require ("view/assets/icons/trash.svg"); ?>
-							</button>
-							<button class="button-icon more">
-								<?php require ("view/assets/icons/more.svg"); ?>
-							</button>
-						</div>
-					</div>
-					<div class="pic-body-recto"></div>
-					<div class="pic-footer">
-						<button class="button-icon selectable">
-							<?php require ("view/assets/icons/like.svg") ?>
-						</button>
-						<button class="button-icon">
-							<?php require ("view/assets/icons/comment.svg"); ?>
-						</button>
-					</div>
-				</div>
-				<div class="pic-verso">
-					<div class="pic-header">
-						<div class="pic-header-stats">
-							<p>42 likes</p>
-							<p>42 comments</p>
-						</div>
-						<div class="pic-header-icons">
-							<button class="button-icon selectable">
-								<?php require ("view/assets/icons/trash.svg"); ?>
-							</button>
-							<button class="button-icon more">
-								<?php require ("view/assets/icons/more.svg"); ?>
-							</button>
-						</div>
-					</div>
-					<div class="pic-body-verso">
-						<div class="pic-comments">
-
-							<!-- COMMENT -->
-
-							<div class="comment">
-								<img src="view/assets/temp/pic_example_4.jpg">
-								<div class="comment-text">
-									<p class="comment-text-username">Lorem ipsum</p>
-									<p class="comment-text-content">Lorem ipsum dolor sit amet, consectetur adipiscing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-										ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
-										ssalsalkdsdjhvjhdfghdfkjvdcnvidbkvdfgivfdg</p>
-								</div>
+			<?php foreach ($pics as $pic): ?>
+				<div class="pic">
+					<div class="pic-recto">
+						<div class="pic-header">
+							<div class="pic-header-user-datas">
+								<img src="<?php echo $pic->user->avatar; ?>">
+								<p><?php echo $pic->user->username; ?></p>
 							</div>
+							<div class="pic-header-icons">
+								<button class="button-icon selectable">
+									<?php require ("view/assets/icons/trash.svg"); ?>
+								</button>
+								<button class="button-icon more">
+									<?php require ("view/assets/icons/more.svg"); ?>
+								</button>
+							</div>
+						</div>
+						<div class="pic-body-recto">
+							<img src="<?php echo $pic->url; ?>" />
+						</div>
+						
 
+						<div class="pic-footer">
+							<button class="button-icon selectable">
+								<?php require ("view/assets/icons/like.svg") ?>
+							</button>
+							<button class="button-icon">
+								<?php require ("view/assets/icons/comment.svg"); ?>
+							</button>
 						</div>
 					</div>
-					<div class="pic-footer-verso">
-						<div class="pic-input">
-							<span class="placeholder">Do you like this pic ? Let us know !</span>
-							<textarea class="pic-input-text"></textarea>
-							<button class="button-icon">
-								<?php require ("view/assets/icons/arrow_up.svg"); ?>
-							</butto>
+					<div class="pic-verso">
+						<div class="pic-header">
+							<div class="pic-header-stats">
+								<p><?php echo $pic->likes; ?> likes</p>
+								<p><?php echo $pic->commentsCount; ?> comments</p>
+							</div>
+							<div class="pic-header-icons">
+								<button class="button-icon selectable">
+									<?php require ("view/assets/icons/trash.svg"); ?>
+								</button>
+								<button class="button-icon more">
+									<?php require ("view/assets/icons/more.svg"); ?>
+								</button>
+							</div>
+						</div>
+						<div class="pic-body-verso">
+							<div class="pic-comments">
+
+								<!-- COMMENT -->
+
+								<div class="comment">
+									<img src="temp/pic_example_4.jpg">
+									<div class="comment-text">
+										<p class="comment-text-username">Lorem ipsum</p>
+										<p class="comment-text-content">Lorem ipsum dolor sit amet, consectetur adipiscing
+											elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+											ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
+											ssalsalkdsdjhvjhdfghdfkjvdcnvidbkvdfgivfdg</p>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="pic-footer-verso">
+							<div class="pic-input">
+								<span class="placeholder">Do you like this pic ? Let us know !</span>
+								<textarea class="pic-input-text"></textarea>
+								<button class="button-icon">
+									<?php require ("view/assets/icons/arrow_up.svg"); ?>
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			<?php endforeach; ?>
 		</div>
 
 		<!-- FOLLOWING LIST -->
@@ -161,7 +167,7 @@
 				<!-- FOLLOW -->
 
 				<button class="follow">
-					<img src="view/assets/temp/pic_example_4.jpg">
+					<img src="temp/pic_example_4.jpg">
 					<p>Lorem ipsum</p>
 				</button>
 
@@ -177,7 +183,7 @@
 				<!-- SEARCH RESULT -->
 
 				<div class="search-result">
-					<img src="view/assets/temp/pic_example_2.jpg">
+					<img src="temp/pic_example_2.jpg">
 					<p>Lorem ipsum</p>
 				</div>
 
@@ -213,12 +219,12 @@
 				<p id="angle-popup-title">Notifications</p>
 				<div id="angle-popup-content">
 				<div class="notification">
-					<img src="view/assets/temp/pic_example_3.jpg">
+					<img src="temp/pic_example_3.jpg">
 					<p>Lorem ipsum liked your pic !</p>
 				</div>
 
 				<div class="notification">
-					<img src="view/assets/temp/pic_example_3.jpg">
+					<img src="temp/pic_example_3.jpg">
 					<p>Lorem ipsum commented your pic : “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”.</p>
 				</div>
 			</div>
@@ -249,7 +255,6 @@
 
 </body>
 
-<script src="view/scripts/home.js" type="module"></script>
 <script src="view/scripts/logo.js" type="module"></script>
 <script src="view/scripts/feed.js" type="module"></script>
 <script src="view/scripts/pic.js" type="module"></script>

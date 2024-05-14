@@ -88,9 +88,15 @@
 	width: 100%;
 	height: calc(100% - 104px); /* 104px = header 52px + footer-recto 52px */
 
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.pic-body-recto img {
+	position: relative;
+	left: -25%; /* ??? */
+
+	width: auto;
+    height: 100%; 
 }
 
 .pic-footer {

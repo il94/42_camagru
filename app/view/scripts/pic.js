@@ -13,23 +13,6 @@ export function initPic(pic) {
 	// Applique une couleur random a la pic
 	pic.style.backgroundColor = getRandomColor();
 	
-	// Ajoute l'image a la pic
-	/* ============================ TEMPORAIRE ===============================*/
-
-	const bodyRecto = pic.querySelector(".pic-body-recto");
-
-	const images = [
-		"view/assets/temp/pic_example_1.jpg",
-		"view/assets/temp/pic_example_2.jpg",
-		"view/assets/temp/pic_example_3.jpg",
-		"view/assets/temp/pic_example_4.jpg"
-	];
-
-	const randomImage = Math.floor(Math.random() * images.length);
-	bodyRecto.style.backgroundImage = `url(${images[randomImage]})`;
-
-	/* =======================================================================*/
-
 	// Effet de flip
 	const moreButtons = pic.querySelectorAll(".more")
 	moreButtons.forEach((moreButton) => moreButton.addEventListener('click', () => {
