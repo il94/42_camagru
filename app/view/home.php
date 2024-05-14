@@ -44,10 +44,10 @@
 			<button id="loop-button" class="button-icon selectable">
 				<?php require ("view/assets/icons/loop.svg"); ?>
 			</button>
-			<button class="button-icon selectable">
+			<button id="notification-button" class="button-icon selectable">
 				<?php require ("view/assets/icons/notification.svg"); ?>
 			</button>
-			<button class="button-icon selectable">
+			<button id="profile-button" class="button-icon selectable">
 				<?php require ("view/assets/icons/profile.svg"); ?>
 			</button>
 		</div>
@@ -187,7 +187,7 @@
 
 		<!-- ANGLE POPUP -->
 
-		<div id="angle-popup">
+		<div id="angle-popup" profile>
 			<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
 			<div id="angle-popup-content">
 				<button class="section">
@@ -234,10 +234,11 @@
 
 </body>
 
-<script src="view/scripts/navbar.js" type="module"></script>
+<script src="view/scripts/logo.js" type="module"></script>
 <script src="view/scripts/feed.js" type="module"></script>
 <script src="view/scripts/pic.js" type="module"></script>
 <script src="view/scripts/search_popup.js" type="module"></script>
+<script src="view/scripts/angle_popup.js" type="module"></script>
 <script src="view/scripts/icon.js" type="module"></script>
 
 
