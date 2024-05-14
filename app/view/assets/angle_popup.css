@@ -1,5 +1,5 @@
 #angle-popup {
-	display: none;
+	display: flex;
 	flex-direction: column;
 	align-items: center;
 
@@ -26,6 +26,8 @@
 
 #angle-popup-profile,
 #angle-popup-notification {
+	display: none;
+	
 	width: 100%;
 	height: 100%;
 }

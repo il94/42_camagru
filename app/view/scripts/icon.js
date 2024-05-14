@@ -24,3 +24,17 @@ for (const buttonIcon of buttonIcons) {
 	})
 
 }
+
+const selectablesButtons = document.getElementsByClassName('selectable')
+
+document.addEventListener('click',(event) => {
+	for (const button of selectablesButtons) {
+		if (!button.contains(event.target) && button.classList.contains("selected"))
+		{
+			button.classList.remove("selected")
+			const icon = button.querySelector(".icon")
+			icon.style.opacity = 0.5
+			break
+		}
+	}
+})
