@@ -14,14 +14,16 @@ services:
       - .env
 
   php:
-    image: php:7.4-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./app:/var/www/html
     env_file:
       - .env
 
   mysql:
-    image: mysql:latest
+    image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
@@ -30,6 +32,14 @@ services:
       - .env
     volumes:
       - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "5432:80"
+    environment:
+      PMA_HOST: mysql
 
 volumes:
   mysql_data:
