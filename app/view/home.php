@@ -98,7 +98,7 @@
 							</div>
 						</div>
 						<div class="pic-body-recto">
-							<img src="<?php echo $pic->url; ?>" />
+							<img src="<?php echo $pic->image; ?>" />
 						</div>
 						
 
@@ -130,18 +130,15 @@
 							<div class="pic-comments">
 
 								<!-- COMMENT -->
-
-								<div class="comment">
-									<img src="temp/pic_example_4.jpg">
-									<div class="comment-text">
-										<p class="comment-text-username">Lorem ipsum</p>
-										<p class="comment-text-content">Lorem ipsum dolor sit amet, consectetur adipiscing
-											elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-											ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
-											ssalsalkdsdjhvjhdfghdfkjvdcnvidbkvdfgivfdg</p>
+								<?php foreach ($pic->comments as $comment): ?>
+									<div class="comment">
+										<img src=<?php echo $comment->user->avatar; ?>>
+										<div class="comment-text">
+											<p class="comment-text-username"><?php echo $comment->user->username; ?></p>
+											<p class="comment-text-content"><?php echo $comment->content; ?></p>
+										</div>
 									</div>
-								</div>
-
+								<?php endforeach; ?>
 							</div>
 						</div>
 						<div class="pic-footer-verso">

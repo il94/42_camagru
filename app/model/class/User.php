@@ -6,7 +6,7 @@ class User {
 	public string	$avatar;
 
 	public function __construct() {
-		$this->id = 0;
+		$this->id = -1;
         $this->username = "";
         $this->avatar = "";
 	}

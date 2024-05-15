@@ -1,33 +1,33 @@
 <?php
 
-require("User.php");
-
 class Pic {
 	public int		$id;
 	public User		$user;
-	public string	$url;
+	public string	$image;
 	public int		$likes;
 	public int		$commentsCount;
-	// public array	$comments;
+	public array	$comments;
 
 	public function __construct() {
-		$this->id = 0;
-        $this->user = new User();
-        $this->url = "";
+		$this->id = -1;
+        $this->image = "";
         $this->likes = 0;
         $this->commentsCount = 0;
-        // $this->comments = [new Comment()];
+        $this->comments = [];
+        $this->user = new User();
 	}
 
-	public static function withParams($id, $username, $avatar, $url, $likes, $commentsCount) {
+	public static function withParams($id, $image, $user) {
 		$pic = new self();
 		$pic->id = $id;
-		$pic->user->username = $username;
-		$pic->user->avatar = $avatar;
-        $pic->url = $url;
-        $pic->likes = $likes;
-        $pic->commentsCount = $commentsCount;
+        $pic->image = $image;
+		$pic->user = $user;
 
 		return ($pic);
+	}
+
+	public function addComment($comment) {
+		$this->comments[] = $comment;
+		$this->commentsCount++;
 	}
 }

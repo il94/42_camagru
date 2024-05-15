@@ -1,26 +1,22 @@
 <?php
 
-require("User.php");
-
 class Comment {
 	public int		$id;
-	public User		$user;
 	public string	$content;
+	public User		$user;
 
 	public function __construct() {
-		$this->id = 0;
-        $this->user = new User();
+		$this->id = -1;
         $this->content = "";
+        $this->user = new User();
 	}
 
-	public static function withParams($id, $username, $avatar, $content) {
+	public static function withParams($id, $content, $user) {
 		$comment = new self();
 		$comment->id = $id;
-		$comment->user->username = $username;
-		$comment->user->avatar = $avatar;
         $comment->content = $content;
+		$comment->user = $user;
 
 		return ($comment);
 	}
-	
 }
