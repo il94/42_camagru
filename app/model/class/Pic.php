@@ -2,11 +2,11 @@
 
 class Pic {
 	public int		$id;
-	public User		$user;
 	public string	$image;
 	public int		$likes;
 	public int		$commentsCount;
 	public array	$comments;
+	public User		$user;
 
 	public function __construct() {
 		$this->id = -1;
