@@ -4,6 +4,165 @@ require("class/User.php");
 require("class/Pic.php");
 require("class/Comment.php");
 
+// REPOSITORY
+
+// USER
+
+// Cree la table user
+function createUserTable($client) {
+	$request = $client->prepare("CREATE TABLE IF NOT EXISTS `dbcamagru`.`user` (
+		`id` INT NOT NULL AUTO_INCREMENT ,
+		`username` VARCHAR(128) NOT NULL ,
+		`email` VARCHAR(128) NOT NULL ,
+		`password` VARCHAR(128) NOT NULL ,
+		`avatar` VARCHAR(128) NOT NULL ,
+		`role` ENUM('USER','ADMIN','BAN','') NOT NULL DEFAULT 'USER' ,
+		PRIMARY KEY (`id`),
+		UNIQUE (`username`),
+		UNIQUE (`email`)
+	)
+	ENGINE = InnoDB");
+	$request->execute();
+}
+
+// Cree le user root
+function createRoot($client) {
+	$request = $client->prepare("INSERT INTO `user` (
+		`id`, `username`, `email`, `password`, `avatar`, `role`
+	)
+	VALUES
+		(NULL, 'root', 'root@outlook.fr', 'root_password', 'root_avatar', 'ADMIN')");
+	$request->execute();
+}
+
+// Cree des users test
+function createUsersTest($client) {
+	$request = $client->prepare("INSERT INTO `user` (
+		`id`, `username`, `email`, `password`, `avatar`, `role`
+	)
+	VALUES
+		(NULL, 'Hello', 'hello@osef.com', 'mdp', 'temp/pic_example_4.jpg', 'USER'),
+		(NULL, 'Hola', 'hola@osef.com', 'mdp', 'temp/pic_example_1.jpg', 'USER'),
+		(NULL, 'Halo', 'halo@osef.com', 'mdp', 'temp/pic_example_2.jpg', 'USER')");
+	$request->execute();
+}
+
+
+// PIC
+
+// Cree la table pic
+function createPicTable($client) {
+	$request = $client->prepare("CREATE TABLE `dbcamagru`.`pic` (
+		`id` INT NOT NULL AUTO_INCREMENT,
+		`userId` INT NOT NULL,
+		`image` VARCHAR(128) NOT NULL,
+		`likesCount` INT NOT NULL DEFAULT '0',
+		PRIMARY KEY (`id`),
+		INDEX (`userId`),
+		CONSTRAINT `fk_userId` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+	)
+	ENGINE = InnoDB;");
+	$request->execute();
+}
+
+// Cree des pics test
+function createPicsTest($client) {
+	$request = $client->prepare("INSERT INTO `pic` (
+		`id`, `userId`, `image`, `likesCount`, `commentsCount`
+	) VALUES
+		(NULL, '5', 'temp/pic_example_4.jpg', '0', '0'),
+		(NULL, '6', 'temp/pic_example_1.jpg', '0', '0'),
+		(NULL, '7', 'temp/pic_example_2.jpg', '0', '0')");
+	$request->execute();
+}
+
+// Verifie si les pics test ont deja ete crees
+function picTestExist($client) {
+	$request = $client->prepare("SELECT id FROM pic WHERE id=1");
+	$request->execute();
+	$result = $request->fetchAll();
+
+	return ($result);
+}
+
+// Recupere les 5 dernieres pics
+function getLastFivePics($client) {
+
+    $recPics = $client->prepare(
+		"SELECT
+			pic.*, user.username AS author, user.avatar AS author_avatar
+        FROM `pic`
+        JOIN user ON pic.userId = user.id
+        ORDER BY pic.id DESC
+        LIMIT 5
+	");
+	$recPics->execute();
+	$picsDatas = $recPics->fetchAll(PDO::FETCH_OBJ);
+
+	foreach ($picsDatas as &$pic) {
+		$pic->comments = getComments($client, $pic->id);
+	}
+
+	// prettyPrint($picsDatas);
+
+	return ($picsDatas);
+}
+
+
+// COMMENT
+
+// Cree la table comment
+function createCommentTable($client) {
+	$request = $client->prepare("CREATE TABLE `dbcamagru`.`comment` (
+		`id` INT NOT NULL AUTO_INCREMENT,
+		`userId` INT NOT NULL,
+		`picId` INT NOT NULL,
+		`content` TEXT NOT NULL,
+		PRIMARY KEY (`id`),
+		INDEX (`userId`),
+		INDEX (`picId`),
+		CONSTRAINT `fk_userId` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+		CONSTRAINT `fk_picId` FOREIGN KEY (`picId`) REFERENCES `pic`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+	) ENGINE = InnoDB");
+	$request->execute();
+}
+
+// Cree des comments test
+function createCommentsTest($client) {
+	$request = $client->prepare("INSERT INTO `comment` (
+		`id`, `userId`, `picId`, `content`
+	) VALUES
+		(NULL, '1', '18', 'ROOT COMMENT'),
+		(NULL, '5', '18', 'Very nice !'),
+		(NULL, '6', '18', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut. ssalsalkdsdjhvjhdfghdfkjvdcnvidbkvdfgivfdg');");
+	$request->execute();
+}
+
+// Recupere les comments d'une pic
+function getComments($client, $picId) {
+	$reqComments = $client->prepare(
+		"SELECT comment.*, user.username AS author, user.avatar AS author_avatar
+		FROM comment
+		JOIN user ON comment.userId = user.id
+		WHERE picId=$picId
+		ORDER BY comment.id DESC
+        LIMIT 5
+	");
+	$reqComments->execute();
+	$commentsDatas = $reqComments->fetchAll(PDO::FETCH_OBJ);
+
+	return ($commentsDatas);
+}
+
+
+// SERVICES
+
+function prettyPrint($object) {
+	echo "<pre>";
+		print_r($object);
+	echo "</pre>";
+}
+
 function connectDB() {
 	try {
 		$client = new PDO(
@@ -19,191 +178,68 @@ function connectDB() {
 	}
 }
 
+function createDB() {
+	try {
+		$client = connectDB();
+
+		createUserTable($client);
+		createRoot($client);
+		createUsersTest($client); // TEMPORAIRE
+	
+		createPicTable($client);
+		createCommentTable($client);
+		if (!picTestExist($client)) // TEMPORAIRE
+		{
+			createPicsTest($client); // TEMPORAIRE
+			createCommentsTest($client); // TEMPORAIRE
+		}
+	}
+	catch (Exception $error) {
+		die($error->getMessage());
+	}
+}
+
 function getRandomCreateButton() {
 	$result = rand(1, 6);
 
 	return ("view/create_button_" . $result . ".php");
 }
 
-function getUsers($client, $userIds) {
-
-	$userIdsImplode = "( " . implode(',', $userIds) . " )";
-	$userRequest = $client->prepare("SELECT id, username, avatar FROM user WHERE id IN " . $userIdsImplode);
-
-	$userRequest->execute();
-	$userDatas = $userRequest->fetchAll();
-
-	$users = [];
-
-	foreach ($userDatas as $userData) {
-		$user = User::withParams(
-			$userData['id'],
-			$userData['username'],
-			$userData['avatar']
-		);
-		$users[] = $user;
-	}
-
-	// $usersTemp = [
-	// 	User::withParams(
-	// 		0,
-	// 		"Hello",
-	// 		"temp/pic_example_4.jpg"
-	// 	),
-	// 	User::withParams(
-	// 		1,
-	// 		"Hola",
-	// 		"temp/pic_example_1.jpg"
-	// 	),
-	// 	User::withParams(
-	// 		2,
-	// 		"Halo",
-	// 		"temp/pic_example_2.jpg"
-	// 	),
-	// 	User::withParams(
-	// 		3,
-	// 		"Salut",
-	// 		"temp/pic_example_3.jpg"
-	// 	)
-	// ];
-
-	// var_dump($userDatas[0]);
-	// echo "<br />";
-	// echo "<br />";
-	// var_dump($usersTemp[0]);
-	// echo "<br />";
-	// echo "<br />";
-	// var_dump($users);
-
-	return ($users);
-}
-
-function getComments($client, $users) {
-
-	$commentRequest = $client->prepare("SELECT * FROM comment");
-
-	$commentRequest->execute();
-	$commentDatas = $commentRequest->fetchAll();
-
-	$comments = [];
-
-	// var_dump($commentDatas[0]);
-
-	// foreach ($commentDatas as $commentData) {
-
-	// 	// $username = $users
-
-	// 	$comment = Comment::withParams(
-	// 		$commentData['id'],
-	// 		$commentData['username'],
-	// 		$commentData['avatar']
-	// 	);
-	// 	$comments[] = $comment;
-	// }
-
-
-	// $comments = [
-	// 	Comment::withParams(
-	// 		0,
-	// 		"Very nice !",
-	// 		$users[0]
-	// 	),
-	// 	Comment::withParams(
-	// 		1,
-	// 		"Lorem ipsum dolor sit amet, consectetur adipiscing
-	// 		elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-	// 		ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.
-	// 		ssalsalkdsdjhvjhdfghdfkjvdcnvidbkvdfgivfdg",
-	// 		$users[1]
-	// 	),
-	// 	Comment::withParams(
-	// 		2,
-	// 		"cool",
-	// 		$users[2]
-	// 	),
-	// 	Comment::withParams(
-	// 		3,
-	// 		"OK",
-	// 		$users[3]
-	// 	)
-	// ];
-
-	return ($comments);
-}
-
 function getPics() {
 
 	$client = connectDB();
 
-	$picRequest = $client->prepare("SELECT * FROM pic ORDER BY id DESC LIMIT 5");
-
-	$picRequest->execute();
-	$picDatas = $picRequest->fetchAll();
-
-	
-	$userIds = [];
-	foreach ($picDatas as $picData) {
-		$userId = $picData['userId'];
-		$userIds[] = $userId;
-	}
-	
-	$users = getUsers($client, $userIds);
-	// $comments = getComments($client, $users);
-
-
-	var_dump($users);
-
+	$picDatas = getLastFivePics($client);
 
 	$pics = [];
 	foreach ($picDatas as $picData) {
-		$user = User::withParams(
-			
-		);
+
+		$comments = [];
+		foreach ($picData->comments as $commentData) {
+			$comments[] = Comment::withParams(
+				$commentData->id,
+				$commentData->content,
+				User::withParams(
+					$commentData->userId,
+					$commentData->author,
+					$commentData->author_avatar
+				)
+			);
+		}
 
 		$pic = Pic::withParams(
-			$picData['id'],
-			$picData['image'],
-			// $picData['likes'],
-			// $picData['commentsCount'],
-			// $picData['likes'],
-			// [],
-			$user
+			$picData->id,
+			$picData->image,
+			$picData->likesCount,
+			User::withParams(
+				$picData->userId,
+				$picData->author,
+				$picData->author_avatar
+			),
+			$comments
 		);
 		$pics[] = $pic;
 	}
-
-	// $pics = [
-	// 	Pic::withParams(
-	// 		0,
-	// 		"temp/pic_example_4.jpg",
-	// 		$users[0]
-	// 	),
-	// 	Pic::withParams(
-	// 		1,
-	// 		"temp/pic_example_1.jpg",
-	// 		$users[1]
-	// 	),
-	// 	Pic::withParams(
-	// 		2,
-	// 		"temp/pic_example_2.jpg",
-	// 		$users[2]
-	// 	),
-	// 	Pic::withParams(
-	// 		3,
-	// 		"temp/pic_example_3.jpg",
-	// 		$users[3]
-	// 	)
-	// ];
-
-	// for ($i = 0; $i < count($pics); $i++) {
-	// 	for ($j = 0; $j <= $i; $j++) {
-	// 		$pics[$i]->addComment($comments[$i]);
-	// 	}
-	// }
-
-
-
-
 
 	return ($pics);
 }

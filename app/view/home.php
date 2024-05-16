@@ -114,7 +114,7 @@
 					<div class="pic-verso">
 						<div class="pic-header">
 							<div class="pic-header-stats">
-								<p><?php echo $pic->likes; ?> likes</p>
+								<p><?php echo $pic->likesCount; ?> likes</p>
 								<p><?php echo $pic->commentsCount; ?> comments</p>
 							</div>
 							<div class="pic-header-icons">

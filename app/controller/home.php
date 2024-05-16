@@ -2,6 +2,8 @@
 
 require('model/home.php');
 
+createDB();
+
 $createButton = getRandomCreateButton();
 
 $pics = getPics();
