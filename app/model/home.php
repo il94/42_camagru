@@ -68,11 +68,11 @@ function createPicTable($client) {
 // Cree des pics test
 function createPicsTest($client) {
 	$request = $client->prepare("INSERT INTO `pic` (
-		`id`, `userId`, `image`, `likesCount`, `commentsCount`
+		`id`, `userId`, `image`, `likesCount`
 	) VALUES
-		(NULL, '5', 'temp/pic_example_4.jpg', '0', '0'),
-		(NULL, '6', 'temp/pic_example_1.jpg', '0', '0'),
-		(NULL, '7', 'temp/pic_example_2.jpg', '0', '0')");
+		(NULL, '2', 'temp/pic_example_2.jpg', '0'),
+		(NULL, '3', 'temp/pic_example_1.jpg', '0'),
+		(NULL, '4', 'temp/pic_example_4.jpg', '0')");
 	$request->execute();
 }
 
@@ -121,7 +121,6 @@ function createCommentTable($client) {
 		PRIMARY KEY (`id`),
 		INDEX (`userId`),
 		INDEX (`picId`),
-		CONSTRAINT `fk_userId` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 		CONSTRAINT `fk_picId` FOREIGN KEY (`picId`) REFERENCES `pic`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 	) ENGINE = InnoDB");
 	$request->execute();
@@ -132,9 +131,9 @@ function createCommentsTest($client) {
 	$request = $client->prepare("INSERT INTO `comment` (
 		`id`, `userId`, `picId`, `content`
 	) VALUES
-		(NULL, '1', '18', 'ROOT COMMENT'),
-		(NULL, '5', '18', 'Very nice !'),
-		(NULL, '6', '18', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut. ssalsalkdsdjhvjhdfghdfkjvdcnvidbkvdfgivfdg');");
+		(NULL, '1', '3', 'ROOT COMMENT'),
+		(NULL, '2', '3', 'Very nice !'),
+		(NULL, '3', '3', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut. ssalsalkdsdjhvjhdfghdfkjvdcnvidbkvdfgivfdg');");
 	$request->execute();
 }
 
