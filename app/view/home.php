@@ -153,81 +153,80 @@
 					</div>
 				</div>
 			<?php endforeach; ?>
-		</div>
-
-		<!-- FOLLOWING LIST -->
-
-		<div class="following-list">
-			<p class="following-list-title">Following</p>
-			<div class="following-list-list">
-
-				<!-- FOLLOW -->
-
-				<button class="follow">
-					<img src="temp/pic_example_4.jpg">
-					<p>Lorem ipsum</p>
-				</button>
-
 			</div>
-		</div>
 
-		<!-- SEARCH POPUP -->
+			<!-- FOLLOWING LIST -->
 
-		<div id="search-popup">
-			<input id="search-popup-input" type="text" placeholder="Search a user...">
-			<div class="search-results">
+			<div class="following-list">
+				<p class="following-list-title">Following</p>
+				<div class="following-list-list">
 
-				<!-- SEARCH RESULT -->
+					<!-- FOLLOW -->
 
-				<div class="search-result">
-					<img src="temp/pic_example_2.jpg">
-					<p>Lorem ipsum</p>
-				</div>
-
-			</div>
-		</div>
-
-
-		<!-- ANGLE POPUP -->
-
-		<div id="angle-popup">
-			<div id="angle-popup-profile">
-				<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
-				<div id="angle-popup-content">
-					<button class="section">
-						<?php require ("view/assets/icons/gallery.svg"); ?>
-						<p>Your pics</p>
+					<button class="follow">
+						<img src="temp/pic_example_4.jpg">
+						<p>Lorem ipsum</p>
 					</button>
-					<button class="section">
-						<?php require ("view/assets/icons/moon.svg"); ?>
-						<p>Dark mode</p>
-					</button>
-					<button class="section">
-						<?php require ("view/assets/icons/settings.svg"); ?>
-						<p>Settings account</p>
-					</button>
-					<button class="section">
-						<?php require ("view/assets/icons/logout.svg"); ?>
-						<p>Logout</p>
-					</button>
+
 				</div>
 			</div>
-			<div id="angle-popup-notification">
-				<p id="angle-popup-title">Notifications</p>
-				<div id="angle-popup-content">
-				<div class="notification">
-					<img src="temp/pic_example_3.jpg">
-					<p>Lorem ipsum liked your pic !</p>
-				</div>
 
-				<div class="notification">
-					<img src="temp/pic_example_3.jpg">
-					<p>Lorem ipsum commented your pic : “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”.</p>
+			<!-- SEARCH POPUP -->
+
+			<div id="search-popup">
+				<input id="search-popup-input" type="text" placeholder="Search a user...">
+				<div class="search-results">
+
+					<!-- SEARCH RESULT -->
+
+					<div class="search-result">
+						<img src="temp/pic_example_2.jpg">
+						<p>Lorem ipsum</p>
+					</div>
+
+				</div>
+			</div>
+
+
+			<!-- ANGLE POPUP -->
+
+			<div id="angle-popup">
+				<div id="angle-popup-profile">
+					<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
+					<div id="angle-popup-content">
+						<button class="section">
+							<?php require ("view/assets/icons/gallery.svg"); ?>
+							<p>Your pics</p>
+						</button>
+						<button class="section">
+							<?php require ("view/assets/icons/moon.svg"); ?>
+							<p>Dark mode</p>
+						</button>
+						<button class="section">
+							<?php require ("view/assets/icons/settings.svg"); ?>
+							<p>Settings account</p>
+						</button>
+						<button class="section">
+							<?php require ("view/assets/icons/logout.svg"); ?>
+							<p>Logout</p>
+						</button>
+					</div>
+				</div>
+				<div id="angle-popup-notification">
+					<p id="angle-popup-title">Notifications</p>
+					<div id="angle-popup-content">
+					<div class="notification">
+						<img src="temp/pic_example_3.jpg">
+						<p>Lorem ipsum liked your pic !</p>
+					</div>
+
+					<div class="notification">
+						<img src="temp/pic_example_3.jpg">
+						<p>Lorem ipsum commented your pic : “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”.</p>
+					</div>
 				</div>
 			</div>
 		</div>
-			
-
 	</div>
 
 	<!-- MOBILE NAVBAR -->
