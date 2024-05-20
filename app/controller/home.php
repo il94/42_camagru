@@ -1,14 +1,14 @@
 <?php
 
-require('model/home.php');
+require_once('model/home.php');
 
 function home() {
-
-	createDB();
 	
+	$service = new HomeService();
+
 	$createButton = getRandomCreateButton();
 	
-	$pics = getPics();
+	$pics = $service->getLastFivePics();
 	
 	require_once('view/home.php');
 }
