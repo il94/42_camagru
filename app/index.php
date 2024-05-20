@@ -1,6 +1,7 @@
 <?php
 
 require_once('controller/home.php');
+require_once('init.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -13,6 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 }
 else {
+	
+	// initApp(); // A appeller lors du premier lancement du programme
+
 	// echo ($_SERVER['REQUEST_METHOD']);
 	// echo "Home";
 	home();
