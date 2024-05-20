@@ -8,11 +8,25 @@ function getRandomColor() {
     return (color);
 }
 
-export function initPic(pic) {
+function generateComment(username, avatar, content) {
+	return (
+		`<div class="comment">
+			<img src=${avatar}>
+			<div class="comment-text">
+				<p class="comment-text-username">${username}</p>
+				<p class="comment-text-content">${content}</p>
+			</div>
+		</div>`
+	)
+}
+
+const pics = document.getElementsByClassName("pic")
+
+for (const pic of pics) {
 
 	// Applique une couleur random a la pic
 	pic.style.backgroundColor = getRandomColor();
-	
+
 	// Effet de flip
 	const moreButtons = pic.querySelectorAll(".more")
 	moreButtons.forEach((moreButton) => moreButton.addEventListener('click', () => {
@@ -66,11 +80,31 @@ export function initPic(pic) {
 			footerVerso.style.height = footerNewSize + 'px'
 			bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
 		}
-	});
+	})
 
-	// const likeIcon = pic.querySelector(".like-icon")
+	// Post de commentaires
+	const comments = pic.querySelector('.pic-comments');
 
-	// likeIcon.addEventListener("click", () => {
-	// 	likeIcon.classList.toggle("like")
-	// })
+	inputText.addEventListener('keydown', (event) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', `index.php?route=comment&picId=${pic.id}`, true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+			xhr.onreadystatechange = () => {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 201) {
+						const newComment = generateComment("broot", "osef", event.target.value);
+						comments.insertAdjacentHTML('afterbegin', newComment);
+					}
+					else {
+						console.error("ERROR");
+					}
+				}
+			}
+			xhr.send("newComment=" + encodeURIComponent(event.target.value));
+		}
+	})
 }

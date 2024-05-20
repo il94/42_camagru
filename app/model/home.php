@@ -126,6 +126,18 @@ function createCommentTable($client) {
 	$request->execute();
 }
 
+// Cree un comment
+function createComment($client, $userId, $picId, $content) {
+	$request = $client->prepare("INSERT INTO `comment` (
+		`id`, `userId`, `picId`, `content`
+	) VALUES
+		(NULL, :userId, :picId, :content);");
+	$request->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$request->bindParam(':picId', $picId, PDO::PARAM_INT);
+	$request->bindParam(':content', $content, PDO::PARAM_STR);
+	$request->execute();
+}
+
 // Cree des comments test
 function createCommentsTest($client) {
 	$request = $client->prepare("INSERT INTO `comment` (
@@ -145,7 +157,7 @@ function getComments($client, $picId) {
 		JOIN user ON comment.userId = user.id
 		WHERE picId=$picId
 		ORDER BY comment.id DESC
-        LIMIT 5
+        LIMIT 10
 	");
 	$reqComments->execute();
 	$commentsDatas = $reqComments->fetchAll(PDO::FETCH_OBJ);

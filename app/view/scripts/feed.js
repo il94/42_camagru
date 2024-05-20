@@ -1,5 +1,3 @@
-import { initPic } from "./pic.js";
-
 const feed = document.getElementById("feed")
 const feedHeader = document.getElementById("feed-header")
 
@@ -42,6 +40,3 @@ window.addEventListener('resize', () => {
 			feedHeader.style.top = "65px"
 	}
 })
-
-const pics = document.querySelectorAll(".pic")
-pics.forEach((pic) => initPic(pic))

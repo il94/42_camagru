@@ -81,7 +81,7 @@
 			<!-- PIC -->
 
 			<?php foreach ($pics as $pic): ?>
-				<div class="pic">
+				<div id="<?php echo $pic->id; ?>" class="pic">
 					<div class="pic-recto">
 						<div class="pic-header">
 							<div class="pic-header-user-datas">
