@@ -90,7 +90,7 @@ for (const pic of pics) {
 			event.preventDefault();
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `index.php?route=comment&picId=${pic.id}`, true);
+			xhr.open('POST', `index.php?action=home&route=comment&picId=${pic.id}`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 			xhr.onreadystatechange = () => {
@@ -104,7 +104,7 @@ for (const pic of pics) {
 					}
 				}
 			}
-			xhr.send("newComment=" + encodeURIComponent(event.target.value));
+			xhr.send("comment=" + encodeURIComponent(event.target.value));
 		}
 	})
 }

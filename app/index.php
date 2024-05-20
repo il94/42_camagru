@@ -1,23 +1,25 @@
 <?php
 
-require_once('controller/home.php');
+require_once('controller/HomeController.php');
 require_once('init.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$homeController = new HomeController();
 
-	$client = connectDB();
-
-	if ($_GET['route'] === "comment") {
-		createComment($client, 1, $_GET['picId'], htmlspecialchars($_POST['newComment']));
-	
-		http_response_code(201);
+if (isset($_GET['action']) && $_GET['action']) {
+	// HOME
+	if ($_GET['action'] === 'home') {
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			if ($_GET['route'] == 'comment') {
+				if (isset($_GET['picId']) && $_GET['picId']) {
+					$homeController->postComment(1, $_GET['picId'], $_POST['comment']);
+					http_response_code(201);
+				}
+			}
+		}
 	}
 }
 else {
-	
 	// initApp(); // A appeller lors du premier lancement du programme
 
-	// echo ($_SERVER['REQUEST_METHOD']);
-	// echo "Home";
-	home();
+	$homeController->get(null, null);
 }

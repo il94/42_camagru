@@ -8,8 +8,8 @@ class HomeRepository {
 	}
 
 	// Cree un comment
-	public function createComment($client, $userId, $picId, $content) {
-		$request = $client->prepare("INSERT INTO `comment` (
+	public function createComment($userId, $picId, $content) {
+		$request = $this->database->prepare("INSERT INTO `comment` (
 			`id`, `userId`, `picId`, `content`
 		) VALUES
 			(NULL, :userId, :picId, :content);");

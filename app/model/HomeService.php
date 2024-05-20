@@ -7,6 +7,10 @@ class HomeService {
 		$this->repository = new HomeRepository();
 	}
 
+	public function createComment($userId, $picId, $content) {
+		$this->repository->createComment(1, $picId, htmlspecialchars($content));
+	}
+
 	// Retourne les 5 dernieres pics
 	public function getLastFivePics() {
 	
