@@ -20,6 +20,29 @@ function generateComment(username, avatar, content) {
 	)
 }
 
+// Soumet une requete au serveur pour poster le contenu de l'input text
+function postComment(pic, inputText) {
+	const xhr = new XMLHttpRequest();
+	xhr.open('POST', `index.php?action=home&route=comment&picId=${pic.id}`, true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 201) {
+				const newComment = generateComment("broot", "osef", inputText.value);
+				const comments = pic.querySelector('.pic-comments');
+
+				comments.insertAdjacentHTML('afterbegin', newComment);
+				inputText.value = ''
+			}
+			else {
+				console.error("ERROR");
+			}
+		}
+	}
+	xhr.send("comment=" + encodeURIComponent(inputText.value));
+}
+
 const pics = document.getElementsByClassName("pic")
 
 for (const pic of pics) {
@@ -33,8 +56,24 @@ for (const pic of pics) {
 		pic.classList.toggle('flip');
 	}))
 
-	// Deplacments du placeholder
+	// Post de commentaires
 	const inputText = pic.querySelector(".pic-input-text");
+
+	const arrowUpButton = pic.querySelector('.arrow-up-button');
+	arrowUpButton.addEventListener('click', () => {
+		const inputText = input.querySelector(".pic-input-text");
+		postComment(pic, inputText);
+	})
+
+	inputText.addEventListener('keydown', (event) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			postComment(pic, event.target);
+		}
+	})
+
+
+	// Deplacments du placeholder
 	const placeHolder = pic.querySelector(".placeholder");
 
 	// Reduit le placeholder au clic sur la zone de texte
@@ -48,6 +87,7 @@ for (const pic of pics) {
 		if (!event.target.value)
 			placeHolder.classList.remove("reduce");
 	})
+
 
 	// Gere la taille de la zone de texte, en l'agrandissant et en reduisant les commentaires
 	const bodyVerso = pic.querySelector(".pic-body-verso")
@@ -68,7 +108,6 @@ for (const pic of pics) {
 		}
 	});
 	inputText.addEventListener('input', () => {
-
 		// Si le texte va depasser de la zone et que la zone est inferieure a la moitie de la pic
 		if (inputText.clientHeight !== inputText.scrollHeight &&
 			input.clientHeight < pic.clientHeight / 2)
@@ -79,32 +118,6 @@ for (const pic of pics) {
 			const footerNewSize = inputText.scrollHeight + charHeight * 2
 			footerVerso.style.height = footerNewSize + 'px'
 			bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
-		}
-	})
-
-	// Post de commentaires
-	const comments = pic.querySelector('.pic-comments');
-
-	inputText.addEventListener('keydown', (event) => {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-
-			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `index.php?action=home&route=comment&picId=${pic.id}`, true);
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-			xhr.onreadystatechange = () => {
-				if (xhr.readyState === 4) {
-					if (xhr.status === 201) {
-						const newComment = generateComment("broot", "osef", event.target.value);
-						comments.insertAdjacentHTML('afterbegin', newComment);
-					}
-					else {
-						console.error("ERROR");
-					}
-				}
-			}
-			xhr.send("comment=" + encodeURIComponent(event.target.value));
 		}
 	})
 }

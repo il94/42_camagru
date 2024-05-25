@@ -145,7 +145,7 @@
 							<div class="pic-input">
 								<span class="placeholder">Do you like this pic ? Let us know !</span>
 								<textarea class="pic-input-text"></textarea>
-								<button class="button-icon">
+								<button class="arrow-up-button button-icon" type="submit">
 									<?php require ("view/assets/icons/arrow_up.svg"); ?>
 								</button>
 							</div>
