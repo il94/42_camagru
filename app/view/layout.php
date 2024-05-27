@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="view/index.css">
+	<link rel="stylesheet" type="text/css" href="view/colors.css">
+
+	<?php $headers; ?>
+
+	<title>Crafty Pic</title>
+</head>
+
+<body>
+
+	<?php $body; ?>
+
+</body>
+
+<?php $scripts; ?>
+
+</html>

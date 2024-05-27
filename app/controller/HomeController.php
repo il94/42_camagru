@@ -20,8 +20,11 @@ class HomeController {
 			
 			$pics = $this->service->getLastFivePics();
 
-			require_once('view/home.php');
+			$headers = require_once("view/layouts/home_assets.php");
+			$body = require_once('view/home.php');
+			$scripts = require_once("view/layouts/home_scripts.php");
 
+			require_once('view/layout.php');
 		}
 	}
 
