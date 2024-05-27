@@ -1,0 +1,32 @@
+.logo {
+	text-align: center;
+	font-family: "Twinkle Star", cursive;
+
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		font-size: 22.92vw;
+	}
+	/* DESKTOP 1 */
+	@media screen and (min-width: 480px) and (max-width: 1080px) { /* 1080px = logo 513px + form 468xp + marge arbitraire */
+		font-size: 110px;
+	}
+	/* DESKTOP 2 */
+	@media screen and (min-width: 1080px) {
+		font-size: 128px;
+	}
+}
+
+.desktop-navbar > .logo {
+	margin-left: 16px;
+
+	font-size: 48px;
+}
+
+@keyframes scroll-color-logo { 
+    from {
+		background-position:300%;
+	}
+    to {
+		background-position:-200%;
+	}
+}

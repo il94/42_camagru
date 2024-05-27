@@ -1,7 +1,7 @@
 <!-- DESKTOP NAVBAR -->
 
 <div class="desktop-navbar">
-	<button id="desktop-navbar-logo">CraftyPic</button>
+	<button class="logo">CraftyPic</button>
 	<div id="desktop-navbar-icons">
 		<button id="loop-button" class="button-icon selectable">
 			<?php require ("view/assets/icons/loop.svg"); ?>

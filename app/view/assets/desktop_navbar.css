@@ -23,14 +23,6 @@
 	background-color: var(--navbar);
 }
 
-#desktop-navbar-logo {
-	margin-left: 16px;
-
-	text-align: center;
-	font-family: "Twinkle Star", cursive;
-	font-size: 48px;
-}
-
 #desktop-navbar-icons {
 	display: flex;
 	align-items: center;
