@@ -11,7 +11,13 @@
 	/* FONTS */
 	--text: white;
 	--text-alt: black;
+	--text-link: #f5e3a9;
+	--text-hover: #f4cc93;
 
 	/* BORDER */
 	--border: #7D7D7D;
-  }
+
+	/* FORM */
+	--form-input: #333333;
+	--form-button: #7F7F7F;
+}

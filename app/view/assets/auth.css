@@ -13,23 +13,3 @@
 	width: 100%;
 	height: 100%;
 }
-
-.auth-form {
-	/* width: 480px;
-	height: 386px; */
-
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		min-width: 97.46%;
-	}
-	/* DESKTOP */
-	@media screen and (min-width: 480px) {
-		width: 468px;
-	}
-	height: 386px;
-
-	border-radius: 45px;
-
-
-	background-color: var(--popup);
-}

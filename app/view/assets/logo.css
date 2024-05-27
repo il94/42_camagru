@@ -1,3 +1,4 @@
+/* Logo sur la page d'authentification */
 .logo {
 	text-align: center;
 	font-family: "Twinkle Star", cursive;
@@ -16,6 +17,7 @@
 	}
 }
 
+/* Logo sur la page d'accueil */
 .desktop-navbar > .logo {
 	margin-left: 16px;
 

@@ -23,9 +23,12 @@ if (isset($_GET['action']) && $_GET['action']) {
 		}
 	}
 }
+else if ($_GET['page'] === "home") { // temporaire
+
+	$homeController->get(null, null);
+}
 else {
 	// initApp(); // A appeller lors du premier lancement du programme
 
-	// $homeController->get(null, null);
 	$authController->get(null, null);
 }
