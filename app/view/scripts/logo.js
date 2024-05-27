@@ -1,4 +1,4 @@
-const logo = document.getElementById("desktop-navbar-logo")
+const logos = document.getElementsByClassName("logo")
 
 function getGradient() {
 
@@ -33,12 +33,14 @@ function getGradient() {
 	return ('linear-gradient(to right, ' + color1 + ', ' + color2 + ', ' + color1 + ', ' + color2 + ', ' + color1 + ', ' + color2 + ', ' + color1 + ')')	
 }
 
-logo.style.background = getGradient();
-logo.style.webkitBackgroundClip = 'text';
-logo.style.backgroundClip = 'text';
-logo.style.color = 'transparent';
-
-logo.style.backgroundSize = "300%"
-logo.style.backgroundPosition = "-200%"
-
-logo.style.animation = "scroll-color-word-gradient 40s linear infinite"
+for (const logo of logos) {
+	logo.style.background = getGradient();
+	logo.style.webkitBackgroundClip = 'text';
+	logo.style.backgroundClip = 'text';
+	logo.style.color = 'transparent';
+	
+	logo.style.backgroundSize = "300%"
+	logo.style.backgroundPosition = "-200%"
+	
+	logo.style.animation = "scroll-color-logo 40s linear infinite"
+}

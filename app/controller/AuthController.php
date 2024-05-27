@@ -9,7 +9,9 @@ class AuthController
 		}
 		else {
 
+			$header = require_once('view/layouts/auth_assets.php');
 			$body = require_once('view/auth.php');
+			$scripts = require_once("view/layouts/auth_scripts.php");
 
 			require_once('view/layout.php');
 		}

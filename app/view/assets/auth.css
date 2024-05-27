@@ -1,0 +1,35 @@
+#auth {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	@media screen and (max-width: 1080px) { /* 1080px = logo 513px + form 468xp + marge arbitraire */
+		flex-direction: column;
+	}
+	@media screen and (min-width: 1080px) {
+		justify-content: space-evenly;
+	}
+
+	width: 100%;
+	height: 100%;
+}
+
+.auth-form {
+	/* width: 480px;
+	height: 386px; */
+
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		min-width: 97.46%;
+	}
+	/* DESKTOP */
+	@media screen and (min-width: 480px) {
+		width: 468px;
+	}
+	height: 386px;
+
+	border-radius: 45px;
+
+
+	background-color: var(--popup);
+}
