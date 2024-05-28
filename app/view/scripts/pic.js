@@ -23,7 +23,7 @@ function generateComment(username, avatar, content) {
 // Soumet une requete au serveur pour poster le contenu de l'input text
 function postComment(pic, inputText) {
 	const xhr = new XMLHttpRequest();
-	xhr.open('POST', `index.php?action=home&route=comment&picId=${pic.id}`, true);
+	xhr.open('POST', `index.php?page=home&route=comment&picId=${pic.id}`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	xhr.onreadystatechange = () => {

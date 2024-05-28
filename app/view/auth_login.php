@@ -31,7 +31,7 @@
 			Log in
 		</button>
 
-		<p class="form-redirect" >Don't have an account ? <a href="signup">Sign up</a></p> 
+		<p class="form-redirect" >Don't have an account ? <a href="/?page=auth&route=signup">Sign up</a></p> 
 
 	</form>
 </div>
