@@ -19,5 +19,6 @@
 
 	/* FORM */
 	--form-input: #333333;
+	--form-input-error: #761d1d;
 	--form-button: #7F7F7F;
 }

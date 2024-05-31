@@ -10,6 +10,11 @@
 	border-radius: 12.5px;
 
 	background-color: var(--form-input);
+
+	transition: background-color 0.5s ease;
+}
+.input.input-error {
+	background-color: var(--form-input-error);
 }
 .input > button {
 	align-self: center;

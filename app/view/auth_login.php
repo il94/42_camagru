@@ -2,7 +2,7 @@
 
 	<h1 class="logo">CraftyPic</h1>
 
-	<form class="form">
+	<form id="form-login" class="form">
 
 		<p class="form-title">Welcome back, Master.</p>
 

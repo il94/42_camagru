@@ -6,7 +6,7 @@ class HomeController {
 
 	public HomeService $service;
 
-	function __construct() {
+	public function __construct() {
 		$this->service = new HomeService();
 	}
 

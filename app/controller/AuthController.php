@@ -1,7 +1,31 @@
 <?php
 
+require_once('model/auth.php');
+
 class AuthController
 {
+	public AuthService $service;
+
+	public function __construct() {
+		$this->service = new AuthService();
+	}
+
+	public function signup($email, $username, $password, $reTypePassword) {
+		try {
+			$this->service->signup($email, $username, $password, $reTypePassword);
+			http_response_code(201);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
+
 	public function getLogin($route, $id) {
 
 		if ($route && $id) {

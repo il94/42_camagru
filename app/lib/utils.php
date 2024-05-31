@@ -22,3 +22,7 @@ function prettyPrint($object) {
 		print_r($object);
 	echo "</pre>";
 }
+
+function paramExist($param) {
+	return (isset($param) && $param);
+}
