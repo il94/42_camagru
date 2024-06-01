@@ -18,9 +18,39 @@ for (const input of inputs) {
 form.addEventListener('submit', (event) => {
 	event.preventDefault();
 
+	// Formulaire de connexion
 	if (form.id === "form-login") {
-		console.log("LOGIN")
 
+		// Valeurs des inputs
+		const loginValue = form.querySelector("#login-value").value;
+		const passwordValue = form.querySelector("#password-value").value;
+
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST', `index.php?page=auth&route=login`, true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					window.location.href = "index.php?page=home";
+				}
+				else {
+					const response = JSON.parse(xhr.responseText);
+
+					if (response.field === "LOGIN") {
+						inputs[0].classList.add("input-error");
+					}
+					else if (response.field === "PASSWORD") {
+						inputs[1].classList.add("input-error");
+					}
+
+					formErrorMessage.textContent = response.message;
+				}
+			}
+		}
+
+		const postData = `login=${encodeURIComponent(loginValue)}&password=${encodeURIComponent(passwordValue)}`;
+		xhr.send(postData);
 	}
 
 	// Formulaire d'inscription

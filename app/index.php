@@ -38,8 +38,13 @@ if (paramExist($_GET['page'])) {
 		// POST
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+			// LOGIN
+			if ($_GET['route'] === 'login') {
+				$authController->login($_POST['login'], $_POST['password']);
+			}
+
 			// SIGNUP
-			if ($_GET['route'] === 'signup') {
+			else if ($_GET['route'] === 'signup') {
 				$authController->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['retypepassword']);
 			}
 		}

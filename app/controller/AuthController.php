@@ -10,6 +10,22 @@ class AuthController
 		$this->service = new AuthService();
 	}
 
+	public function login($login, $password) {
+		try {
+			$this->service->login($login, $password);
+			http_response_code(200);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
+
 	public function signup($email, $username, $password, $reTypePassword) {
 		try {
 			$this->service->signup($email, $username, $password, $reTypePassword);

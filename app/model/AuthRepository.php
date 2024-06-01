@@ -24,13 +24,23 @@ class AuthRepository {
 		$request->execute();
 	}
 
+	// Cherche un user par son email
+	public function findUserByEmail($email) {
+		$request = $this->database->prepare("SELECT * FROM user WHERE email=:email");
+		$request->bindParam(':email', $email, PDO::PARAM_STR);
+		$request->execute();
+
+		$userDatas = $request->fetch(PDO::FETCH_OBJ);
+		return ($userDatas);
+	}
+
 	// Cherche un user par son username
 	public function findUserByUsername($username) {
-		$request = $this->database->prepare("SELECT id, username, avatar, role FROM user WHERE username=:username");
+		$request = $this->database->prepare("SELECT * FROM user WHERE username=:username");
 		$request->bindParam(':username', $username, PDO::PARAM_STR);
 		$request->execute();
 
-		$userDatas = $request->fetchAll(PDO::FETCH_OBJ);
+		$userDatas = $request->fetch(PDO::FETCH_OBJ);
 		return ($userDatas);
 	}
 }
