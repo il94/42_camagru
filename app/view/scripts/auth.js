@@ -31,7 +31,7 @@ form.addEventListener('submit', (event) => {
 	
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
-				if (xhr.status === 200) {
+				if (xhr.status === 201) {
 					window.location.href = "index.php?page=home";
 				}
 				else {

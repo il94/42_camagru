@@ -34,6 +34,8 @@ class AuthService {
 
 		if (!password_verify($password, $userDatas->password))
 			throw new HttpException("Incorrect password", 403, self::PASSWORD_ERROR);
+
+		$_SESSION['logged_in'] = true;
 	}
 
 	// Crée un compte
@@ -47,6 +49,13 @@ class AuthService {
 			throw new HttpException("Username already taken", 403, self::USERNAME_ERROR);
 
 		$this->repository->createUser($email, $username, password_hash($password, PASSWORD_DEFAULT));
+
+		$_SESSION['logged_in'] = true;
+	}
+
+	// Déconnecte un compte
+	public function logout() {
+		session_destroy();
 	}
 
 	// Verifie si la string est un email valide

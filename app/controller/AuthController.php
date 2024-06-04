@@ -13,7 +13,7 @@ class AuthController
 	public function login($login, $password) {
 		try {
 			$this->service->login($login, $password);
-			http_response_code(200);
+			http_response_code(201);
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -29,6 +29,22 @@ class AuthController
 	public function signup($email, $username, $password, $reTypePassword) {
 		try {
 			$this->service->signup($email, $username, $password, $reTypePassword);
+			http_response_code(201);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
+
+	public function logout() {
+		try {
+			$this->service->logout();
 			http_response_code(201);
 		}
 		catch (HttpException $error) {

@@ -168,7 +168,7 @@
 						<?php require ("view/assets/icons/settings.svg"); ?>
 						<p>Settings account</p>
 					</button>
-					<button class="section">
+					<button id="logout-button" class="section">
 						<?php require ("view/assets/icons/logout.svg"); ?>
 						<p>Logout</p>
 					</button>
