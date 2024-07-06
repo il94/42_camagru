@@ -70,8 +70,24 @@ if (paramExist($_GET['page'])) {
 
 			// SIGNUP
 			if ($_GET['route'] === 'signup') {
-				$authController->getSignup(null, null);
-				http_response_code(200);
+
+				// ACTIVATE
+				if (paramExist($_GET['state'])) {
+					$authController->getSignup($_GET['state'], null);
+					http_response_code(200);
+				}
+
+				// ACTIVATION
+				else if (paramExist($_GET['token'])) {
+					$authController->activateAccount($_GET['token']);
+					http_response_code(200);
+				}
+
+				// DEFAULT
+				else {
+					$authController->getSignup(null, null);
+					http_response_code(200);
+				}
 			}
 
 			// LOGIN

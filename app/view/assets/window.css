@@ -1,0 +1,169 @@
+.window {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		min-width: 97.46%;
+	}
+	/* DESKTOP */
+	@media screen and (min-width: 480px) {
+		width: 468px;
+	}
+
+	border-radius: 45px;
+
+	background-color: var(--window-bg);
+}
+.window.success {
+	background-color: var(--window-bg-valid);
+}
+
+.window-form {
+	display: inherit;
+	flex-direction: inherit;
+	align-items: inherit;
+
+	width: inherit;
+	height: inherit;
+}
+
+.window-title {
+	margin-top: 24px;
+	margin-bottom: 27px;
+
+	font-weight: 500;
+	font-size: 25px;
+}
+
+.window-field {
+	width: 92.5%;
+}
+.window-field:not(:last-of-type) {
+	margin-bottom: 20px;
+}
+
+
+.window-input {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+
+	position: relative;
+
+	height: 52px;
+
+	border-radius: 12.5px;
+
+	background-color: var(--window-input);
+
+	transition: background-color 0.5s ease;
+}
+.window-input.window-input-error {
+	background-color: var(--window-input-error);
+}
+.window-input > button {
+	align-self: center;
+
+	margin-right: 14px;
+
+	height: 30px;
+	aspect-ratio: 1;
+}
+
+.window-input-text {
+	margin-left: 16px;
+	margin-bottom: 4px;
+	padding-top: 25px;
+	
+	width: 100%;
+	height: 100%;
+
+	font-size: 18px;
+}
+
+.window-input-placeholder {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+
+	opacity: 0.5;
+
+	font-size: 16px;
+	pointer-events: none;
+
+	transition: 0.5s ease;
+}
+
+.window-input-reduce {
+	left: 0;
+	top: 3px;
+	transform: translate(0, 0);
+
+	margin-left: 16px;
+
+	font-size: 12px;
+}
+
+.window-input-link {
+	margin-left: 4px;
+
+	width: 92.5%;
+	line-height: 22px;
+
+	font-size: 13px;
+}
+
+
+.window-message {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	width: 92.5%;
+	height: 67px;
+
+	margin-bottom: 27px;
+
+	font-size: 16px;
+	text-align: center;
+}
+
+.window-error-message {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	width: 92.5%;
+	height: 67px;
+
+	font-size: 16px;
+	text-align: center;
+}
+
+.window-button {
+	width: 92.5%;
+	height: 56px;
+
+	border-radius: 45px;
+
+	font-weight: 700;
+	font-size: 18px;
+
+	background-color: var(--window-button);	
+}
+.window-button:is(:last-child) {
+	margin-bottom: 19px;
+}
+
+.window-redirect {
+	margin-top: 8px;
+	margin-bottom: 6px;
+
+	font-size: 16px;
+}
+.window-redirect > a {
+	font-weight: 500;
+}

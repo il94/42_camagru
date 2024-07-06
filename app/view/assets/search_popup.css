@@ -28,7 +28,7 @@
 	border-radius: 45px;
 	box-sizing: border-box;
 
-    background-color: var(--popup);
+    background-color: var(--window-bg);
 }
 #search-popup > input[type="text"] {
     width: 100%;

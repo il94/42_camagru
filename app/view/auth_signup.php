@@ -2,51 +2,53 @@
 
 	<h1 class="logo">CraftyPic</h1>
 
-	<form id="form-signup" class="form">
+	<div class="window">
+		<form id="form-signup" class="window-form">
 
-		<p class="form-title">It's an honor, Your Excellency.</p>
+			<p class="window-title random"></p>
 
-		<div id="email-field" class="form-field">
-			<div id="email-input" class="input">
-				<span class="input-placeholder">Email</span>
-				<input id="email-value" class="input-text" type="text"></input>
+			<div id="email-field" class="window-field">
+				<div id="email-window-input" class="window-input">
+					<span class="window-input-placeholder">Email</span>
+					<input id="email-value" class="window-input-text" type="text"></input>
+				</div>
 			</div>
-		</div>
-		<div class="form-field">
-			<div id="username-input" class="input">
-				<span class="input-placeholder">Username</span>
-				<input id="username-value" class="input-text" type="text"></input>
+			<div class="window-field">
+				<div id="username-window-input" class="window-input">
+					<span class="window-input-placeholder">Username</span>
+					<input id="username-value" class="window-input-text" type="text"></input>
+				</div>
 			</div>
-		</div>
 
-		<div id="password-field" class="form-field">
-			<div id="password-input" class="input">
-				<span class="input-placeholder">Password</span>
-				<input id="password-value" class="input-text" type="password"></input>
-				<button class="show-button button-icon" type="button">
-					<?php require ("view/assets/icons/show.svg"); ?>
-					<?php require ("view/assets/icons/hidden.svg"); ?>
-				</button>
+			<div id="password-field" class="window-field">
+				<div id="password-window-input" class="window-input">
+					<span class="window-input-placeholder">Password</span>
+					<input id="password-value" class="window-input-text" type="password"></input>
+					<button class="show-button button-icon" type="button">
+						<?php require ("view/assets/icons/show.svg"); ?>
+						<?php require ("view/assets/icons/hidden.svg"); ?>
+					</button>
+				</div>
 			</div>
-		</div>
-		<div id="re-type-password-field" class="form-field">
-			<div id="re-type-password-input" class="input">
-				<span class="input-placeholder">Re-type password</span>
-				<input id="re-type-password-value" class="input-text" type="password"></input>
-				<button class="show-button button-icon" type="button">
-					<?php require ("view/assets/icons/show.svg"); ?>
-					<?php require ("view/assets/icons/hidden.svg"); ?>
-				</button>
+			<div id="re-type-password-field" class="window-field">
+				<div id="re-type-password-window-input" class="window-input">
+					<span class="window-input-placeholder">Re-type password</span>
+					<input id="re-type-password-value" class="window-input-text" type="password"></input>
+					<button class="show-button button-icon" type="button">
+						<?php require ("view/assets/icons/show.svg"); ?>
+						<?php require ("view/assets/icons/hidden.svg"); ?>
+					</button>
+				</div>
 			</div>
-		</div>
 
-		<p class="form-error-message"></p>
+			<p class="window-error-message"></p>
 
-		<button class="form-button" type="submit">
-			Sign up
-		</button>
+			<button class="window-button" type="submit">
+				Sign up
+			</button>
 
-		<p class="form-redirect">Have an account ? <a href="/?page=auth&route=login">Log in</a></p> 
+			<p class="window-redirect">Have an account ? <a href="/?page=auth&route=login">Log in</a></p> 
+		</form>
+	</div>
 
-	</form>
 </div>

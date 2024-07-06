@@ -19,6 +19,8 @@ class AuthService {
 		$this->repository = new AuthRepository();
 	}
 
+	/* ==================== ROUTES ==================== */
+
 	// Connecte un compte
 	public function login($login, $password) {
 		$this->parseLogin($login);
@@ -29,11 +31,10 @@ class AuthService {
 		else
 			$userDatas = $this->repository->findUserByUsername($login);
 
-		if (empty($userDatas))
+		if (empty($userDatas) || !password_verify($password, $userDatas->password))
 			throw new HttpException("Incorrect password", 403, self::PASSWORD_ERROR);
-
-		if (!password_verify($password, $userDatas->password))
-			throw new HttpException("Incorrect password", 403, self::PASSWORD_ERROR);
+		else if (!$userDatas->active)
+			throw new HttpException("You have to activate your account", 403, self::PASSWORD_ERROR);
 
 		$_SESSION['logged_in'] = true;
 	}
@@ -48,15 +49,35 @@ class AuthService {
 		if ($userFound)
 			throw new HttpException("Username already taken", 403, self::USERNAME_ERROR);
 
-		$this->repository->createUser($email, $username, password_hash($password, PASSWORD_DEFAULT));
+		$userDatas = [
+			'email' => $email,
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_DEFAULT),
+			'avatar' => DEFAULT_AVATAR,
+			'role' => DEFAULT_ROLE,
+			'activation_token' => $this->getRandomToken() 
+		];
 
-		$_SESSION['logged_in'] = true;
+		$this->repository->createUser($userDatas);
+		
+		$this->sendConfirmationEmail($userDatas);
+	}
+
+	// Active un compte
+	public function activateAccount($token) {
+		$userFound = $this->repository->findUserByActivationToken($token);
+		if (!$userFound)
+			throw new HttpException("User not found", 404, '');
+
+		$this->repository->activateUser($userFound->id);
 	}
 
 	// Déconnecte un compte
 	public function logout() {
 		session_destroy();
 	}
+
+	/* ==================== UTILS ==================== */
 
 	// Verifie si la string est un email valide
 	private function parseLogin($login) {
@@ -96,5 +117,41 @@ class AuthService {
 			if (!preg_match("/[\W_]/", $password))
 				throw new HttpException("Password must contain at least one special character", 422, self::PASSWORD_ERROR);
 		}
+	}
+
+	// Retourne un token aléatoire
+	private function getRandomToken(): string {
+		return hash("sha256", bin2hex(random_bytes(16)));
+	}
+
+	// Envoie un email de confirmation de création de compte
+	private function sendConfirmationEmail($userDatas) {
+		$headers = "From: noreply@craftypic.com\r\n";
+		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+		$subject = 'Confirmation of your CraftyPic account';
+		$activationLink = 'http://localhost:8080/index.php?page=auth&route=signup&token=' . urlencode($userDatas['activation_token']);
+		$message = '
+			<html>
+			<head>
+				<title>Confirmation of CraftyPic Account</title>
+			</head>
+			<body>
+				<p>Dear User,</p>
+				<p>Thank you for registering with CraftyPic! Your account has been successfully created.</p>
+				<p>Here are your account details:</p>
+				<ul>
+					<li><strong>Username:</strong> ' . htmlspecialchars($userDatas['username']) . '</li>
+					<li><strong>Email:</strong> ' . htmlspecialchars($userDatas['email']) . '</li>
+				</ul>
+				<p>Please click the following link to activate your account:</p>
+				<p><a href="' . $activationLink . '">Activate Account</a></p>
+				<p>We look forward to seeing you on CraftyPic!</p>
+				<br>
+				<p><em>If you did not create an account on CraftyPic, please disregard this message.</em></p>
+			</body>
+			</html>
+			';
+			
+		mail($userDatas['email'], $subject, $message, $headers);
 	}
 }

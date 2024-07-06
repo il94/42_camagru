@@ -7,20 +7,19 @@ class AuthRepository {
 		$this->database = connectDB();
 	}
 
-	public function createUser($email, $username, $password) {
+	// Crée un user
+	public function createUser($userDatas) {
 		$request = $this->database->prepare("INSERT INTO `user` (
-			`email`, `username`, `password`, `avatar`, `role`
+			`email`, `username`, `password`, `avatar`, `role`, `activation_token`
 		) VALUES
-			(:email, :username, :password, :avatar, :role)");
+			(:email, :username, :password, :avatar, :role, :activation_token)");
 		
-		$avatar = DEFAULT_AVATAR;
-		$role = DEFAULT_ROLE;
-
-		$request->bindParam(':email', $email, PDO::PARAM_STR);
-		$request->bindParam(':username', $username, PDO::PARAM_STR);
-		$request->bindParam(':password', $password, PDO::PARAM_STR);
-		$request->bindParam(':avatar', $avatar, PDO::PARAM_STR);
-  		$request->bindParam(':role', $role, PDO::PARAM_STR);
+		$request->bindParam(':email', $userDatas['email'], PDO::PARAM_STR);
+		$request->bindParam(':username', $userDatas['username'], PDO::PARAM_STR);
+		$request->bindParam(':password', $userDatas['password'], PDO::PARAM_STR);
+		$request->bindParam(':avatar', $userDatas['avatar'], PDO::PARAM_STR);
+  		$request->bindParam(':role', $userDatas['role'], PDO::PARAM_STR);
+  		$request->bindParam(':activation_token', $userDatas['activation_token'], PDO::PARAM_STR);
 		$request->execute();
 	}
 
@@ -42,5 +41,22 @@ class AuthRepository {
 
 		$userDatas = $request->fetch(PDO::FETCH_OBJ);
 		return ($userDatas);
+	}
+
+	// Cherche un user par son token d'activation
+	public function findUserByActivationToken($token) {
+		$request = $this->database->prepare("SELECT * FROM user WHERE activation_token=:activation_token");
+		$request->bindParam(':activation_token', $token, PDO::PARAM_STR);
+		$request->execute();
+
+		$userDatas = $request->fetch(PDO::FETCH_OBJ);
+		return ($userDatas);
+	}
+
+	// Active un utilisateur
+	public function activateUser($id) {
+		$request = $this->database->prepare("UPDATE user SET active = TRUE WHERE id=:id");
+		$request->bindParam(':id', $id, PDO::PARAM_INT);
+		$request->execute();
 	}
 }

@@ -12,19 +12,21 @@ function createRoot($client) {
 
 // Cree la table user
 function createUserTable($client) {
-	$request = $client->prepare("CREATE TABLE IF NOT EXISTS `dbcamagru`.`user` (
-		`id` INT NOT NULL AUTO_INCREMENT ,
-		`username` VARCHAR(128) NOT NULL ,
-		`email` VARCHAR(128) NOT NULL ,
-		`password` VARCHAR(128) NOT NULL ,
-		`avatar` VARCHAR(128) NOT NULL ,
-		`role` ENUM('USER','ADMIN','BAN','') NOT NULL DEFAULT 'USER' ,
-		PRIMARY KEY (`id`),
-		UNIQUE (`username`),
-		UNIQUE (`email`)
-	)
-	ENGINE = InnoDB");
-	$request->execute();
+    $request = $client->prepare("CREATE TABLE IF NOT EXISTS `dbcamagru`.`user` (
+        `id` INT NOT NULL AUTO_INCREMENT ,
+        `username` VARCHAR(128) NOT NULL ,
+        `email` VARCHAR(128) NOT NULL ,
+        `password` VARCHAR(128) NOT NULL ,
+        `avatar` VARCHAR(128) NOT NULL ,
+        `role` ENUM('USER','ADMIN','BAN','') NOT NULL DEFAULT 'USER' ,
+        `activation_token` VARCHAR(64) NOT NULL ,
+        `active` BOOLEAN NOT NULL DEFAULT 0 ,
+        PRIMARY KEY (`id`),
+        UNIQUE (`username`),
+        UNIQUE (`email`)
+    )
+    ENGINE = InnoDB");
+    $request->execute();
 }
 
 // Cree la table pic

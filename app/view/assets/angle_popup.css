@@ -21,7 +21,7 @@
 	
 	border-radius: 0 0 0 45px;
 
-    background-color: var(--popup);
+    background-color: var(--window-bg);
 }
 
 #angle-popup-profile,

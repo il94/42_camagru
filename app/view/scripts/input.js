@@ -1,22 +1,22 @@
-const inputs = document.getElementsByClassName("input")
+const inputs = document.getElementsByClassName("window-input")
 
 for (const input of inputs) {
 
-	const inputText = input.querySelector(".input-text");
+	const inputText = input.querySelector(".window-input-text");
 
 	// Deplacments du placeholder
-	const placeHolder = input.querySelector(".input-placeholder");
+	const placeHolder = input.querySelector(".window-input-placeholder");
 
 	// Reduit le placeholder au clic sur la zone de texte
 	inputText.addEventListener('focus', () => {
-		if (!placeHolder.classList.contains(".input-reduce"))
-			placeHolder.classList.add("input-reduce");
+		if (!placeHolder.classList.contains(".window-input-reduce"))
+			placeHolder.classList.add("window-input-reduce");
 	})
 	
 	// Si la zone de texte est vide, recentre le placeholder
 	inputText.addEventListener('blur', (event) => {
 		if (!event.target.value)
-			placeHolder.classList.remove("input-reduce");
+			placeHolder.classList.remove("window-input-reduce");
 	})
 
 	// Si un bouton show est present, gere son comportement

@@ -7,6 +7,8 @@ class HomeRepository {
 		$this->database = connectDB();
 	}
 
+	/* ==================== ROUTES ==================== */
+
 	// Cree un comment
 	public function createComment($userId, $picId, $content) {
 		$request = $this->database->prepare("INSERT INTO `comment` (
