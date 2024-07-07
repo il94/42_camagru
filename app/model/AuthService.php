@@ -55,7 +55,8 @@ class AuthService {
 			'password' => password_hash($password, PASSWORD_DEFAULT),
 			'avatar' => DEFAULT_AVATAR,
 			'role' => DEFAULT_ROLE,
-			'activation_token' => $this->getRandomToken() 
+			'activation_token' => $this->getRandomToken(),
+			'active' => false
 		];
 
 		$this->repository->createUser($userDatas);

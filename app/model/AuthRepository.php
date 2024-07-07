@@ -10,9 +10,9 @@ class AuthRepository {
 	// Crée un user
 	public function createUser($userDatas) {
 		$request = $this->database->prepare("INSERT INTO `user` (
-			`email`, `username`, `password`, `avatar`, `role`, `activation_token`
+			`email`, `username`, `password`, `avatar`, `role`, `activation_token`, `active`
 		) VALUES
-			(:email, :username, :password, :avatar, :role, :activation_token)");
+			(:email, :username, :password, :avatar, :role, :activation_token, :active)");
 		
 		$request->bindParam(':email', $userDatas['email'], PDO::PARAM_STR);
 		$request->bindParam(':username', $userDatas['username'], PDO::PARAM_STR);
@@ -20,6 +20,7 @@ class AuthRepository {
 		$request->bindParam(':avatar', $userDatas['avatar'], PDO::PARAM_STR);
   		$request->bindParam(':role', $userDatas['role'], PDO::PARAM_STR);
   		$request->bindParam(':activation_token', $userDatas['activation_token'], PDO::PARAM_STR);
+  		$request->bindParam(':active', $userDatas['active'], PDO::PARAM_BOOL);
 		$request->execute();
 	}
 

@@ -1,13 +1,18 @@
 <?php
 
 // Cree le user root
-function createRoot($client) {
-	$request = $client->prepare("INSERT INTO `user` (
-		`id`, `username`, `email`, `password`, `avatar`, `role`
-	)
-	VALUES
-		(NULL, 'root', 'root@outlook.fr', 'root_password', 'temp/root_avatar.svg', 'ADMIN')");
-	$request->execute();
+function createRoot($repository) {
+	$rootDatas = [
+		'email' => "root@outlook.fr",
+		'username' => "root",
+		'password' => password_hash("password", PASSWORD_DEFAULT),
+		'avatar' => "temp/root_avatar.svg",
+		'role' => "ADMIN",
+		'activation_token' => "",
+		'active' => true
+	];
+
+	$repository->createUser($rootDatas);
 }
 
 // Cree la table user
@@ -60,15 +65,40 @@ function createCommentTable($client) {
 }
 
 // Cree des users test
-function createUsersTest($client) {
-	$request = $client->prepare("INSERT INTO `user` (
-		`id`, `username`, `email`, `password`, `avatar`, `role`
-	)
-	VALUES
-		(NULL, 'Hello', 'hello@osef.com', 'mdp', 'temp/pic_example_4.jpg', 'USER'),
-		(NULL, 'Hola', 'hola@osef.com', 'mdp', 'temp/pic_example_1.jpg', 'USER'),
-		(NULL, 'Halo', 'halo@osef.com', 'mdp', 'temp/pic_example_2.jpg', 'USER')");
-	$request->execute();
+function createUsersTest($repository) {
+	$usersDatas = [
+		[
+			'email' => "hello@outlook.fr",
+			'username' => "hello",
+			'password' => password_hash("password", PASSWORD_DEFAULT),
+			'avatar' => "temp/pic_example_4.jpg",
+			'role' => "USER",
+			'activation_token' => "",
+			'active' => true
+		],
+		[
+			'email' => "hola@outlook.fr",
+			'username' => "hola",
+			'password' => password_hash("password", PASSWORD_DEFAULT),
+			'avatar' => "temp/pic_example_1.jpg",
+			'role' => "USER",
+			'activation_token' => "",
+			'active' => true
+		],
+		[
+			'email' => "halo@outlook.fr",
+			'username' => "halo",
+			'password' => password_hash("password", PASSWORD_DEFAULT),
+			'avatar' => "temp/pic_example_2.jpg",
+			'role' => "USER",
+			'activation_token' => "",
+			'active' => true
+		],
+	];
+
+	foreach ($usersDatas as $userDatas) {
+		$repository->createUser($userDatas);
+	}
 }
 
 // Cree des pics test
@@ -106,11 +136,13 @@ function createCommentsTest($client) {
 function initApp() {
 	$client = connectDB();
 
+	$authRepository = new AuthRepository();
+
 	try {
 		createUserTable($client);
-		createRoot($client);
+		createRoot($authRepository);
 
-		createUsersTest($client); // TEMPORAIRE
+		createUsersTest($authRepository); // TEMPORAIRE
 	
 		createPicTable($client);
 		createCommentTable($client);
