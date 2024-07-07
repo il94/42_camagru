@@ -23,7 +23,7 @@
 						<?php require ("view/assets/icons/hidden.svg"); ?>
 					</button>
 				</div>
-				<a href="recover-password" class="window-input-link">Forgot your password ?</a>
+				<a href="/?page=auth&route=login&state=forgot-password" class="window-input-link">Forgot your password ?</a>
 			</div>
 
 			<p class="window-error-message"></p>

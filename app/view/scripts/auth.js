@@ -55,6 +55,78 @@ if (form) {
 			xhr.send(postData);
 		}
 
+		// Formulaire de recuperation de password
+		else if (form.id === "form-forgot-password") {
+
+			console.log("HERE")
+
+			// Valeurs des inputs
+			const loginValue = form.querySelector("#login-value").value;
+
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', `index.php?page=auth&route=forgot-password`, true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		
+			xhr.onreadystatechange = () => {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 201) {
+						window.location.href = `index.php?page=auth&route=login&state=reinitialization-start&login=${encodeURIComponent(loginValue)}`;
+					}
+					else {
+						const response = JSON.parse(xhr.responseText);
+
+						if (response.field === "LOGIN") {
+							inputs[0].classList.add("window-input-error");
+						}
+
+						formErrorMessage.textContent = response.message;
+					}
+				}
+			}
+
+			const postData = `login=${encodeURIComponent(loginValue)}`;
+			xhr.send(postData);
+		}
+
+		// Formulaire de reinitialisation de mot de passe
+		else if (form.id === "form-reinitialization") {
+
+			// Valeurs des inputs
+			const passwordValue = form.querySelector("#password-value").value;
+			const retypePasswordValue = form.querySelector("#re-type-password-value").value;
+
+			console.log(passwordValue)
+			console.log(retypePasswordValue)
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', `index.php?page=auth&route=reinitialization`, true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		
+			xhr.onreadystatechange = () => {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 201) {
+						console.log("HERE")
+						window.location.href = `index.php?page=auth&route=login&state=reinitialized`;
+					}
+					else {
+						const response = JSON.parse(xhr.responseText);
+
+						if (response.field === "PASSWORD") {
+							inputs[0].classList.add("window-input-error");
+						}
+						else if (response.field === "RETYPE_PASSWORD") {
+							inputs[1].classList.add("window-input-error");
+						}
+
+						formErrorMessage.textContent = response.message;
+					}
+				}
+			}
+
+			const token = new URLSearchParams(window.location.search).get("token");
+			const postData = `password=${encodeURIComponent(passwordValue)}&retypepassword=${encodeURIComponent(retypePasswordValue)}&token=${token}`;
+			xhr.send(postData);
+		}		
+
 		// Formulaire d'inscription
 		else if (form.id === "form-signup") {
 
@@ -96,7 +168,7 @@ if (form) {
 
 			const postData = `email=${encodeURIComponent(emailValue)}&username=${encodeURIComponent(usernameValue)}&password=${encodeURIComponent(passwordValue)}&retypepassword=${encodeURIComponent(retypePasswordValue)}`;
 			xhr.send(postData);
-		}
+		}		
 	})
 }
 

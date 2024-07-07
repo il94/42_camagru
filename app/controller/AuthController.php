@@ -26,6 +26,38 @@ class AuthController
 		}
 	}
 
+	public function forgotPassword($login) {
+		try {
+			$this->service->forgotPassword($login);
+			http_response_code(201);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
+
+	public function reinitialization($password, $reTypePassword, $token) {
+		try {
+			$this->service->reinitialization($password, $reTypePassword, $token);
+			http_response_code(201);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
+
 	public function signup($email, $username, $password, $reTypePassword) {
 		try {
 			$this->service->signup($email, $username, $password, $reTypePassword);
@@ -75,18 +107,27 @@ class AuthController
 		}
 	}
 
-	public function getLogin($route, $id) {
+	public function getLogin($state, $id) {
 
-		if ($route && $id) {
-			echo "temp";
+		$header = require_once('view/layouts/auth_assets.php');
+
+		if ($state) {
+			if ($state === "forgot-password")
+				$body = require_once('view/auth_forgot_password.php');
+			else if ($state === "reinitialization-start")
+				$body = require_once('view/auth_reinitialization_start.php');
+			else if ($state === "reinitialization")
+				$body = require_once('view/auth_reinitialization.php');
+			else if ($state === "reinitialized")
+				$body = require_once('view/auth_reinitialized.php');
 		}
 		else {
-			$header = require_once('view/layouts/auth_assets.php');
 			$body = require_once('view/auth_login.php');
-			$scripts = require_once("view/layouts/auth_scripts.php");
-
-			require_once('view/layout.php');
 		}
+
+		$scripts = require_once("view/layouts/auth_scripts.php");
+
+		require_once('view/layout.php');
 	}
 
 	public function getSignup($state, $id) {

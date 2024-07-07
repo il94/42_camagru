@@ -39,6 +39,36 @@ class AuthService {
 		$_SESSION['logged_in'] = true;
 	}
 
+	// Envoie un mail de recuperation de mot de passe
+	public function forgotPassword($login) {
+		$this->parseLogin($login);
+
+		if (filter_var($login, FILTER_VALIDATE_EMAIL))
+			$userDatas = $this->repository->findUserByEmail($login);
+		else
+			$userDatas = $this->repository->findUserByUsername($login);
+
+		if (empty($userDatas))
+			throw new HttpException("User not found", 403, self::LOGIN_ERROR);
+
+		$this->sendResetPasswordEmail($userDatas);
+	}
+
+	// Reinitialise un mot de passe
+	public function reinitialization($password, $reTypePassword, $token) {
+		$this->parsePassword($password, $reTypePassword);
+
+		$userFound = $this->repository->findUserByResetPasswordToken($token);
+		if (!$userFound)
+			throw new HttpException("User not found", 404, '');
+
+		$userDatas = new stdClass();
+		$userDatas->id = $userFound->id;
+		$userDatas->password = password_hash($password, PASSWORD_DEFAULT);
+
+		$this->repository->updateUserPassword($userDatas);
+	}	
+
 	// Crée un compte
 	public function signup($email, $username, $password, $reTypePassword) {
 		$this->parseEmail($email);
@@ -49,15 +79,15 @@ class AuthService {
 		if ($userFound)
 			throw new HttpException("Username already taken", 403, self::USERNAME_ERROR);
 
-		$userDatas = [
-			'email' => $email,
-			'username' => $username,
-			'password' => password_hash($password, PASSWORD_DEFAULT),
-			'avatar' => DEFAULT_AVATAR,
-			'role' => DEFAULT_ROLE,
-			'activation_token' => $this->getRandomToken(),
-			'active' => false
-		];
+		$userDatas = new stdClass();
+		$userDatas->email = $email;
+		$userDatas->username = $username;
+		$userDatas->password = password_hash($password, PASSWORD_DEFAULT);
+		$userDatas->avatar = DEFAULT_AVATAR;
+		$userDatas->role = DEFAULT_ROLE;
+		$userDatas->activation_token = $this->getRandomToken();
+		$userDatas->active = false;
+		$userDatas->reset_password_token = $this->getRandomToken();
 
 		$this->repository->createUser($userDatas);
 		
@@ -70,7 +100,11 @@ class AuthService {
 		if (!$userFound)
 			throw new HttpException("User not found", 404, '');
 
-		$this->repository->activateUser($userFound->id);
+		$userDatas = new stdClass();
+		$userDatas->id = $userFound->id;
+		$userDatas->active = true;
+
+		$this->repository->updateUserActive($userDatas);
 	}
 
 	// Déconnecte un compte
@@ -106,17 +140,16 @@ class AuthService {
 	private function parsePassword($password, $reTypePassword) {
 		if (empty($password))
 			throw new HttpException("Password is required", 400, self::PASSWORD_ERROR);
-		if ($reTypePassword) {
-			if (strlen($password) < self::MIN_PASSWORD_LENGTH)
-				throw new HttpException("Password must be at least " . self::MIN_PASSWORD_LENGTH . " characters long", 422, self::PASSWORD_ERROR);
-			if (!preg_match("/[A-Z]/", $password))
-				throw new HttpException("Password must contain at least one uppercase letter", 422, self::PASSWORD_ERROR);
-			if (!preg_match("/[a-z]/", $password))
-				throw new HttpException("Password must contain at least one lowercase letter", 422, self::PASSWORD_ERROR);
-			if (!preg_match("/[0-9]/", $password))
-				throw new HttpException("Password must contain at least one digit", 422, self::PASSWORD_ERROR);
-			if (!preg_match("/[\W_]/", $password))
-				throw new HttpException("Password must contain at least one special character", 422, self::PASSWORD_ERROR);
+		if (strlen($password) < self::MIN_PASSWORD_LENGTH)
+			throw new HttpException("Password must be at least " . self::MIN_PASSWORD_LENGTH . " characters long", 422, self::PASSWORD_ERROR);
+		if (!preg_match("/[A-Z]/", $password))
+			throw new HttpException("Password must contain at least one uppercase letter", 422, self::PASSWORD_ERROR);
+		if (!preg_match("/[a-z]/", $password))
+			throw new HttpException("Password must contain at least one lowercase letter", 422, self::PASSWORD_ERROR);
+		if (!preg_match("/[0-9]/", $password))
+			throw new HttpException("Password must contain at least one digit", 422, self::PASSWORD_ERROR);
+		if ($reTypePassword !== null && $password !== $reTypePassword) {
+			throw new HttpException("New password does not match. Enter new password again here.", 422, self::RETYPE_PASSWORD_ERROR);
 		}
 	}
 
@@ -130,7 +163,7 @@ class AuthService {
 		$headers = "From: noreply@craftypic.com\r\n";
 		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 		$subject = 'Confirmation of your CraftyPic account';
-		$activationLink = 'http://localhost:8080/index.php?page=auth&route=signup&token=' . urlencode($userDatas['activation_token']);
+		$activationLink = 'http://localhost:8080/index.php?page=auth&route=signup&token=' . urlencode($userDatas->activation_token);
 		$message = '
 			<html>
 			<head>
@@ -141,8 +174,8 @@ class AuthService {
 				<p>Thank you for registering with CraftyPic! Your account has been successfully created.</p>
 				<p>Here are your account details:</p>
 				<ul>
-					<li><strong>Username:</strong> ' . htmlspecialchars($userDatas['username']) . '</li>
-					<li><strong>Email:</strong> ' . htmlspecialchars($userDatas['email']) . '</li>
+					<li><strong>Username:</strong> ' . htmlspecialchars($userDatas->username) . '</li>
+					<li><strong>Email:</strong> ' . htmlspecialchars($userDatas->email) . '</li>
 				</ul>
 				<p>Please click the following link to activate your account:</p>
 				<p><a href="' . $activationLink . '">Activate Account</a></p>
@@ -153,6 +186,33 @@ class AuthService {
 			</html>
 			';
 			
-		mail($userDatas['email'], $subject, $message, $headers);
+		mail($userDatas->email, $subject, $message, $headers);
+	}
+
+	// Envoie un email de recuperation de mot de passe
+	private function sendResetPasswordEmail($userDatas) {
+		$headers = "From: noreply@craftypic.com\r\n";
+		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+		$subject = 'Reset your CraftyPic password';
+	    $resetLink = 'http://localhost:8080/index.php?page=auth&route=login&state=reinitialization&token=' . urlencode($userDatas->reset_password_token);
+		$message = '
+			<html>
+			<head>
+				<title>Reset Your CraftyPic Password</title>
+			</head>
+			<body>
+				<p>Dear User,</p>
+				<p>We received a request to reset your password for your CraftyPic account.</p>
+				<p>Please click the following link to reset your password:</p>
+				<p><a href="' . $resetLink . '">Reset Password</a></p>
+				<p>If you did not request a password reset, please disregard this email or contact our support if you have questions.</p>
+				<br>
+				<p>Thank you,</p>
+				<p>The CraftyPic Team</p>
+			</body>
+			</html>
+		';
+			
+		mail($userDatas->email, $subject, $message, $headers);
 	}
 }

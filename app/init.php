@@ -2,15 +2,15 @@
 
 // Cree le user root
 function createRoot($repository) {
-	$rootDatas = [
-		'email' => "root@outlook.fr",
-		'username' => "root",
-		'password' => password_hash("password", PASSWORD_DEFAULT),
-		'avatar' => "temp/root_avatar.svg",
-		'role' => "ADMIN",
-		'activation_token' => "",
-		'active' => true
-	];
+	$rootDatas = new stdClass();
+	$rootDatas->email = "root@outlook.fr";
+	$rootDatas->username = "root";
+	$rootDatas->password = password_hash("password", PASSWORD_DEFAULT);
+	$rootDatas->avatar = "temp/root_avatar.svg";
+	$rootDatas->role = "ADMIN";
+	$rootDatas->activation_token = "";
+	$rootDatas->active = true;
+	$rootDatas->reset_password_token = "";
 
 	$repository->createUser($rootDatas);
 }
@@ -26,6 +26,7 @@ function createUserTable($client) {
         `role` ENUM('USER','ADMIN','BAN','') NOT NULL DEFAULT 'USER' ,
         `activation_token` VARCHAR(64) NOT NULL ,
         `active` BOOLEAN NOT NULL DEFAULT 0 ,
+        `reset_password_token` VARCHAR(64) NOT NULL ,
         PRIMARY KEY (`id`),
         UNIQUE (`username`),
         UNIQUE (`email`)
@@ -66,35 +67,35 @@ function createCommentTable($client) {
 
 // Cree des users test
 function createUsersTest($repository) {
-	$usersDatas = [
-		[
-			'email' => "hello@outlook.fr",
-			'username' => "hello",
-			'password' => password_hash("password", PASSWORD_DEFAULT),
-			'avatar' => "temp/pic_example_4.jpg",
-			'role' => "USER",
-			'activation_token' => "",
-			'active' => true
-		],
-		[
-			'email' => "hola@outlook.fr",
-			'username' => "hola",
-			'password' => password_hash("password", PASSWORD_DEFAULT),
-			'avatar' => "temp/pic_example_1.jpg",
-			'role' => "USER",
-			'activation_token' => "",
-			'active' => true
-		],
-		[
-			'email' => "halo@outlook.fr",
-			'username' => "halo",
-			'password' => password_hash("password", PASSWORD_DEFAULT),
-			'avatar' => "temp/pic_example_2.jpg",
-			'role' => "USER",
-			'activation_token' => "",
-			'active' => true
-		],
-	];
+	$usersDatas[0] = new stdClass();
+	$usersDatas[0]->email = "hello@outlook.fr";
+	$usersDatas[0]->username = "hello";
+	$usersDatas[0]->password = password_hash("password", PASSWORD_DEFAULT);
+	$usersDatas[0]->avatar = "temp/pic_example_4.svg";
+	$usersDatas[0]->role = "USER";
+	$usersDatas[0]->activation_token = "";
+	$usersDatas[0]->active = true;
+	$usersDatas[0]->reset_password_token = "";
+
+	$usersDatas[1] = new stdClass();
+	$usersDatas[1]->email = "hola@outlook.fr";
+	$usersDatas[1]->username = "hola";
+	$usersDatas[1]->password = password_hash("password", PASSWORD_DEFAULT);
+	$usersDatas[1]->avatar = "temp/pic_example_1.svg";
+	$usersDatas[1]->role = "USER";
+	$usersDatas[1]->activation_token = "";
+	$usersDatas[1]->active = true;
+	$usersDatas[1]->reset_password_token = "";
+
+	$usersDatas[2] = new stdClass();
+	$usersDatas[2]->email = "halo@outlook.fr";
+	$usersDatas[2]->username = "rohaloot";
+	$usersDatas[2]->password = password_hash("password", PASSWORD_DEFAULT);
+	$usersDatas[2]->avatar = "temp/pic_example_2.svg";
+	$usersDatas[2]->role = "USER";
+	$usersDatas[2]->activation_token = "";
+	$usersDatas[2]->active = true;
+	$usersDatas[2]->reset_password_token = "";
 
 	foreach ($usersDatas as $userDatas) {
 		$repository->createUser($userDatas);

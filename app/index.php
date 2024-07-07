@@ -54,6 +54,16 @@ if (paramExist($_GET['page'])) {
 				$authController->login($_POST['login'], $_POST['password']);
 			}
 
+			// FORGOT PASSWORD
+			else if ($_GET['route'] === 'forgot-password') {
+				$authController->forgotPassword($_POST['login']);
+			}
+
+			// REINITIALIZATION
+			else if ($_GET['route'] === 'reinitialization') {
+				$authController->reinitialization($_POST['password'], $_POST['retypepassword'], $_POST['token']);
+			}
+
 			// SIGNUP
 			else if ($_GET['route'] === 'signup') {
 				$authController->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['retypepassword']);
@@ -92,8 +102,18 @@ if (paramExist($_GET['page'])) {
 
 			// LOGIN
 			else if ($_GET['route'] === 'login') {
-				$authController->getLogin(null, null);
-				http_response_code(200);
+
+				// FORGOT PASSWORD
+				if (paramExist($_GET['state'])) {
+					$authController->getLogin($_GET['state'], null);
+					http_response_code(200);
+				}
+
+				// DEFAULT
+				else {
+					$authController->getLogin(null, null);
+					http_response_code(200);
+				}
 			}
 		}
 	}
