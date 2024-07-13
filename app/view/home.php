@@ -164,7 +164,7 @@
 						<?php require ("view/assets/icons/moon.svg"); ?>
 						<p>Dark mode</p>
 					</button>
-					<button class="section">
+					<button id="settings-button" class="section">
 						<?php require ("view/assets/icons/settings.svg"); ?>
 						<p>Settings account</p>
 					</button>

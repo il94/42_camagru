@@ -5,9 +5,11 @@ require_once('config.php');
 
 require_once('controller/AuthController.php');
 require_once('controller/HomeController.php');
+require_once('controller/SettingsController.php');
 
 $authController = new AuthController();
 $homeController = new HomeController();
+$settingsController = new SettingsController();
 
 session_start();
 
@@ -114,6 +116,22 @@ if (paramExist($_GET['page'])) {
 					$authController->getLogin(null, null);
 					http_response_code(200);
 				}
+			}
+		}
+	}
+
+	// SETTINGS
+	else if ($_GET['page'] === 'settings') {
+
+		if (!$_SESSION['logged_in']) {
+			$body = require_once('view/pas_co.php');
+
+			require_once('view/layout.php');
+		}
+		else {
+			// GET
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				$settingsController->get(null, null);
 			}
 		}
 	}

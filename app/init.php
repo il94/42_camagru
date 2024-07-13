@@ -71,7 +71,7 @@ function createUsersTest($repository) {
 	$usersDatas[0]->email = "hello@outlook.fr";
 	$usersDatas[0]->username = "hello";
 	$usersDatas[0]->password = password_hash("password", PASSWORD_DEFAULT);
-	$usersDatas[0]->avatar = "temp/pic_example_4.svg";
+	$usersDatas[0]->avatar = "temp/pic_example_4.jpg";
 	$usersDatas[0]->role = "USER";
 	$usersDatas[0]->activation_token = "";
 	$usersDatas[0]->active = true;
@@ -81,7 +81,7 @@ function createUsersTest($repository) {
 	$usersDatas[1]->email = "hola@outlook.fr";
 	$usersDatas[1]->username = "hola";
 	$usersDatas[1]->password = password_hash("password", PASSWORD_DEFAULT);
-	$usersDatas[1]->avatar = "temp/pic_example_1.svg";
+	$usersDatas[1]->avatar = "temp/pic_example_1.jpg";
 	$usersDatas[1]->role = "USER";
 	$usersDatas[1]->activation_token = "";
 	$usersDatas[1]->active = true;
@@ -89,9 +89,9 @@ function createUsersTest($repository) {
 
 	$usersDatas[2] = new stdClass();
 	$usersDatas[2]->email = "halo@outlook.fr";
-	$usersDatas[2]->username = "rohaloot";
+	$usersDatas[2]->username = "halo";
 	$usersDatas[2]->password = password_hash("password", PASSWORD_DEFAULT);
-	$usersDatas[2]->avatar = "temp/pic_example_2.svg";
+	$usersDatas[2]->avatar = "temp/pic_example_2.jpg";
 	$usersDatas[2]->role = "USER";
 	$usersDatas[2]->activation_token = "";
 	$usersDatas[2]->active = true;

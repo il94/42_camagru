@@ -18,3 +18,9 @@ logoutButton.addEventListener('click', () => {
 
 	xhr.send();
 })
+
+const settingsButton = document.getElementById("settings-button");
+
+settingsButton.addEventListener('click', () => {
+	window.location.href = "index.php?page=settings";
+})
