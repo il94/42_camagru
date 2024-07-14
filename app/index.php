@@ -131,7 +131,17 @@ if (paramExist($_GET['page'])) {
 		else {
 			// GET
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-				$settingsController->get(null, null);
+
+				// STATE
+				if (paramExist($_GET['state'])) {
+					$settingsController->get($_GET['state'], null);
+					http_response_code(200);
+				}
+				
+				// DEFAULT
+				else {
+					$settingsController->get(null, null);
+				}
 			}
 		}
 	}
