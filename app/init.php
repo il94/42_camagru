@@ -6,7 +6,7 @@ function createRoot($repository) {
 	$rootDatas->username = "root";
 	$rootDatas->email = "root@outlook.fr";
 	$rootDatas->password = password_hash("password", PASSWORD_DEFAULT);
-	$rootDatas->avatar = "temp/root_avatar.svg";
+	$rootDatas->avatar = DEFAULT_AVATAR;
 	$rootDatas->role = "ADMIN";
 	$rootDatas->notification_like = true;
 	$rootDatas->notification_comment = true;
