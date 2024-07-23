@@ -4,11 +4,23 @@ returnHomeButton?.addEventListener('click', () => {
 	window.location.href = "index.php?page=home";
 })
 
-const returnSettingsButton = document.getElementById("return-settings");
+// Permet aux boutons "login" de rediriger vers la page de connexion
+const returnSettingsButtons = document.getElementsByClassName("settings-redirection-button");
 
-returnSettingsButton?.addEventListener('click', () => {
-	window.location.href = "index.php?page=settings";
-})
+for (const button of returnSettingsButtons) {
+	button.addEventListener('click', () => {
+		window.location.href = "/?page=settings";
+	});
+}
+
+// Permet aux boutons "login" de rediriger vers la page de connexion
+const loginRedirectionButtons = document.getElementsByClassName("login-redirection-button");
+
+for (const button of loginRedirectionButtons) {
+	button.addEventListener('click', () => {
+		window.location.href = "/?page=auth&route=login";
+	});
+}
 
 const sections = document.getElementsByClassName("window-section");
 
@@ -16,4 +28,181 @@ for (const section of sections) {
 	section.addEventListener('click', () => {
 		window.location.href = `index.php?page=settings&state=${section.id.split('-')[0]}`;
 	})
+}
+
+const form = document.getElementsByClassName("window-form")[0];
+
+if (form) {
+
+	// Inputs du formlaire
+	const inputs = form.querySelectorAll(".window-input");
+
+	// Message d'erreur du formulaire
+	const formErrorMessage = form.querySelector(".window-error-message");
+
+	// Retire l'indication d'erreur apres une nouvelle entree
+	for (const input of inputs) {
+		input.addEventListener('keydown', () => {
+			input.classList.remove("window-input-error");
+			formErrorMessage.textContent = '';
+		})
+	}
+
+	switch (form.id) {
+		case "form-username" :
+		case "form-email" : {
+			form.addEventListener('submit', (event) => {
+				event.preventDefault();
+
+				// Valeurs de l'input
+				const value = form.querySelector(`#${form.name}-value`).value;
+
+				const xhr = new XMLHttpRequest();
+				xhr.open('POST', `index.php?page=auth&route=update`, true);
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+				xhr.onreadystatechange = () => {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 200) {
+							if (form.name === "username")
+								window.location.href = `index.php?page=settings&state=updated&data=${form.name}`;
+							else
+								window.location.href = `index.php?page=settings&state=update_start&email=${encodeURIComponent(value)}`;
+						}
+						else {
+							const response = JSON.parse(xhr.responseText);
+							if (response.field === "USERNAME" || response.field === "EMAIL") {
+								inputs[0].classList.add("window-input-error");
+							}
+	
+							formErrorMessage.textContent = response.message;
+						}
+					}
+				}
+	
+				const postData = `${form.name}=${encodeURIComponent(value)}`;
+				xhr.send(postData);	
+			})
+
+			break ;
+		}
+
+		case "form-password" : {
+			form.addEventListener('submit', (event) => {
+				event.preventDefault();
+
+				// Valeurs des inputs
+				const currentPasswordValue = form.querySelector("#current-password-value").value;
+				const newPasswordValue = form.querySelector("#new-password-value").value;
+				const retypeNewPasswordValue = form.querySelector("#re-type-new-password-value").value;
+
+				const xhr = new XMLHttpRequest();
+				xhr.open('POST', `index.php?page=auth&route=update`, true);
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			
+				xhr.onreadystatechange = () => {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 200) {
+							window.location.href = `index.php?page=settings&state=updated&data=password`;
+						}
+						else {
+							const response = JSON.parse(xhr.responseText);
+
+							if (response.field === "PASSWORD") {
+								inputs[0].classList.add("window-input-error");
+							}
+							else if (response.field === "NEW_PASSWORD") {
+								inputs[1].classList.add("window-input-error");
+							}
+							else if (response.field === "RETYPE_PASSWORD") {
+								inputs[2].classList.add("window-input-error");
+							}
+
+							formErrorMessage.textContent = response.message;
+						}
+					}
+				}
+
+				const postData = `currentpassword=${encodeURIComponent(currentPasswordValue)}&newpassword=${encodeURIComponent(newPasswordValue)}&retypenewpassword=${encodeURIComponent(retypeNewPasswordValue)}`;
+				xhr.send(postData);
+			})
+
+			break ;
+		}
+
+		case "form-avatar" : {
+			const fileInput = form.querySelector(`#file-input`);
+			const avatarField = document.getElementById('avatar-field');
+
+			fileInput.addEventListener('change', (event) => {
+				const file = event.target.files[0];
+
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = function(e) {
+						avatarField.src = e.target.result;
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+
+			form.addEventListener('submit', (event) => {
+				event.preventDefault();
+
+				const file = fileInput.files[0];
+
+				if (!file) {
+					formErrorMessage.textContent = 'Please select a file.';
+					return;
+				}
+
+				const xhr = new XMLHttpRequest();
+				xhr.open('POST', `index.php?page=auth&route=update`, true);
+				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+				xhr.onreadystatechange = () => {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 200) {
+							window.location.href = `index.php?page=settings&state=updated&data=avatar`;
+						}
+						else {
+							const response = JSON.parse(xhr.responseText);
+
+							formErrorMessage.textContent = response.message
+						}
+					}
+				};
+
+				const formData = new FormData();
+				formData.append('avatar', file);
+				xhr.send(formData);
+			})
+
+			break ;
+		}
+
+		case "form-notifications" : {
+			function sendRequest(paramName, paramValue) {
+				const xhr = new XMLHttpRequest();
+				xhr.open('POST', `index.php?page=auth&route=update`, true);
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				
+				xhr.send(`${paramName}=${paramValue}`);
+			}
+			
+			const notificationLikeInput = document.getElementById('notification-like-input');
+			const notificationLikeComment = document.getElementById('notification-like-comment');
+
+			notificationLikeInput.addEventListener('change', () => {
+				sendRequest('notification_like', notificationLikeInput.checked ? 1 : 0);
+
+			});
+
+			notificationLikeComment.addEventListener('change', () => {
+				sendRequest('notification_comment', notificationLikeComment.checked ? 1 : 0);
+			});
+
+			break ;
+		}
+	}
 }

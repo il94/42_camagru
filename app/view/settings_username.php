@@ -1,9 +1,9 @@
 <div id="settings">
 
 	<div class="window">
-		<form class="window-form">
+		<form id="form-username" name="username" class="window-form">
 
-			<button id="return-settings" class="button-icon window-return-button" type="button">
+			<button class="button-icon window-return-button settings-redirection-button" type="button">
 				<?php require ("view/assets/icons/return.svg"); ?>
 			</button>
 
@@ -12,7 +12,7 @@
 			<div id="username-field" class="window-field">
 				<div class="window-input">
 					<span class="window-input-placeholder">Username</span>
-					<input id="username-value" class="window-input-text" type="text"></input>
+					<input id="username-value" class="window-input-text" value="<?php echo $user->username; ?>" type="text"></input>
 				</div>
 			</div>
 

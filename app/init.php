@@ -3,14 +3,17 @@
 // Cree le user root
 function createRoot($repository) {
 	$rootDatas = new stdClass();
-	$rootDatas->email = "root@outlook.fr";
 	$rootDatas->username = "root";
+	$rootDatas->email = "root@outlook.fr";
 	$rootDatas->password = password_hash("password", PASSWORD_DEFAULT);
 	$rootDatas->avatar = "temp/root_avatar.svg";
 	$rootDatas->role = "ADMIN";
+	$rootDatas->notification_like = true;
+	$rootDatas->notification_comment = true;
 	$rootDatas->activation_token = "";
 	$rootDatas->active = true;
 	$rootDatas->reset_password_token = "";
+	$rootDatas->update_email_token = "";
 
 	$repository->createUser($rootDatas);
 }
@@ -24,9 +27,12 @@ function createUserTable($client) {
         `password` VARCHAR(128) NOT NULL ,
         `avatar` VARCHAR(128) NOT NULL ,
         `role` ENUM('USER','ADMIN','BAN','') NOT NULL DEFAULT 'USER' ,
-        `activation_token` VARCHAR(64) NOT NULL ,
-        `active` BOOLEAN NOT NULL DEFAULT 0 ,
+		`notification_like` TINYINT(1) NOT NULL DEFAULT FALSE ,
+        `notification_comment` TINYINT(1) NOT NULL DEFAULT FALSE ,
+	    `activation_token` VARCHAR(64) NOT NULL ,
+        `active` TINYINT(1) NOT NULL DEFAULT FALSE ,
         `reset_password_token` VARCHAR(64) NOT NULL ,
+        `update_email_token` VARCHAR(64) NOT NULL ,
         PRIMARY KEY (`id`),
         UNIQUE (`username`),
         UNIQUE (`email`)
@@ -73,9 +79,12 @@ function createUsersTest($repository) {
 	$usersDatas[0]->password = password_hash("password", PASSWORD_DEFAULT);
 	$usersDatas[0]->avatar = "temp/pic_example_4.jpg";
 	$usersDatas[0]->role = "USER";
+	$usersDatas[0]->notification_like = true;
+	$usersDatas[0]->notification_comment = true;
 	$usersDatas[0]->activation_token = "";
 	$usersDatas[0]->active = true;
 	$usersDatas[0]->reset_password_token = "";
+	$usersDatas[0]->update_email_token = "";
 
 	$usersDatas[1] = new stdClass();
 	$usersDatas[1]->email = "hola@outlook.fr";
@@ -83,9 +92,12 @@ function createUsersTest($repository) {
 	$usersDatas[1]->password = password_hash("password", PASSWORD_DEFAULT);
 	$usersDatas[1]->avatar = "temp/pic_example_1.jpg";
 	$usersDatas[1]->role = "USER";
+	$usersDatas[1]->notification_like = true;
+	$usersDatas[1]->notification_comment = true;
 	$usersDatas[1]->activation_token = "";
 	$usersDatas[1]->active = true;
 	$usersDatas[1]->reset_password_token = "";
+	$usersDatas[1]->update_email_token = "";
 
 	$usersDatas[2] = new stdClass();
 	$usersDatas[2]->email = "halo@outlook.fr";
@@ -93,9 +105,12 @@ function createUsersTest($repository) {
 	$usersDatas[2]->password = password_hash("password", PASSWORD_DEFAULT);
 	$usersDatas[2]->avatar = "temp/pic_example_2.jpg";
 	$usersDatas[2]->role = "USER";
+	$usersDatas[2]->notification_like = true;
+	$usersDatas[2]->notification_comment = true;
 	$usersDatas[2]->activation_token = "";
 	$usersDatas[2]->active = true;
 	$usersDatas[2]->reset_password_token = "";
+	$usersDatas[2]->update_email_token = "";
 
 	foreach ($usersDatas as $userDatas) {
 		$repository->createUser($userDatas);

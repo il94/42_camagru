@@ -58,8 +58,6 @@ if (form) {
 		// Formulaire de recuperation de password
 		else if (form.id === "form-forgot-password") {
 
-			console.log("HERE")
-
 			// Valeurs des inputs
 			const loginValue = form.querySelector("#login-value").value;
 
@@ -95,8 +93,6 @@ if (form) {
 			const passwordValue = form.querySelector("#password-value").value;
 			const retypePasswordValue = form.querySelector("#re-type-password-value").value;
 
-			console.log(passwordValue)
-			console.log(retypePasswordValue)
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', `index.php?page=auth&route=reinitialization`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -104,7 +100,6 @@ if (form) {
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						console.log("HERE")
 						window.location.href = `index.php?page=auth&route=login&state=reinitialized`;
 					}
 					else {

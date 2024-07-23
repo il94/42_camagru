@@ -13,7 +13,9 @@ class AuthService {
 	const USERNAME_ERROR = "USERNAME";
 	const EMAIL_ERROR = "EMAIL";
 	const PASSWORD_ERROR = "PASSWORD";
+	const NEW_PASSWORD_ERROR = "NEW_PASSWORD";
 	const RETYPE_PASSWORD_ERROR = "RETYPE_PASSWORD";
+	const AVATAR_ERROR = "AVATAR";
 
 	public function __construct() {
 		$this->repository = new AuthRepository();
@@ -36,7 +38,7 @@ class AuthService {
 		else if (!$userDatas->active)
 			throw new HttpException("You have to activate your account", 403, self::PASSWORD_ERROR);
 
-		$_SESSION['logged_in'] = true;
+		$_SESSION['logged_in'] = $userDatas->id;
 	}
 
 	// Envoie un mail de recuperation de mot de passe
@@ -85,13 +87,102 @@ class AuthService {
 		$userDatas->password = password_hash($password, PASSWORD_DEFAULT);
 		$userDatas->avatar = DEFAULT_AVATAR;
 		$userDatas->role = DEFAULT_ROLE;
+		$userDatas->notification_like = true;
+		$userDatas->notification_comment = true;
 		$userDatas->activation_token = $this->getRandomToken();
 		$userDatas->active = false;
 		$userDatas->reset_password_token = $this->getRandomToken();
+		$userDatas->update_email_token = '';
 
 		$this->repository->createUser($userDatas);
 		
 		$this->sendConfirmationEmail($userDatas);
+	}
+
+	// Update un user
+	public function update($userId, $datas, $files) {
+
+		$user = $this->repository->findUserById($userId);
+
+		if (!$user)
+			throw new HttpException("User not found", 404, '');
+
+		$userDatas = new stdClass();
+		$userDatas->id = $userId;
+
+		if (array_key_exists('email', $datas)) {
+			
+			$this->parseEmail($datas['email']);
+			$userDatas->email = $datas['email'];
+			$userDatas->username = $user->username;
+			$userDatas->update_email_token = $this->getEmailToken($datas['email']);
+
+			$this->repository->updateUserUpdateEmailToken($userDatas);
+			$this->sendUpdateEmailEmail($userDatas);
+		}
+		else if (array_key_exists('username', $datas)) {
+
+			$userFound = !!$this->repository->findUserByUsername($datas['username']);
+			if ($userFound)
+				throw new HttpException("Username already taken", 403, self::USERNAME_ERROR);
+	
+			$this->parseUsername($datas['username']);
+			$userDatas->username = $datas['username'];
+			$this->repository->updateUserUsername($userDatas);
+		}
+		else if (array_key_exists('currentpassword', $datas)) {
+
+			if (!password_verify($datas['currentpassword'], $user->password))
+				throw new HttpException("Incorrect password", 403, $this::PASSWORD_ERROR);
+
+			try {
+				$this->parsePassword($datas['newpassword'], $datas['retypenewpassword']);
+			}
+			catch (HttpException $error) {
+				if ($error->getField() === $this::PASSWORD_ERROR)
+					throw new HttpException($error->getMessage(), 422, $this::NEW_PASSWORD_ERROR);
+				throw $error;
+			}
+
+			$userDatas->password = password_hash($datas['newpassword'], PASSWORD_DEFAULT);
+			$this->repository->updateUserPassword($userDatas);
+		}
+		else if (array_key_exists('avatar', $files)) {
+
+			$avatarPath = saveImage();
+			if (!$avatarPath)
+				throw new HttpException("Invalid avatar", 403, self::AVATAR_ERROR);
+
+			$userDatas->avatar = $avatarPath;
+			$this->repository->updateUserAvatar($userDatas);
+		}
+		else if (array_key_exists('notification_like', $datas)) {
+
+			$this->parseNotif($datas['notification_like']);
+			$userDatas->notification_like = $datas['notification_like'];
+			$this->repository->updateUserNotificationLike($userDatas);
+		}
+		else if (array_key_exists('notification_comment', $datas)) {
+
+			$this->parseNotif($datas['notification_comment']);
+			$userDatas->notification_comment = $datas['notification_comment'];
+			$this->repository->updateUserNotificationComment($userDatas);
+		}
+	}
+
+	// Update l'email du user
+	public function updateEmail($email, $token) {
+		$userFound = $this->repository->findUserByUpdateEmailToken($token);
+		if (!$userFound || $this->getEmailToken($email) !== $token)
+			throw new HttpException("User not found", 404, '');
+
+		$userDatas = new stdClass();
+		$userDatas->id = $userFound->id;
+		$userDatas->email = $email;
+		$userDatas->update_email_token = '';
+
+		$this->repository->updateUserEmail($userDatas);
+		$this->repository->updateUserUpdateEmailToken($userDatas);
 	}
 
 	// Active un compte
@@ -112,16 +203,21 @@ class AuthService {
 		session_destroy();
 	}
 
+	// Retourne le user authentifie
+	public function getUserAuth($userId) {
+		return $this->repository->findUserByIdSecure($userId);
+	}
+
 	/* ==================== UTILS ==================== */
 
 	// Verifie si la string est un email valide
-	private function parseLogin($login) {
+	public function parseLogin($login) {
 		if (empty($login))
 			throw new HttpException("Email or username is required", 400, self::LOGIN_ERROR);
 	}
 
 	// Verifie si la string est un email valide
-	private function parseEmail($email) {
+	public function parseEmail($email) {
 		if (empty($email))
 			throw new HttpException("Email is required", 400, self::EMAIL_ERROR);
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -129,7 +225,7 @@ class AuthService {
 	}
 
 	// Verifie si la string est un username valide
-	private function parseUsername($username) {
+	public function parseUsername($username) {
 		if (empty($username))
 			throw new HttpException("Username is required", 400, self::USERNAME_ERROR);
 		if (strlen($username) > self::MAX_USERNAMENAME_LENGTH)
@@ -137,7 +233,7 @@ class AuthService {
 	}
 
 	// Verifie si la string est un password valide
-	private function parsePassword($password, $reTypePassword) {
+	public function parsePassword($password, $reTypePassword) {
 		if (empty($password))
 			throw new HttpException("Password is required", 400, self::PASSWORD_ERROR);
 		if (strlen($password) < self::MIN_PASSWORD_LENGTH)
@@ -153,13 +249,24 @@ class AuthService {
 		}
 	}
 
+	// Verifie si la string est un booleen
+	public function parseNotif($notif) {
+		if ($notif !== '0' && $notif !== '1')
+			throw new HttpException("Bool is required", 400, '');
+	}
+
+    // Retourne un token basé sur un email
+    public function getEmailToken(string $email): string {
+        return hash("sha256", $email);
+    }
+
 	// Retourne un token aléatoire
-	private function getRandomToken(): string {
+	public function getRandomToken(): string {
 		return hash("sha256", bin2hex(random_bytes(16)));
 	}
 
 	// Envoie un email de confirmation de création de compte
-	private function sendConfirmationEmail($userDatas) {
+	public function sendConfirmationEmail($userDatas) {
 		$headers = "From: noreply@craftypic.com\r\n";
 		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 		$subject = 'Confirmation of your CraftyPic account';
@@ -190,7 +297,7 @@ class AuthService {
 	}
 
 	// Envoie un email de recuperation de mot de passe
-	private function sendResetPasswordEmail($userDatas) {
+	public function sendResetPasswordEmail($userDatas) {
 		$headers = "From: noreply@craftypic.com\r\n";
 		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 		$subject = 'Reset your CraftyPic password';
@@ -215,4 +322,32 @@ class AuthService {
 			
 		mail($userDatas->email, $subject, $message, $headers);
 	}
+
+	// Envoie un email de confirmation de création de compte
+	public function sendUpdateEmailEmail($userDatas) {
+		$headers = "From: noreply@craftypic.com\r\n";
+		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+		$subject = 'Confirm your new email address for CraftyPic';
+		$updateLink = 'http://localhost:8080/index.php?page=settings&email=' . urlencode($userDatas->email) . '&token=' . urlencode($userDatas->update_email_token);
+		$message = '
+			<html>
+			<head>
+				<title>Confirm your new email address</title>
+			</head>
+			<body>
+				<p>Dear ' . htmlspecialchars($userDatas->username) . ',</p>
+				<p>You recently requested to update the email address associated with your CraftyPic account.</p>
+				<p>To confirm your new email address (' . htmlspecialchars($userDatas->email) . '), please click the link below:</p>
+				<p><a href="' . $updateLink . '">Confirm Email Address</a></p>
+				<p>If you did not request this change, please ignore this email or contact our support team.</p>
+				<br>
+				<p>Thank you,</p>
+				<p>The CraftyPic Team</p>
+			</body>
+			</html>
+		';
+		
+		mail($userDatas->email, $subject, $message, $headers);
+	}
+
 }

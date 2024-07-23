@@ -1,18 +1,18 @@
 <div id="settings">
 
 	<div class="window">
-		<form class="window-form">
+		<form id="form-email" name="email" class="window-form">
 
-			<button id="return-settings" class="button-icon window-return-button" type="button">
+			<button class="button-icon window-return-button settings-redirection-button" type="button">
 				<?php require ("view/assets/icons/return.svg"); ?>
 			</button>
 
 			<p class="window-title">Change email</p>
 
-			<div id="username-field" class="window-field">
+			<div id="email-field" class="window-field">
 				<div class="window-input">
 					<span class="window-input-placeholder">Email</span>
-					<input id="username-value" class="window-input-text" type="text"></input>
+					<input id="email-value" class="window-input-text" value="<?php echo $user->email; ?>" type="text"></input>
 				</div>
 			</div>
 

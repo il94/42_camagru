@@ -10,7 +10,7 @@
 			<?php require ("view/assets/icons/notification.svg"); ?>
 		</button>
 		<button id="profile-button" class="button-icon selectable">
-			<?php require ("view/assets/icons/profile.svg"); ?>
+			<img src="<?php echo $user->avatar; ?>"/>
 		</button>
 	</div>
 </div>

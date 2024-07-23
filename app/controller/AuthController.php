@@ -74,6 +74,22 @@ class AuthController
 		}
 	}
 
+	public function update($userId, $datas, $files) {
+		try {
+			$this->service->update($userId, $datas, $files);
+			http_response_code(200);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
+
 	public function activateAccount($token) {
 		try {
 			$this->service->activateAccount($token);

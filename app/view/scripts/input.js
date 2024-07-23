@@ -7,6 +7,9 @@ for (const input of inputs) {
 	// Deplacments du placeholder
 	const placeHolder = input.querySelector(".window-input-placeholder");
 
+	if (inputText.value)
+		placeHolder.classList.add("window-input-reduce");
+	
 	// Reduit le placeholder au clic sur la zone de texte
 	inputText.addEventListener('focus', () => {
 		if (!placeHolder.classList.contains(".window-input-reduce"))

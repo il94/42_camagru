@@ -2,9 +2,11 @@
 
 class HomeService {
 	public HomeRepository $repository;
+	public AuthService $authService;
 
 	public function __construct() {
 		$this->repository = new HomeRepository();
+		$this->authService = new AuthService();
 	}
 
 	public function createComment($userId, $picId, $content) {

@@ -71,6 +71,10 @@ if (paramExist($_GET['page'])) {
 				$authController->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['retypepassword']);
 			}
 
+			else if ($_GET['route'] === 'update') {
+				$authController->update($_SESSION['logged_in'], $_POST, $_FILES);
+			}
+
 			// LOGOUT
 			else if ($_GET['route'] === 'logout') {
 				$authController->logout();
@@ -129,6 +133,7 @@ if (paramExist($_GET['page'])) {
 			require_once('view/layout.php');
 		}
 		else {
+
 			// GET
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -137,12 +142,26 @@ if (paramExist($_GET['page'])) {
 					$settingsController->get($_GET['state'], null);
 					http_response_code(200);
 				}
-				
+
+				// UPDATE
+				else if (paramExist($_GET['token'])) {
+
+					// echo "LOL";
+					$settingsController->updateEmail($_GET['email'], $_GET['token']);
+					http_response_code(200);
+				}
+
+				// UPDATED
+				else if ($_GET['route'] === 'updated') {
+					$settingsController->get(null, null);
+				}
+
 				// DEFAULT
 				else {
 					$settingsController->get(null, null);
 				}
 			}
+
 		}
 	}
 
@@ -155,7 +174,7 @@ if (paramExist($_GET['page'])) {
 }
 
 else {
-	initApp(); // A appeller lors du premier lancement du programme
+	// initApp(); // A appeller lors du premier lancement du programme
 
 	$authController->getLogin(null, null);
 }

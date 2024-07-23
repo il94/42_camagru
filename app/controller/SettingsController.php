@@ -13,9 +13,22 @@ class SettingsController {
 	public function get($state, $id) {
 
 		$headers = require_once("view/layouts/settings_assets.php");
+		$user = $this->service->authService->getUserAuth($_SESSION['logged_in']);
+		$updated = null;
 
 		if ($state) {
-			if ($state === "username")
+			if ($state === "updated") {
+				$updated = require_once('view/assets/updated_window.php');
+				$body = require_once('view/settings.php');
+			}
+			else if ($state === "updatedEmail") {
+				$email = true;
+				$updated = require_once('view/assets/updated_window.php');
+				$body = require_once('view/settings.php');
+			}
+			else if ($state === "update_start")
+				$body = require_once('view/settings_update_start.php');
+			else if ($state === "username")
 				$body = require_once('view/settings_username.php');
 			else if ($state === "avatar")
 				$body = require_once('view/settings_avatar.php');
@@ -34,4 +47,22 @@ class SettingsController {
 
 		require_once('view/layout.php');
 	}
+
+	public function updateEmail($email, $token) {
+		try {
+			$this->service->authService->updateEmail($email, $token);
+			$this->get("updatedEmail", null);
+			http_response_code(200);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
+
 }

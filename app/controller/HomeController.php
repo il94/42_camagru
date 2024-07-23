@@ -10,14 +10,19 @@ class HomeController {
 		$this->service = new HomeService();
 	}
 
+	public function postComment($userId, $picId, $content) {
+		$this->service->createComment($userId, $picId, $content);
+	}
+
 	public function get($route, $id) {
+
+		$user = $this->service->authService->getUserAuth($_SESSION['logged_in']);
 
 		if ($route && $id) {
 			echo "temp";
 		}
 		else {
 			$createButton = getRandomCreateButton();
-			
 			$pics = $this->service->getLastFivePics();
 
 			$headers = require_once("view/layouts/home_assets.php");
@@ -26,9 +31,5 @@ class HomeController {
 
 			require_once('view/layout.php');
 		}
-	}
-
-	public function postComment($userId, $picId, $content) {
-		$this->service->createComment($userId, $picId, $content);
 	}
 }

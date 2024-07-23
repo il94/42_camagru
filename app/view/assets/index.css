@@ -70,3 +70,7 @@ a {
 a:hover {
 	color: var(--text-hover);
 }
+
+#file-input {
+	display: none;
+}

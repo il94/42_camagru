@@ -1,9 +1,9 @@
 <div id="settings">
 
 	<div class="window">
-		<form class="window-form">
+		<form id="form-password" class="window-form">
 
-			<button id="return-settings" class="button-icon window-return-button" type="button">
+			<button class="button-icon window-return-button settings-redirection-button" type="button">
 				<?php require ("view/assets/icons/return.svg"); ?>
 			</button>
 
@@ -21,20 +21,20 @@
 				<a href="/?page=auth&route=login&state=forgot-password" class="window-input-link">Forgot your password ?</a>
 			</div>
 
-			<div id="password-field" class="window-field">
-				<div id="password-window-input" class="window-input">
+			<div id="new-password-field" class="window-field">
+				<div class="window-input">
 					<span class="window-input-placeholder">New password</span>
-					<input id="password-value" class="window-input-text" type="password"></input>
+					<input id="new-password-value" class="window-input-text" type="password"></input>
 					<button class="show-button button-icon" type="button">
 						<?php require ("view/assets/icons/show.svg"); ?>
 						<?php require ("view/assets/icons/hidden.svg"); ?>
 					</button>
 				</div>
 			</div>
-			<div id="re-type-password-field" class="window-field">
-				<div id="re-type-password-window-input" class="window-input">
+			<div id="re-type-new-password-field" class="window-field">
+				<div class="window-input">
 					<span class="window-input-placeholder">Re-type new password</span>
-					<input id="re-type-password-value" class="window-input-text" type="password"></input>
+					<input id="re-type-new-password-value" class="window-input-text" type="password"></input>
 					<button class="show-button button-icon" type="button">
 						<?php require ("view/assets/icons/show.svg"); ?>
 						<?php require ("view/assets/icons/hidden.svg"); ?>

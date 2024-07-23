@@ -1,5 +1,7 @@
 <div id="settings">
 
+	<?php $updated; ?>
+
 	<div class="window">
 
 		<button id="return-home" class="button-icon window-return-button">

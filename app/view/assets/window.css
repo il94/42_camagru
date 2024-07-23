@@ -80,8 +80,9 @@
 
 	border-radius: 50%;
 	border: 10px solid var(--window-avatar-field-border);
-
 	box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+
+	cursor: pointer;
 }
 
 .window-input {
@@ -178,6 +179,9 @@
 }
 .window-message:is(:has(+ .window-field)) {
 	margin-bottom: 19px;
+}
+.window-message:is(:only-child) {
+	margin: auto;
 }
 
 .window-error-message {
