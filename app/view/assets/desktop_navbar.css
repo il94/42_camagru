@@ -30,8 +30,14 @@
 
 	margin-right: 16px;
 
-	width: 160px;
+	/* width: 160px; */
 }
 #desktop-navbar-icons > button {
 	height: 46px;
+}
+#desktop-navbar-icons > button:not(:first-child) {
+	margin-left: 6px;
+}
+#desktop-navbar-icons > button:not(:last-child) {
+	margin-right: 6px;
 }

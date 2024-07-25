@@ -76,12 +76,18 @@
 
 	margin-right: 19px;
 
-	width: 83px;
+	/* width: 83px; */
 	height: 100%;
 }
 .pic-header-icons > button {
 	height: 32px;
 	aspect-ratio: 29/35;
+}
+.pic-header-icons > button:not(:first-child) {
+	margin-left: 7px;
+}
+.pic-header-icons > button:not(:last-child) {
+	margin-right: 7px;
 }
 
 .pic-body-recto {

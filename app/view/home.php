@@ -3,12 +3,12 @@
 <div class="desktop-navbar">
 	<button class="logo">CraftyPic</button>
 	<div id="desktop-navbar-icons">
-		<button id="loop-button" class="button-icon selectable">
+		<!-- <button id="loop-button" class="button-icon selectable">
 			<?php require ("view/assets/icons/loop.svg"); ?>
 		</button>
 		<button id="notification-button" class="button-icon selectable">
 			<?php require ("view/assets/icons/notification.svg"); ?>
-		</button>
+		</button> -->
 		<button id="profile-button" class="button-icon selectable">
 			<?php
 				if (endsWith($user->avatar, '.svg'))
@@ -56,9 +56,9 @@
 							<p><?php echo $pic->user->username; ?></p>
 						</div>
 						<div class="pic-header-icons">
-							<button class="button-icon selectable">
+							<!-- <button class="button-icon selectable">
 								<?php require ("view/assets/icons/trash.svg"); ?>
-							</button>
+							</button> -->
 							<button class="button-icon more">
 								<?php require ("view/assets/icons/more.svg"); ?>
 							</button>
@@ -85,9 +85,9 @@
 							<p><?php echo $pic->commentsCount; ?> comments</p>
 						</div>
 						<div class="pic-header-icons">
-							<button class="button-icon selectable">
+							<!-- <button class="button-icon selectable">
 								<?php require ("view/assets/icons/trash.svg"); ?>
-							</button>
+							</button> -->
 							<button class="button-icon more">
 								<?php require ("view/assets/icons/more.svg"); ?>
 							</button>
@@ -140,19 +140,19 @@
 
 		<!-- SEARCH POPUP -->
 
-		<div id="search-popup">
+		<!-- <div id="search-popup">
 			<input id="search-popup-input" type="text" placeholder="Search a user...">
-			<div class="search-results">
+			<div class="search-results"> -->
 
 				<!-- SEARCH RESULT -->
 
-				<div class="search-result">
+				<!-- <div class="search-result">
 					<img src="temp/pic_example_2.jpg">
 					<p>Lorem ipsum</p>
 				</div>
 
 			</div>
-		</div>
+		</div> -->
 
 
 		<!-- ANGLE POPUP -->
@@ -161,10 +161,10 @@
 			<div id="angle-popup-profile">
 				<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
 				<div id="angle-popup-content">
-					<button class="section">
+					<!-- <button class="section">
 						<?php require ("view/assets/icons/gallery.svg"); ?>
 						<p>Your pics</p>
-					</button>
+					</button> -->
 					<!-- <button class="section">
 						<?php require ("view/assets/icons/moon.svg"); ?>
 						<p>Dark mode</p>
@@ -179,7 +179,7 @@
 					</button>
 				</div>
 			</div>
-			<div id="angle-popup-notification">
+			<!-- <div id="angle-popup-notification">
 				<p id="angle-popup-title">Notifications</p>
 				<div id="angle-popup-content">
 				<div class="notification">
@@ -191,7 +191,7 @@
 					<img src="temp/pic_example_3.jpg">
 					<p>Lorem ipsum commented your pic : “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”.</p>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>
@@ -202,15 +202,15 @@
 	<button class="button-icon selectable">
 		<?php require ("view/assets/icons/home.svg"); ?>
 	</button>
-	<button id="loop-button" class="button-icon selectable">
+	<!-- <button id="loop-button" class="button-icon selectable">
 		<?php require ("view/assets/icons/loop.svg"); ?>
-	</button>
+	</button> -->
 	<button class="button-icon selectable">
 		<?php require ("view/assets/icons/add.svg"); ?>
 	</button>
-	<button class="button-icon selectable">
+	<!-- <button class="button-icon selectable">
 		<?php require ("view/assets/icons/notification.svg"); ?>
-	</button>
+	</button> -->
 	<button class="button-icon selectable">
 		<?php require ("view/assets/icons/profile.svg"); ?>
 	</button>
