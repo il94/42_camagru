@@ -32,11 +32,11 @@ function paramExist($param) {
 	return (isset($param) && $param);
 }
 
-function saveImage() {
-	$imageName = urlencode(basename($_FILES['avatar']['name']));
+function saveImage($imageType) {
+	$imageName = urlencode(basename($_FILES[$imageType]['name']));
 	$imagePath = UPLOAD_RELATIVE_PATH . $imageName;
 
-	if (move_uploaded_file($_FILES['avatar']['tmp_name'], UPLOAD_ABSOLUTE_PATH . $imageName))
+	if (move_uploaded_file($_FILES[$imageType]['tmp_name'], UPLOAD_ABSOLUTE_PATH . $imageName))
 		return ($imagePath);
 	return (false);
 }

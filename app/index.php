@@ -5,10 +5,12 @@ require_once('config.php');
 
 require_once('controller/AuthController.php');
 require_once('controller/HomeController.php');
+require_once('controller/CreateController.php');
 require_once('controller/SettingsController.php');
 
 $authController = new AuthController();
 $homeController = new HomeController();
+$createController = new CreateController();
 $settingsController = new SettingsController();
 
 session_start();
@@ -30,10 +32,8 @@ if (paramExist($_GET['page'])) {
 
 				// COMMENT
 				if ($_GET['route'] === 'comment') {
-					if (isset($_GET['picId']) && $_GET['picId']) {
-						$homeController->postComment(1, $_GET['picId'], $_POST['comment']);
-						http_response_code(201);
-					}
+					$homeController->postComment($_SESSION['logged_in'], $_POST['picId'], $_POST['comment']);
+					http_response_code(201);
 				}
 			}
 
@@ -43,6 +43,28 @@ if (paramExist($_GET['page'])) {
 			}
 		}
 
+	}
+
+	// CREATE
+	else if ($_GET['page'] === 'create') {
+
+		if (!$_SESSION['logged_in']) {
+			$body = require_once('view/pas_co.php');
+
+			require_once('view/layout.php');
+		}
+		else {
+
+			// POST
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				$createController->createPic($_SESSION['logged_in'], $_FILES);
+			}
+
+			// GET
+			else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				$createController->get(null, null);
+			}
+		}
 	}
 
 	// AUTH

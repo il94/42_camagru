@@ -1,3 +1,13 @@
+/* CREATE BUTTON */
+
+const createbutton = document.getElementsByClassName("create-button")[0];
+
+createbutton.addEventListener('click', () => {
+	window.location.href = "index.php?page=create";
+})
+
+/* ANGLE POPUP */
+
 const logoutButton = document.getElementById("logout-button");
 
 logoutButton.addEventListener('click', () => {

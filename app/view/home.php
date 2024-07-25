@@ -35,9 +35,9 @@
 				<button id="feed-header-button-foryou" class="feed-header-button">
 					For you
 				</button>
-				<button id="feed-header-button-following" class="feed-header-button">
+				<!-- <button id="feed-header-button-following" class="feed-header-button">
 					Following
-				</button>
+				</button> -->
 			</div>
 		</div>
 
@@ -111,7 +111,7 @@
 					<div class="pic-footer-verso">
 						<div class="pic-input">
 							<span class="placeholder">Do you like this pic ? Let us know !</span>
-							<textarea class="pic-input-text"></textarea>
+							<textarea class="pic-input-text" username="<?php echo $user->username; ?>" avatar="<?php echo $user->avatar; ?>"></textarea>
 							<button class="arrow-up-button button-icon" type="submit">
 								<?php require ("view/assets/icons/arrow_up.svg"); ?>
 							</button>
@@ -124,19 +124,19 @@
 
 		<!-- FOLLOWING LIST -->
 
-		<div class="following-list">
+		<!-- <div class="following-list">
 			<p class="following-list-title">Following</p>
-			<div class="following-list-list">
+			<div class="following-list-list"> -->
 
 				<!-- FOLLOW -->
 
-				<button class="follow">
+				<!-- <button class="follow">
 					<img src="temp/pic_example_4.jpg">
 					<p>Lorem ipsum</p>
 				</button>
 
 			</div>
-		</div>
+		</div> -->
 
 		<!-- SEARCH POPUP -->
 
@@ -165,10 +165,10 @@
 						<?php require ("view/assets/icons/gallery.svg"); ?>
 						<p>Your pics</p>
 					</button>
-					<button class="section">
+					<!-- <button class="section">
 						<?php require ("view/assets/icons/moon.svg"); ?>
 						<p>Dark mode</p>
-					</button>
+					</button> -->
 					<button id="settings-button" class="section">
 						<?php require ("view/assets/icons/settings.svg"); ?>
 						<p>Settings account</p>

@@ -11,7 +11,19 @@ class HomeController {
 	}
 
 	public function postComment($userId, $picId, $content) {
-		$this->service->createComment($userId, $picId, $content);
+		try {
+			$this->service->createComment($userId, $picId, $content);
+			http_response_code(201);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
 	}
 
 	public function get($route, $id) {

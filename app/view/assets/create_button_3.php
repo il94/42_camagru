@@ -1,4 +1,4 @@
-<button id="create-button-3">
+<button id="create-button-3" class="create-button">
 	<div>
 		<span id="create-button-3-word-1">C</span>
 		<span id="create-button-3-word-2">r</span>

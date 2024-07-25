@@ -8,7 +8,7 @@ function getRandomColor() {
     return (color);
 }
 
-function generateComment(username, avatar, content) {
+function generateComment(content, username, avatar) {
 	return (
 		`<div class="comment">
 			<img src=${avatar}>
@@ -21,17 +21,17 @@ function generateComment(username, avatar, content) {
 }
 
 // Soumet une requete au serveur pour poster le contenu de l'input text
-function postComment(pic, inputText) {
+function postComment(pic, inputText, username, avatar) {
 	const xhr = new XMLHttpRequest();
-	xhr.open('POST', `index.php?page=home&route=comment&picId=${pic.id}`, true);
+	xhr.open('POST', `index.php?page=home&route=comment`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
-				const newComment = generateComment("broot", "osef", inputText.value);
+				const newComment = generateComment(inputText.value, username, avatar);
 				const comments = pic.querySelector('.pic-comments');
-
+				
 				comments.insertAdjacentHTML('afterbegin', newComment);
 				inputText.value = ''
 			}
@@ -40,7 +40,8 @@ function postComment(pic, inputText) {
 			}
 		}
 	}
-	xhr.send("comment=" + encodeURIComponent(inputText.value));
+	const postData = `picId=${pic.id}&comment=${inputText.value}`;
+	xhr.send(postData)
 }
 
 const pics = document.getElementsByClassName("pic")
@@ -61,8 +62,7 @@ for (const pic of pics) {
 
 	const arrowUpButton = pic.querySelector('.arrow-up-button');
 	arrowUpButton.addEventListener('click', () => {
-		const inputText = input.querySelector(".pic-input-text");
-		postComment(pic, inputText);
+		postComment(pic, inputText, inputText.getAttribute('username'), inputText.getAttribute('avatar'));
 	})
 
 	inputText.addEventListener('keydown', (event) => {

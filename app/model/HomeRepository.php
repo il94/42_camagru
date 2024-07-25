@@ -12,9 +12,10 @@ class HomeRepository {
 	// Cree un comment
 	public function createComment($userId, $picId, $content) {
 		$request = $this->database->prepare("INSERT INTO `comment` (
-			`id`, `userId`, `picId`, `content`
+			`userId`, `picId`, `content`
 		) VALUES
-			(NULL, :userId, :picId, :content);");
+			(:userId, :picId, :content);");
+
 		$request->bindParam(':userId', $userId, PDO::PARAM_INT);
 		$request->bindParam(':picId', $picId, PDO::PARAM_INT);
 		$request->bindParam(':content', $content, PDO::PARAM_STR);

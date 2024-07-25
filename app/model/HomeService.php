@@ -10,7 +10,7 @@ class HomeService {
 	}
 
 	public function createComment($userId, $picId, $content) {
-		$this->repository->createComment(1, $picId, htmlspecialchars($content));
+		$this->repository->createComment($userId, $picId, htmlspecialchars($content));
 	}
 
 	// Retourne les 5 dernieres pics

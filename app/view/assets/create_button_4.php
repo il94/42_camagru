@@ -1,1 +1,3 @@
-<button id="create-button-4">Craft a new pic !</button>
+<button id="create-button-4" class="create-button">
+	Craft a new pic !
+</button>
