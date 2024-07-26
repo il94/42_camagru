@@ -16,6 +16,7 @@
 	transition: opacity 0.3s;
 }
 
-.selected {
+.selected,
+.selected > svg {
 	opacity: 1;
 }

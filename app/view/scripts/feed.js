@@ -10,6 +10,23 @@ else {
 	feedHeader.style.top = "65px"
 }
 
+// Scroll au top au click sur logo ou for you
+const logo = document.querySelector('.logo');
+logo.addEventListener('click', () => {
+	feed.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	});
+});
+
+const forYouButton = document.getElementById('feed-header-button-foryou');
+forYouButton.addEventListener('click', () => {
+	feed.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	});
+});
+
 // Cache ou dévoile le header
 feed.addEventListener('scroll', () => {
 

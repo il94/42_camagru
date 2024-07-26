@@ -28,4 +28,5 @@
 }
 .comment-text-username {
 	font-weight: bold;
+	cursor: default;
 }

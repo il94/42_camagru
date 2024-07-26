@@ -33,7 +33,11 @@ if (paramExist($_GET['page'])) {
 				// COMMENT
 				if ($_GET['route'] === 'comment') {
 					$homeController->postComment($_SESSION['logged_in'], $_POST['picId'], $_POST['comment']);
-					http_response_code(201);
+				}
+
+				// LIKE
+				else if ($_GET['route'] === 'like') {
+					$homeController->likePic($_SESSION['logged_in'], $_POST['picId']);
 				}
 			}
 

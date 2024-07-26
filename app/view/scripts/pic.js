@@ -31,7 +31,11 @@ function postComment(pic, inputText, username, avatar) {
 			if (xhr.status === 201) {
 				const newComment = generateComment(inputText.value, username, avatar);
 				const comments = pic.querySelector('.pic-comments');
-				
+				const commentsCount = pic.querySelector('#comments-count');
+				const count = +commentsCount.getAttribute('count') + 1;
+				commentsCount.setAttribute('count', count);
+				commentsCount.textContent = `${count} ${count < 2 ? 'comment' : 'comments'}`
+			
 				comments.insertAdjacentHTML('afterbegin', newComment);
 				inputText.value = ''
 			}
@@ -51,14 +55,64 @@ for (const pic of pics) {
 	// Applique une couleur random a la pic
 	pic.style.backgroundColor = getRandomColor();
 
+	// Like
+	const likesCount = pic.querySelector('#likes-count');
+	const likes = likesCount.getAttribute('count');
+	likesCount.textContent = `${likes} ${likes < 2 ? 'like' : 'likes'}`
+
+	const likeButton = pic.querySelector(".like-button")
+	likeButton.addEventListener('click', () => {
+
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST', `index.php?page=home&route=like`, true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 201) {
+					const likesCount = pic.querySelector('#likes-count');
+					const count = +likesCount.getAttribute('count') + 1;
+					likesCount.setAttribute('count', count);
+					likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
+
+					likeButton.classList.add("like")
+				}
+				else if (xhr.status === 200) {
+					const likesCount = pic.querySelector('#likes-count');
+					const count = +likesCount.getAttribute('count') - 1;
+					likesCount.setAttribute('count', count);
+					likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
+
+					likeButton.classList.remove("like")
+				}
+				else {
+					console.error("ERROR");
+				}
+			}
+		}
+		const postData = `picId=${pic.id}`;
+		xhr.send(postData)
+	})
+
 	// Effet de flip
 	const moreButtons = pic.querySelectorAll(".more")
 	moreButtons.forEach((moreButton) => moreButton.addEventListener('click', () => {
 		pic.classList.toggle('flip');
 	}))
 
+	// Commentaires
+	const commentsCount = pic.querySelector('#comments-count');
+	const comments = commentsCount.getAttribute('count');
+	commentsCount.textContent = `${comments} ${comments < 2 ? 'comment' : 'comments'}`
+
 	// Post de commentaires
 	const inputText = pic.querySelector(".pic-input-text");
+
+	const commentButton = pic.querySelector(".comment-button")
+	commentButton.addEventListener('click', () => {
+		pic.classList.toggle('flip');
+		inputText.focus()
+	})
 
 	const arrowUpButton = pic.querySelector('.arrow-up-button');
 	arrowUpButton.addEventListener('click', () => {

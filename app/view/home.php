@@ -1,7 +1,7 @@
 <!-- DESKTOP NAVBAR -->
 
 <div class="desktop-navbar">
-	<button class="logo">CraftyPic</button>
+	<button id="logo" class="logo">CraftyPic</button>
 	<div id="desktop-navbar-icons">
 		<!-- <button id="loop-button" class="button-icon selectable">
 			<?php require ("view/assets/icons/loop.svg"); ?>
@@ -9,6 +9,9 @@
 		<button id="notification-button" class="button-icon selectable">
 			<?php require ("view/assets/icons/notification.svg"); ?>
 		</button> -->
+		<button id="logout-hidden-button" class="button-icon">
+			<?php require ("view/assets/icons/logout.svg"); ?>
+		</button>
 		<button id="profile-button" class="button-icon selectable">
 			<?php
 				if (endsWith($user->avatar, '.svg'))
@@ -70,10 +73,10 @@
 					
 
 					<div class="pic-footer">
-						<button class="button-icon selectable">
+						<button class="like-button button-icon selectable <?php echo $pic->liked ? 'selected like' : ''; ?>">
 							<?php require ("view/assets/icons/like.svg") ?>
 						</button>
-						<button class="button-icon">
+						<button class="comment-button button-icon">
 							<?php require ("view/assets/icons/comment.svg"); ?>
 						</button>
 					</div>
@@ -81,8 +84,8 @@
 				<div class="pic-verso">
 					<div class="pic-header">
 						<div class="pic-header-stats">
-							<p><?php echo $pic->likesCount; ?> likes</p>
-							<p><?php echo $pic->commentsCount; ?> comments</p>
+							<p id="likes-count" count="<?php echo $pic->likesCount; ?>"></p>
+							<p id="comments-count" count="<?php echo $pic->commentsCount; ?>"></p>
 						</div>
 						<div class="pic-header-icons">
 							<!-- <button class="button-icon selectable">

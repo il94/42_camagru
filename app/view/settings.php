@@ -30,6 +30,10 @@
 			<?php require ("view/assets/icons/notification.svg"); ?>
 			<p>Notifications</p>
 		</button>
+		<button id="logout-button" class="window-section">
+			<?php require ("view/assets/icons/logout.svg"); ?>
+			<p>Logout</p>
+		</button>
 	</div>
 
 </div>
