@@ -24,7 +24,7 @@ for (const button of loginRedirectionButtons) {
 
 const logoutButton = document.getElementById("logout-button");
 
-logoutButton.addEventListener('click', () => {
+logoutButton?.addEventListener('click', () => {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `index.php?page=auth&route=logout`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

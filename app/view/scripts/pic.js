@@ -16,26 +16,27 @@ function postComment(pic, inputText, user) {
 	xhr.open('POST', `index.php?page=home&route=comment`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
+	const commentsContainer = pic.querySelector('#comments-container');
+	const commentData = {
+		id: -1,
+		user,
+		content: inputText.value
+	}
+
+	const newComment = createComment(commentData)
+	commentsContainer.prepend(newComment);
+
+	const commentsCount = pic.querySelector('#comments-count');
+	const count = +commentsCount.getAttribute('count') + 1;
+	commentsCount.setAttribute('count', count);
+	commentsCount.textContent = `${count} ${count < 2 ? 'comment' : 'comments'}`
+
+	inputText.value = ''
+
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
 
-				const commentsContainer = pic.querySelector('#comments-container');
-				const commentData = {
-					id: -1,
-					user,
-					content: inputText.value
-				}
-
-				const newComment = createComment(commentData)
-				commentsContainer.prepend(newComment);
-
-				const commentsCount = pic.querySelector('#comments-count');
-				const count = +commentsCount.getAttribute('count') + 1;
-				commentsCount.setAttribute('count', count);
-				commentsCount.textContent = `${count} ${count < 2 ? 'comment' : 'comments'}`
-			
-				inputText.value = ''
 			}
 			else {
 				console.error("ERROR");
@@ -154,6 +155,8 @@ export function createPic(picData, user) {
 		xhr.open('POST', `index.php?page=home&route=like`, true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	
+		likeButton.classList.toggle("like")
+
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 201) {
@@ -161,16 +164,12 @@ export function createPic(picData, user) {
 					const count = +likesCount.getAttribute('count') + 1;
 					likesCount.setAttribute('count', count);
 					likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
-
-					likeButton.classList.add("like")
 				}
 				else if (xhr.status === 200) {
 					const likesCount = pic.querySelector('#likes-count');
 					const count = +likesCount.getAttribute('count') - 1;
 					likesCount.setAttribute('count', count);
 					likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
-
-					likeButton.classList.remove("like")
 				}
 				else {
 					console.error("ERROR");

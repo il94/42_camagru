@@ -40,7 +40,26 @@ class AuthRepository {
 
 	// Cherche un user par son id
 	public function findUserByIdSecure($id) {
-		$request = $this->database->prepare("SELECT id, username, email, avatar, notification_like, notification_comment FROM user WHERE id=:id");
+		$request = $this->database->prepare("
+			SELECT
+				id, username, email, avatar, notification_like, notification_comment
+			FROM user WHERE id=:id");
+		$request->bindParam(':id', $id, PDO::PARAM_INT);
+		$request->execute();
+
+		$userDatas = $request->fetch(PDO::FETCH_OBJ);
+		return ($userDatas);
+	}
+
+	// Cherche un user par l'id d'une pic
+	public function findUserByPicIdSecure($id) {
+		$request = $this->database->prepare("
+			SELECT
+				user.id, user.username, user.email, user.avatar, user.notification_like, user.notification_comment
+			FROM pic
+			JOIN user ON pic.userId = user.id
+			WHERE pic.id=:id");
+	
 		$request->bindParam(':id', $id, PDO::PARAM_INT);
 		$request->execute();
 

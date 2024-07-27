@@ -11,6 +11,12 @@ class HomeService {
 
 	public function createComment($userId, $picId, $content) {
 		$this->repository->createComment($userId, $picId, htmlspecialchars($content));
+
+		$userTarget = $this->authService->repository->findUserByPicIdSecure($picId);
+		if ($userTarget->notification_comment) {
+			$userAuth = $this->authService->repository->findUserByIdSecure($userId);
+			$this->sendCommentNotif($userAuth, $userTarget);
+		}
 	}
 
 	public function likePic($userId, $picId): int {
@@ -20,6 +26,13 @@ class HomeService {
 		}
 		else {
 			$this->repository->likePic($userId, $picId);
+
+			$userTarget = $this->authService->repository->findUserByPicIdSecure($picId);
+			if ($userTarget->notification_like) {
+				$userAuth = $this->authService->repository->findUserByIdSecure($userId);
+				$this->sendLikeNotif($userAuth, $userTarget);
+			}
+
 			return (201);
 		}
 	}
@@ -98,5 +111,51 @@ class HomeService {
 		}
 
 		return ($comments);
+	}
+
+	// Envoie un email de notification de like
+	public function sendLikeNotif($userAuth, $userTarget) {
+		$headers = "From: noreply@craftypic.com\r\n";
+		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+		$subject = 'Someone liked your pic !';
+		$homeLink = 'http://localhost:8080';
+		$message = '
+			<html>
+			<head>
+				<title>Photo Like Notification</title>
+			</head>
+			<body>
+				<p>Dear ' . htmlspecialchars($userTarget->username) . ',</p>
+				<p>We wanted to let you know that ' . htmlspecialchars($userAuth->username) . ' has liked your pic !</p>
+				<p>We hope you continue to enjoy sharing your photos on CraftyPic!</p>
+				<p><a href="' . $homeLink . '">CraftyPic</a></p>
+			</body>
+			</html>
+		';
+			
+		mail($userTarget->email, $subject, $message, $headers);
+	}
+
+	// Envoie un email de notification de comment
+	public function sendCommentNotif($userAuth, $userTarget) {
+		$headers = "From: noreply@craftypic.com\r\n";
+		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+		$subject = 'Someone commented your pic !';
+		$homeLink = 'http://localhost:8080';
+		$message = '
+			<html>
+			<head>
+				<title>Photo Comment Notification</title>
+			</head>
+			<body>
+				<p>Dear ' . htmlspecialchars($userTarget->username) . ',</p>
+				<p>We wanted to let you know that ' . htmlspecialchars($userAuth->username) . ' has commented your pic !</p>
+				<p>We hope you continue to enjoy sharing your photos on CraftyPic!</p>
+				<p><a href="' . $homeLink . '">CraftyPic</a></p>
+			</body>
+			</html>
+		';
+			
+		mail($userTarget->email, $subject, $message, $headers);
 	}
 }
