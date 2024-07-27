@@ -43,7 +43,26 @@ if (paramExist($_GET['page'])) {
 
 			// GET
 			else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-				$homeController->get(null, null);
+
+				if (paramExist($_GET['route'])) {
+
+					// PICS
+					if ($_GET['route'] === 'pics') {
+						$homeController->getPics($_SESSION['logged_in'], $_GET['cursor']);
+						http_response_code(200);
+					}
+
+					// COMMENTS
+					else if ($_GET['route'] === 'comments') {
+						$homeController->getComments($_GET['picId'], $_GET['cursor']);
+						http_response_code(200);
+					}
+				}
+
+				// DEFAULT
+				else {
+					$homeController->get(null, null);
+				}
 			}
 		}
 

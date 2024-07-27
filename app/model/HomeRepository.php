@@ -66,6 +66,7 @@ class HomeRepository {
 			FROM comment
 			WHERE picId = :picId"
 		);
+
 		$request->bindParam(':picId', $picId, PDO::PARAM_INT);
 		$request->execute();
 		$result = $request->fetch(PDO::FETCH_OBJ);
@@ -80,11 +81,31 @@ class HomeRepository {
 			FROM user_pic_likes
 			WHERE picId = :picId"
 		);
+
 		$request->bindParam(':picId', $picId, PDO::PARAM_INT);
 		$request->execute();
 		$result = $request->fetch(PDO::FETCH_OBJ);
 
 		return $result->like_count;
+	}
+
+	// Recupere 5 pics à partir d'un cursor
+	public function getPicsWithCursor($cursor) {
+		$request = $this->database->prepare(
+			"SELECT
+				pic.*, user.username AS author, user.avatar AS author_avatar
+			FROM `pic`
+			JOIN user ON pic.userId = user.id
+			WHERE pic.id < :cursor
+			ORDER BY pic.id DESC
+			LIMIT 5
+		");
+
+		$request->bindParam(':cursor', $cursor, PDO::PARAM_INT);
+		$request->execute();
+		$picsDatas = $request->fetchAll(PDO::FETCH_OBJ);
+
+		return ($picsDatas);
 	}
 
 	// Recupere les 5 dernieres pics
@@ -103,16 +124,38 @@ class HomeRepository {
 		return ($picsDatas);
 	}
 
+	// Recupere 5 comments à partir d'un cursor
+	public function getCommentsWithCursor($picId, $cursor) {
+		$request = $this->database->prepare(
+			"SELECT comment.*, user.username AS author, user.avatar AS author_avatar
+			FROM comment
+			JOIN user ON comment.userId = user.id
+			WHERE picId = :picId
+			AND comment.id < :cursor
+			ORDER BY comment.id DESC
+			LIMIT 5
+		");
+
+		$request->bindParam(':picId', $picId, PDO::PARAM_INT);
+		$request->bindParam(':cursor', $cursor, PDO::PARAM_INT);
+		$request->execute();
+		$commentsDatas = $request->fetchAll(PDO::FETCH_OBJ);
+
+		return ($commentsDatas);
+	}
+
 	// Recupere les 10 derniers comments d'une pic
 	public function getLastTenComments($picId) {
 		$request = $this->database->prepare(
 			"SELECT comment.*, user.username AS author, user.avatar AS author_avatar
 			FROM comment
 			JOIN user ON comment.userId = user.id
-			WHERE picId=$picId
+			WHERE picId = :picId
 			ORDER BY comment.id DESC
-			LIMIT 10
+			LIMIT 11
 		");
+
+		$request->bindParam(':picId', $picId, PDO::PARAM_INT);
 		$request->execute();
 		$commentsDatas = $request->fetchAll(PDO::FETCH_OBJ);
 

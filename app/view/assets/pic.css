@@ -149,7 +149,7 @@
 	height: calc(100% - 114px); /* 114px = header 52px + footer-verso 62px */
 }
 
-.pic-comments {
+#comments-container {
 	width: 96.67%;
 
 	padding-top: 1.07%;
@@ -160,7 +160,7 @@
 
 	background-color: rgba(0, 0, 0, 0.1);
 }
-.pic-comments.empty {
+#comments-container.empty {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

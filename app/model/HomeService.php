@@ -39,11 +39,14 @@ class HomeService {
 		return $this->repository->getCountLikes($picId);
 	}
 
-	// Retourne les 5 dernieres pics
-	public function getLastFivePics($userId) {
+	// Retourne 5 pics
+	public function getPics($userId, $cursor) {
 	
-		$picDatas = $this->repository->getLastFivePics();
-	
+		if ($cursor !== NULL)
+			$picDatas = $this->repository->getPicsWithCursor($cursor);
+		else
+			$picDatas = $this->repository->getLastFivePics();
+
 		$pics = [];
 		foreach ($picDatas as $picData) {
 			$user = User::withParams(
@@ -55,7 +58,6 @@ class HomeService {
 			$picData->likesCount = $this->getCountLikes($picData->id);
 			$picData->liked = !!$this->hasLikedPic($userId, $picData->id);
 			$picData->commentsCount = $this->getCountComments($picData->id);
-			$comments = $this->getLastTenComments($picData->id);
 
 			$pic = Pic::withParams(
 				$picData->id,
@@ -63,7 +65,6 @@ class HomeService {
 				$picData->likesCount,
 				$picData->liked,
 				$user,
-				$comments,
 				$picData->commentsCount,
 			);
 
@@ -73,9 +74,12 @@ class HomeService {
 		return ($pics);
 	}
 
-	// Retourne les 10 derniers comments d'une pic
-	public function getLastTenComments($picId) {
-		$commentsDatas = $this->repository->getLastTenComments($picId);
+	// Retourne 10 comments d'une pic
+	public function getComments($picId, $cursor) {
+		if ($cursor !== NULL)
+			$commentsDatas = $this->repository->getCommentsWithCursor($picId, $cursor);
+		else
+			$commentsDatas = $this->repository->getLastTenComments($picId);
 
 		$comments = [];
 		foreach ($commentsDatas as $commentData) {
