@@ -11,6 +11,9 @@
 	<link rel="stylesheet" type="text/css" href="view/assets/index.css">
 	<link rel="stylesheet" type="text/css" href="view/assets/colors.css">
 
+	<link rel="stylesheet" type="text/css" href="view/assets/page.css">
+	<link rel="stylesheet" type="text/css" href="view/assets/mobile_navbar.css">
+
 	<?php $headers; ?>
 
 	<title>Crafty Pic</title>
@@ -19,6 +22,7 @@
 <body>
 
 	<?php $body; ?>
+	<?php require_once('view/mobile_navbar.php'); ?>
 
 </body>
 

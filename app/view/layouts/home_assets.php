@@ -5,7 +5,6 @@
 <link rel="stylesheet" type="text/css" href="view/assets/window.css">
 <link rel="stylesheet" type="text/css" href="view/assets/icon.css">
 <link rel="stylesheet" type="text/css" href="view/assets/colors.css">
-<link rel="stylesheet" type="text/css" href="view/assets/main.css">
 <link rel="stylesheet" type="text/css" href="view/assets/feed.css">
 <link rel="stylesheet" type="text/css" href="view/assets/feed_header.css">
 <link rel="stylesheet" type="text/css" href="view/assets/pic.css">

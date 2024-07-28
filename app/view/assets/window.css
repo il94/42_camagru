@@ -6,7 +6,7 @@
 	position: relative;
 	/* MOBILE */
 	@media screen and (max-width: 480px) {
-		min-width: 97.46%;
+		width: 97.46%;
 	}
 	/* DESKTOP */
 	@media screen and (min-width: 480px) {
@@ -41,7 +41,7 @@
 	margin-bottom: 27px;
 
 	font-weight: 500;
-	font-size: 25px;
+	font-size: clamp(16px, 6vw, 25px);
 }
 .window-title:is(:has(+ .window-message)) {
 	margin-bottom: 18px;
@@ -247,6 +247,12 @@
 .window-section > .icon {
 	margin-left: 96px;
 	margin-right: 16px;
+
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		margin-left: auto;
+		margin-right: 70%;
+	}
 
 	width: 30px;
 	height: 30px;

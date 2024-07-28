@@ -1,6 +1,5 @@
-.main {
-	display: flex;
-	/* flex-direction: column; */
+.page {
+	position: relative;
 
 	width: 100%;
 	/* MOBILE */
@@ -9,6 +8,6 @@
 	}
 	/* DESKTOP */
 	@media screen and (min-width: 480px) {
-		height: calc(100% - 65px); /* 65px = navbar desktop 65px */
+		height: 100%; /* 65px = navbar desktop 65px */
 	}
 }

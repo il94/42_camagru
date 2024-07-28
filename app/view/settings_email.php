@@ -1,3 +1,4 @@
+<div class="page">
 <div id="settings">
 
 	<div class="window">

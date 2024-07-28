@@ -1,3 +1,4 @@
+<div class="page">
 <div id="settings">
 
 	<div id="window-update-start" class="window">
@@ -13,4 +14,5 @@
 		</button>
 	</div>
 
+</div>
 </div>

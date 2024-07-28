@@ -1,3 +1,4 @@
+<div class="page">
 <div id="settings">
 
 	<div class="window">
@@ -25,4 +26,5 @@
 		</form>
 	</div>
 
+</div>
 </div>

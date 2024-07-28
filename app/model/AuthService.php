@@ -229,7 +229,7 @@ class AuthService {
 		if (empty($username))
 			throw new HttpException("Username is required", 400, self::USERNAME_ERROR);
 		if (strlen($username) > self::MAX_USERNAMENAME_LENGTH)
-			throw new HttpException("Username exceeds maximum length of " . self::USERNAME_ERROR . " characters", 422, self::USERNAME_ERROR);
+			throw new HttpException("Username exceeds maximum length of " . self::MAX_USERNAMENAME_LENGTH . " characters", 422, self::USERNAME_ERROR);
 	}
 
 	// Verifie si la string est un password valide

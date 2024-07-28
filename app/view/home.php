@@ -17,9 +17,9 @@
 	</div>
 </div>
 
-<!-- MAIN -->
+<!-- PAGE -->
 
-<div class="main">
+<div class="page">
 
 	<!-- FEED -->
 
@@ -50,7 +50,7 @@
 
 	<div id="angle-popup">
 		<div id="angle-popup-profile">
-			<p id="angle-popup-title">Hi, <span id="angle-popup-title-username">Lorem ipsum !</span></p>
+			<p id="angle-popup-title">Hi, <span id="angle-popup-title-username"><?php echo $user->username; ?> !</span></p>
 			<div id="angle-popup-content">
 				<button id="settings-button" class="section">
 					<?php require ("view/assets/icons/settings.svg"); ?>
@@ -80,18 +80,4 @@
 			
 		</form>
 	</div>
-</div>
-
-<!-- MOBILE NAVBAR -->
-
-<div class="mobile-navbar">
-	<button class="button-icon selectable">
-		<?php require ("view/assets/icons/home.svg"); ?>
-	</button>
-	<button class="button-icon selectable">
-		<?php require ("view/assets/icons/add.svg"); ?>
-	</button>
-	<button class="button-icon selectable">
-		<?php require ("view/assets/icons/profile.svg"); ?>
-	</button>
 </div>

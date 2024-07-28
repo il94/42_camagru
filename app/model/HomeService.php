@@ -92,7 +92,7 @@ class HomeService {
 		if ($cursor !== NULL)
 			$commentsDatas = $this->repository->getCommentsWithCursor($picId, $cursor);
 		else
-			$commentsDatas = $this->repository->getLastTenComments($picId);
+			$commentsDatas = $this->repository->getLastTwentyComments($picId);
 
 		$comments = [];
 		foreach ($commentsDatas as $commentData) {

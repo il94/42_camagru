@@ -22,7 +22,7 @@ if (paramExist($_GET['page'])) {
 	}
 
 	// HOME
-	if ($_GET['page'] === 'home') {
+	else if ($_GET['page'] === 'home') {
 
 		if (!$_SESSION['logged_in']) {
 			$body = require_once('view/pas_co.php');

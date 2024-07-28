@@ -9,9 +9,9 @@
 	</div>
 </div>
 
-<!-- MAIN -->
+<!-- PAGE -->
 
-<div class="main">
+<div class="page">
 
 	<!-- FEED -->
 
@@ -33,14 +33,4 @@
 		<div id="refetch-pics-observer"></div>
 
 	</div>
-
-<!-- MOBILE NAVBAR -->
-
-<div class="mobile-navbar">
-	<button class="button-icon selectable">
-		<?php require ("view/assets/icons/home.svg"); ?>
-	</button>
-	<button class="button-icon selectable">
-		<?php require ("view/assets/icons/profile.svg"); ?>
-	</button>
 </div>

@@ -124,7 +124,7 @@ class HomeRepository {
 		return ($picsDatas);
 	}
 
-	// Recupere 5 comments à partir d'un cursor
+	// Recupere 10 comments à partir d'un cursor
 	public function getCommentsWithCursor($picId, $cursor) {
 		$request = $this->database->prepare(
 			"SELECT comment.*, user.username AS author, user.avatar AS author_avatar
@@ -133,7 +133,7 @@ class HomeRepository {
 			WHERE picId = :picId
 			AND comment.id < :cursor
 			ORDER BY comment.id DESC
-			LIMIT 5
+			LIMIT 10
 		");
 
 		$request->bindParam(':picId', $picId, PDO::PARAM_INT);
@@ -144,15 +144,15 @@ class HomeRepository {
 		return ($commentsDatas);
 	}
 
-	// Recupere les 10 derniers comments d'une pic
-	public function getLastTenComments($picId) {
+	// Recupere les 20 derniers comments d'une pic
+	public function getLastTwentyComments($picId) {
 		$request = $this->database->prepare(
 			"SELECT comment.*, user.username AS author, user.avatar AS author_avatar
 			FROM comment
 			JOIN user ON comment.userId = user.id
 			WHERE picId = :picId
 			ORDER BY comment.id DESC
-			LIMIT 11
+			LIMIT 20
 		");
 
 		$request->bindParam(':picId', $picId, PDO::PARAM_INT);

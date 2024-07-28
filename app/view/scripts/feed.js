@@ -22,20 +22,26 @@ else {
 
 // Scroll au top au click sur logo ou for you
 const logo = document.querySelector('.logo');
-logo.addEventListener('click', () => {
-	feed.scrollTo({
-		top: 0,
-		behavior: 'smooth'
-	});
-});
-
 const forYouButton = document.getElementById('feed-header-button-foryou');
-forYouButton.addEventListener('click', () => {
-	feed.scrollTo({
-		top: 0,
-		behavior: 'smooth'
+const mobileHomeButton = document.getElementById('mobile-home-button');
+const returnTopButtons = [
+	logo,
+	forYouButton,
+	mobileHomeButton
+]
+returnTopButtons.forEach((button) => {
+	button?.addEventListener('click', () => {
+		if (feed) {
+			feed.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			});
+		}
+		else {
+			window.location.href = "index.php?page=home";
+		}
 	});
-});
+})
 
 // Cache ou dévoile le header
 feed.addEventListener('scroll', () => {
@@ -70,35 +76,43 @@ window.addEventListener('resize', () => {
 
 // Recuperation des pics
 
-function handlePicObserver() {
-	const picsContainer = document.getElementById("pics-container");
-	const pics = picsContainer.querySelectorAll('.pic')
-	const cursor = pics.length ? pics[pics.length - 1].id : null
+function handlePicObserver(entries) {
+	entries.forEach(entry => {
+		if (entry.isIntersecting) {
+			const picsContainer = document.getElementById("pics-container");
+			const pics = picsContainer.querySelectorAll('.pic')
+			const cursor = pics.length ? pics[pics.length - 1].id : null
 
-	if (cursor == 1) return
+			const xhr = new XMLHttpRequest();
+			xhr.open('GET', `index.php?page=home&route=pics${cursor ? `&cursor=${cursor}` : ''}`, true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-	const xhr = new XMLHttpRequest();
-	xhr.open('GET', `index.php?page=home&route=pics${cursor ? `&cursor=${cursor}` : ''}`, true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onreadystatechange = () => {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						const pics = JSON.parse(xhr.responseText);
 
-	xhr.onreadystatechange = () => {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 200) {
-				const pics = JSON.parse(xhr.responseText);
+						if (pics.length < 5)
+							observer.unobserve(picObserver)
 
-				for (const picData of pics) {
-					const pic = createPic(picData, user);
-					picsContainer.appendChild(pic)
+						for (const picData of pics) {
+							const pic = createPic(picData, user);
+							picsContainer.appendChild(pic)
+						}
+					}
+					else {
+						console.error("ERROR", xhr.responseText);
+					}
 				}
 			}
-			else {
-				console.error("ERROR", xhr.responseText);
-			}
-		}
-	}
 
-	xhr.send();
+			xhr.send();
+		}
+	})
 }
 
 const picObserver = document.getElementById("refetch-pics-observer");
-new IntersectionObserver(handlePicObserver).observe(picObserver);
+const observer = new IntersectionObserver(handlePicObserver, {
+	rootMargin: '100px'
+})
+observer.observe(picObserver);
