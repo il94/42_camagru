@@ -96,6 +96,20 @@ class HomeController {
 		}
 	}
 
+	public function getGuest($route, $id) {
+
+		if ($route && $id) {
+			echo "temp";
+		}
+		else {
+			$headers = require_once("view/layouts/home_assets.php");
+			$body = require_once('view/home_guest.php');
+			$scripts = require_once("view/layouts/home_scripts.php");
+
+			require_once('view/layout.php');
+		}
+	}
+
 	public function deletePic($userId, $picId) {
 		try {
 			$this->service->deletePic($userId, $picId);

@@ -1,11 +1,11 @@
 import { createPic } from "./pic.js"
 
 const feed = document.getElementById("feed")
-const user = {
+const user = feed.getAttribute('userId') ? {
 	id: feed.getAttribute('userId'),
 	username: feed.getAttribute('username'),
 	avatar: feed.getAttribute('avatar')
-}
+} : null
 
 // Gestion du header du feed
 

@@ -17,6 +17,10 @@ session_start();
 
 if (paramExist($_GET['page'])) {
 
+	if ($_GET['page'] === 'home_guest') {
+		$homeController->getGuest(null, null);
+	}
+
 	// HOME
 	if ($_GET['page'] === 'home') {
 

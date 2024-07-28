@@ -23,6 +23,18 @@ function postComment(pic, inputText, user) {
 		content: inputText.value
 	}
 
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 201) {
+			}
+			else {
+				console.error("ERROR");
+			}
+		}
+	}
+	const postData = `picId=${pic.id}&comment=${inputText.value}`;
+	xhr.send(postData)
+
 	const newComment = createComment(commentData)
 	commentsContainer.prepend(newComment);
 
@@ -32,19 +44,6 @@ function postComment(pic, inputText, user) {
 	commentsCount.textContent = `${count} ${count < 2 ? 'comment' : 'comments'}`
 
 	inputText.value = ''
-
-	xhr.onreadystatechange = () => {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 201) {
-
-			}
-			else {
-				console.error("ERROR");
-			}
-		}
-	}
-	const postData = `picId=${pic.id}&comment=${inputText.value}`;
-	xhr.send(postData)
 }
 
 export function createPic(picData, user) {
@@ -81,16 +80,18 @@ export function createPic(picData, user) {
 			
 
 			<div class="pic-footer">
-				<button class="like-button button-icon selectable ${picData.liked && 'selected like'}">
-					<svg id="like-icon" class="icon" width="44" height="38" viewBox="0 0 44 38" xmlns="http://www.w3.org/2000/svg">
-					<path fill="none" d="M12.8955 2C6.87823 2 2 6.87823 2 12.8955C2 23.7911 14.8765 33.6961 21.8101 36C28.7436 33.6961 41.6201 23.7911 41.6201 12.8955C41.6201 6.87823 36.7419 2 30.7246 2C27.0399 2 23.7812 3.82946 21.8101 6.62961C20.8054 5.19854 19.4706 4.03062 17.9189 3.22475C16.3671 2.41887 14.6441 1.99877 12.8955 2Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-				</button>
-				<button class="comment-button button-icon">
-					<svg class="icon" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
-					<path fill="none" d="M19 36C22.3623 36 25.6491 35.003 28.4447 33.135C31.2403 31.267 33.4193 28.612 34.7059 25.5056C35.9926 22.3993 36.3293 18.9811 35.6733 15.6835C35.0174 12.3858 33.3983 9.35668 31.0208 6.97919C28.6433 4.6017 25.6142 2.98261 22.3165 2.32666C19.0189 1.67071 15.6007 2.00737 12.4944 3.29406C9.38804 4.58074 6.733 6.75968 4.86502 9.55531C2.99703 12.3509 2 15.6377 2 19C2 21.8107 2.68 24.4608 3.88889 26.7954L2 36L11.2046 34.1111C13.5392 35.32 16.1912 36 19 36Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-				</button>
+				${user ? `
+					<button class="like-button button-icon selectable ${picData.liked && 'selected like'}">
+						<svg id="like-icon" class="icon" width="44" height="38" viewBox="0 0 44 38" xmlns="http://www.w3.org/2000/svg">
+						<path fill="none" d="M12.8955 2C6.87823 2 2 6.87823 2 12.8955C2 23.7911 14.8765 33.6961 21.8101 36C28.7436 33.6961 41.6201 23.7911 41.6201 12.8955C41.6201 6.87823 36.7419 2 30.7246 2C27.0399 2 23.7812 3.82946 21.8101 6.62961C20.8054 5.19854 19.4706 4.03062 17.9189 3.22475C16.3671 2.41887 14.6441 1.99877 12.8955 2Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+					<button class="comment-button button-icon">
+						<svg class="icon" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+						<path fill="none" d="M19 36C22.3623 36 25.6491 35.003 28.4447 33.135C31.2403 31.267 33.4193 28.612 34.7059 25.5056C35.9926 22.3993 36.3293 18.9811 35.6733 15.6835C35.0174 12.3858 33.3983 9.35668 31.0208 6.97919C28.6433 4.6017 25.6142 2.98261 22.3165 2.32666C19.0189 1.67071 15.6007 2.00737 12.4944 3.29406C9.38804 4.58074 6.733 6.75968 4.86502 9.55531C2.99703 12.3509 2 15.6377 2 19C2 21.8107 2.68 24.4608 3.88889 26.7954L2 36L11.2046 34.1111C13.5392 35.32 16.1912 36 19 36Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+				` : ''}
 			</div>
 		</div>
 		<div class="pic-verso">
@@ -100,11 +101,13 @@ export function createPic(picData, user) {
 					<p id="comments-count" count="${picData.commentsCount}"></p>
 				</div>
 				<div class="pic-header-icons">
-					<button class="button-icon selectable trash">
-						<svg class="icon" width="33" height="39" viewBox="0 0 33 39" xmlns="http://www.w3.org/2000/svg">
-						<path fill="none" d="M28.1 13.6667L26.476 29.9961C26.2305 32.4714 26.1087 33.7081 25.548 34.6433C25.0563 35.4666 24.3331 36.125 23.4697 36.5353C22.4895 37 21.256 37 18.7813 37H14.2187C11.7459 37 10.5105 37 9.53033 36.5333C8.66623 36.1233 7.94232 35.465 7.45007 34.6414C6.89327 33.7081 6.76953 32.4714 6.52207 29.9961L4.9 13.6667M19.4 26.3056V16.5833M13.6 26.3056V16.5833M2 8.80556H10.9223M10.9223 8.80556L11.6686 3.61C11.8851 2.665 12.6662 2 13.5633 2H19.4367C20.3338 2 21.1129 2.665 21.3314 3.61L22.0777 8.80556M10.9223 8.80556H22.0777M22.0777 8.80556H31" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</button>
+					${user ? `
+						<button class="button-icon selectable trash">
+							<svg class="icon" width="33" height="39" viewBox="0 0 33 39" xmlns="http://www.w3.org/2000/svg">
+							<path fill="none" d="M28.1 13.6667L26.476 29.9961C26.2305 32.4714 26.1087 33.7081 25.548 34.6433C25.0563 35.4666 24.3331 36.125 23.4697 36.5353C22.4895 37 21.256 37 18.7813 37H14.2187C11.7459 37 10.5105 37 9.53033 36.5333C8.66623 36.1233 7.94232 35.465 7.45007 34.6414C6.89327 33.7081 6.76953 32.4714 6.52207 29.9961L4.9 13.6667M19.4 26.3056V16.5833M13.6 26.3056V16.5833M2 8.80556H10.9223M10.9223 8.80556L11.6686 3.61C11.8851 2.665 12.6662 2 13.5633 2H19.4367C20.3338 2 21.1129 2.665 21.3314 3.61L22.0777 8.80556M10.9223 8.80556H22.0777M22.0777 8.80556H31" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+					` : ''}
 					<button class="button-icon more">
 						<svg class="icon" width="38" height="9" viewBox="0 0 38 9" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="4.5" cy="4.5" r="4.5" fill="white"/>
@@ -115,27 +118,22 @@ export function createPic(picData, user) {
 				</div>
 			</div>
 			<div class="pic-body-verso">
-
-
-
 			<div id="comments-container">
 				<div style="height: 1px" id="refetch-comments-observer"></div>
 			</div>
-
-
-
-
 			</div>
 			<div class="pic-footer-verso">
-				<div class="pic-input">
-					<span class="placeholder">Do you like this pic ? Let us know !</span>
-					<textarea class="pic-input-text" username="${user.username}" avatar="${user.avatar}"></textarea>
-					<button class="arrow-up-button button-icon" type="submit">
-						<svg class="icon" width="32" height="34" viewBox="0 0 32 34" xmlns="http://www.w3.org/2000/svg">
-						<path fill="none" d="M2 15.8462L15.8462 2L29.6923 15.8462M15.8462 3.92308V32" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-					</button>
-				</div>
+				${user ? `
+					<div class="pic-input">
+						<span class="placeholder">Do you like this pic ? Let us know !</span>
+						<textarea class="pic-input-text" username="${user.username}" avatar="${user.avatar}"></textarea>
+						<button class="arrow-up-button button-icon" type="submit">
+							<svg class="icon" width="32" height="34" viewBox="0 0 32 34" xmlns="http://www.w3.org/2000/svg">
+							<path fill="none" d="M2 15.8462L15.8462 2L29.6923 15.8462M15.8462 3.92308V32" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+					</div>
+				` : ''}
 			</div>
 		</div>
 	`
@@ -148,37 +146,40 @@ export function createPic(picData, user) {
 	const likes = likesCount.getAttribute('count');
 	likesCount.textContent = `${likes} ${likes < 2 ? 'like' : 'likes'}`
 
-	const likeButton = pic.querySelector(".like-button")
-	likeButton.addEventListener('click', () => {
+	if (user) {
+		const likeButton = pic.querySelector(".like-button")
+		likeButton.addEventListener('click', () => {
 
-		const xhr = new XMLHttpRequest();
-		xhr.open('POST', `index.php?page=home&route=like`, true);
-		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	
-		likeButton.classList.toggle("like")
-
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState === 4) {
-				if (xhr.status === 201) {
-					const likesCount = pic.querySelector('#likes-count');
-					const count = +likesCount.getAttribute('count') + 1;
-					likesCount.setAttribute('count', count);
-					likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
-				}
-				else if (xhr.status === 200) {
-					const likesCount = pic.querySelector('#likes-count');
-					const count = +likesCount.getAttribute('count') - 1;
-					likesCount.setAttribute('count', count);
-					likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
-				}
-				else {
-					console.error("ERROR");
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', `index.php?page=home&route=like`, true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		
+			xhr.onreadystatechange = () => {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 201) {
+						const likesCount = pic.querySelector('#likes-count');
+						const count = +likesCount.getAttribute('count') + 1;
+						likesCount.setAttribute('count', count);
+						likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
+					}
+					else if (xhr.status === 200) {
+						const likesCount = pic.querySelector('#likes-count');
+						const count = +likesCount.getAttribute('count') - 1;
+						likesCount.setAttribute('count', count);
+						likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
+					}
+					else {
+						console.error("ERROR");
+					}
 				}
 			}
-		}
-		const postData = `picId=${pic.id}`;
-		xhr.send(postData)
-	})
+			const postData = `picId=${pic.id}`;
+			xhr.send(postData)
+
+			likeButton.classList.toggle("like")
+		})
+	}
+
 
 	// Recuperation des comments
 
@@ -227,17 +228,18 @@ export function createPic(picData, user) {
 	}))
 
 	// Suppression
-	const deletePopup = document.getElementById('delete-popup');
+	if (user) {
+		const deletePopup = document.getElementById('delete-popup');
+		const trashButtons = pic.querySelectorAll(".trash")
+		trashButtons.forEach((trashButton) => {
+			if (picData.user.id == user.id)
+				trashButton.style.display = 'block'
 
-	const trashButtons = pic.querySelectorAll(".trash")
-	trashButtons.forEach((trashButton) => {
-		if (picData.user.id == user.id)
-			trashButton.style.display = 'block'
-
-		trashButton.addEventListener('click', () => {
-		deletePopup.style.display = 'flex';
-		deletePopup.setAttribute('picId', picData.id)
-	})})
+			trashButton.addEventListener('click', () => {
+			deletePopup.style.display = 'flex';
+			deletePopup.setAttribute('picId', picData.id)
+		})})
+	}
 
 	// Commentaires
 
@@ -246,80 +248,81 @@ export function createPic(picData, user) {
 	commentsCount.textContent = `${commentsCounter} ${commentsCounter < 2 ? 'comment' : 'comments'}`
 
 	// Post de commentaires
-	const inputText = pic.querySelector(".pic-input-text");
+	if (user) {
+		const inputText = pic.querySelector(".pic-input-text");
 
-	const commentButton = pic.querySelector(".comment-button")
-	commentButton.addEventListener('click', () => {
-		pic.classList.toggle('flip');
+		const commentButton = pic.querySelector(".comment-button")
+		commentButton.addEventListener('click', () => {
+			pic.classList.toggle('flip');
 
-		if (pic.classList.contains('flip'))
-			observer.observe(commentsObserver);
-		else
-			observer.unobserve(commentsObserver)
-	
-		inputText.focus()
-	})
+			if (pic.classList.contains('flip'))
+				observer.observe(commentsObserver);
+			else
+				observer.unobserve(commentsObserver)
+		
+			inputText.focus()
+		})
 
-	const arrowUpButton = pic.querySelector('.arrow-up-button');
-	arrowUpButton.addEventListener('click', () => {		
-		postComment(pic, inputText, user);
-	})
+		const arrowUpButton = pic.querySelector('.arrow-up-button');
+		arrowUpButton.addEventListener('click', () => {		
+			postComment(pic, inputText, user);
+		})
 
-	inputText.addEventListener('keydown', (event) => {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			postComment(pic, event.target, user);
-		}
-	})
-
-
-	// Deplacments du placeholder
-	const placeHolder = pic.querySelector(".placeholder");
-
-	// Reduit le placeholder au clic sur la zone de texte
-	inputText.addEventListener('focus', () => {
-		if (!placeHolder.classList.contains(".reduce"))
-			placeHolder.classList.add("reduce");
-	})
-	
-	// Si la zone de texte est vide, recentre le placeholder
-	inputText.addEventListener('blur', (event) => {
-		if (!event.target.value)
-			placeHolder.classList.remove("reduce");
-	})
+		inputText.addEventListener('keydown', (event) => {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				postComment(pic, event.target, user);
+			}
+		})
 
 
-	// Gere la taille de la zone de texte, en l'agrandissant et en reduisant les commentaires
-	const bodyVerso = pic.querySelector(".pic-body-verso")
-	const footerVerso = pic.querySelector(".pic-footer-verso")
-	const input = pic.querySelector(".pic-input");
+		// Deplacments du placeholder
+		const placeHolder = pic.querySelector(".placeholder");
 
-	const charHeight = 22 // Height d'une ligne de caracteres d'une font size de 18px
-	const headerHeight = 52 // Height du header
+		// Reduit le placeholder au clic sur la zone de texte
+		inputText.addEventListener('focus', () => {
+			if (!placeHolder.classList.contains(".reduce"))
+				placeHolder.classList.add("reduce");
+		})
+		
+		// Si la zone de texte est vide, recentre le placeholder
+		inputText.addEventListener('blur', (event) => {
+			if (!event.target.value)
+				placeHolder.classList.remove("reduce");
+		})
 
-	inputText.addEventListener('keydown', (event) => {
-		if (event.key === "Backspace" && event.target.value) {
-			inputText.style.height = inputText.scrollHeight - charHeight + 'px'
-			input.style.height = inputText.scrollHeight + 'px'
-			
-			const footerNewSize = inputText.scrollHeight + charHeight
-			footerVerso.style.height = footerNewSize + 'px'
-			bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
-		}
-	});
-	inputText.addEventListener('input', () => {
-		// Si le texte va depasser de la zone et que la zone est inferieure a la moitie de la pic
-		if (inputText.clientHeight !== inputText.scrollHeight &&
-			input.clientHeight < pic.clientHeight / 2)
-		{
-			inputText.style.height = inputText.scrollHeight + 'px'
-			input.style.height = inputText.scrollHeight + charHeight + 'px'
-			
-			const footerNewSize = inputText.scrollHeight + charHeight * 2
-			footerVerso.style.height = footerNewSize + 'px'
-			bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
-		}
-	})
 
+		// Gere la taille de la zone de texte, en l'agrandissant et en reduisant les commentaires
+		const bodyVerso = pic.querySelector(".pic-body-verso")
+		const footerVerso = pic.querySelector(".pic-footer-verso")
+		const input = pic.querySelector(".pic-input");
+
+		const charHeight = 22 // Height d'une ligne de caracteres d'une font size de 18px
+		const headerHeight = 52 // Height du header
+
+		inputText.addEventListener('keydown', (event) => {
+			if (event.key === "Backspace" && event.target.value) {
+				inputText.style.height = inputText.scrollHeight - charHeight + 'px'
+				input.style.height = inputText.scrollHeight + 'px'
+				
+				const footerNewSize = inputText.scrollHeight + charHeight
+				footerVerso.style.height = footerNewSize + 'px'
+				bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
+			}
+		});
+		inputText.addEventListener('input', () => {
+			// Si le texte va depasser de la zone et que la zone est inferieure a la moitie de la pic
+			if (inputText.clientHeight !== inputText.scrollHeight &&
+				input.clientHeight < pic.clientHeight / 2)
+			{
+				inputText.style.height = inputText.scrollHeight + 'px'
+				input.style.height = inputText.scrollHeight + charHeight + 'px'
+				
+				const footerNewSize = inputText.scrollHeight + charHeight * 2
+				footerVerso.style.height = footerNewSize + 'px'
+				bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
+			}
+		})
+	}
 	return pic
 }

@@ -1,16 +1,14 @@
 /* CREATE BUTTON */
 
 const createbutton = document.getElementsByClassName("create-button")[0];
-
-createbutton.addEventListener('click', () => {
+createbutton?.addEventListener('click', () => {
 	window.location.href = "index.php?page=create";
 })
 
 /* ANGLE POPUP */
 
 const logoutButton = document.getElementById("logout-button");
-
-logoutButton.addEventListener('click', () => {
+logoutButton?.addEventListener('click', () => {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `index.php?page=auth&route=logout`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -30,8 +28,7 @@ logoutButton.addEventListener('click', () => {
 })
 
 const settingsButton = document.getElementById("settings-button");
-
-settingsButton.addEventListener('click', () => {
+settingsButton?.addEventListener('click', () => {
 	window.location.href = "index.php?page=settings";
 })
 
@@ -40,11 +37,11 @@ const deletePopup = document.getElementById('delete-popup');
 const deletePicForm = document.getElementById('delete-pic-form');
 
 const closeDeletePopup = document.getElementById('close-delete-popup')
-closeDeletePopup.addEventListener('click', () => {
+closeDeletePopup?.addEventListener('click', () => {
 	deletePopup.style.display = 'none';
 })
 
-deletePicForm.addEventListener('submit', (event) => {
+deletePicForm?.addEventListener('submit', (event) => {
 	event.preventDefault()
 
 	const picId = deletePopup.getAttribute('picId')
@@ -69,4 +66,11 @@ deletePicForm.addEventListener('submit', (event) => {
 	}
 
 	xhr.send();
+})
+
+/* AUTH BUTTON GUEST */
+
+const authButton = document.getElementById("auth-button");
+authButton?.addEventListener('click', () => {
+	window.location.href = "/";
 })

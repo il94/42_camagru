@@ -33,7 +33,7 @@
 			</button>
 
 			<p class="window-redirect" >Don't have an account ? <a href="/?page=auth&route=signup">Sign up</a></p> 
-
+			<p class="window-redirect guest">Or continue as <a href="/?page=home_guest">guest</a></p>
 		</form>
 	</div>
 </div>

@@ -216,15 +216,21 @@
 }
 
 .window-redirect {
-	margin-top: 8px;
-	margin-bottom: 6px;
-
 	font-size: 16px;
+}
+.window-redirect.guest {
+	font-size: 14px;
 }
 .window-redirect > a {
 	font-weight: 500;
 }
-
+.window-redirect:not(:last-of-type) {
+	margin-top: 10px;
+	margin-bottom: 3px;
+}
+.window-redirect:is(:last-of-type) {
+	margin-bottom: 7px;
+}
 .window-section {
 	display: flex;
 	align-items: center;
