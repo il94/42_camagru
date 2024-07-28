@@ -101,5 +101,4 @@ function initApp() {
 	catch (Exception $error) {
 		die($error->getMessage());
 	}
-
 }
