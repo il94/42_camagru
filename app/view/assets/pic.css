@@ -92,6 +92,10 @@
 	margin-right: 7px;
 }
 
+.trash {
+	display: none;
+}
+
 .pic-body-recto {
 	width: 100%;
 	height: calc(100% - 104px); /* 104px = header 52px + footer-recto 52px */

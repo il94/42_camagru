@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="view/assets/logo.css">
 
+<link rel="stylesheet" type="text/css" href="view/assets/window.css">
 <link rel="stylesheet" type="text/css" href="view/assets/icon.css">
 <link rel="stylesheet" type="text/css" href="view/assets/colors.css">
 <link rel="stylesheet" type="text/css" href="view/assets/main.css">
@@ -12,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="view/assets/search_popup.css">
 <link rel="stylesheet" type="text/css" href="view/assets/search_result.css">
 <link rel="stylesheet" type="text/css" href="view/assets/angle_popup.css">
+<link rel="stylesheet" type="text/css" href="view/assets/delete_popup.css">
 <link rel="stylesheet" type="text/css" href="view/assets/notification.css">
 <link rel="stylesheet" type="text/css" href="view/assets/mobile_navbar.css">
 <link rel="stylesheet" type="text/css" href="view/assets/desktop_navbar.css">

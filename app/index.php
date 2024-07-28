@@ -64,6 +64,12 @@ if (paramExist($_GET['page'])) {
 					$homeController->get(null, null);
 				}
 			}
+
+			// DELETE
+			else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+				$homeController->deletePic($_SESSION['logged_in'], $_GET['picId']);
+				http_response_code(200);
+			}
 		}
 
 	}

@@ -2,6 +2,7 @@ import { createPic } from "./pic.js"
 
 const feed = document.getElementById("feed")
 const user = {
+	id: feed.getAttribute('userId'),
 	username: feed.getAttribute('username'),
 	avatar: feed.getAttribute('avatar')
 }

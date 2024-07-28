@@ -113,6 +113,15 @@ class HomeService {
 		return ($comments);
 	}
 
+	// Supprime une pic
+	public function deletePic($userId, $picId) {
+		$user = $this->authService->repository->findUserByPicIdSecure($picId);
+
+		if ($user->id === $userId) {
+			$this->authService->repository->deletePic($picId);
+		}
+	}
+
 	// Envoie un email de notification de like
 	public function sendLikeNotif($userAuth, $userTarget) {
 		$headers = "From: noreply@craftypic.com\r\n";

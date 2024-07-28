@@ -61,7 +61,7 @@ export function createPic(picData, user) {
 					<p>${picData.user.username}</p>
 				</div>
 				<div class="pic-header-icons">
-					<button class="button-icon selectable">
+					<button class="button-icon selectable trash">
 						<svg class="icon" width="33" height="39" viewBox="0 0 33 39" xmlns="http://www.w3.org/2000/svg">
 						<path fill="none" d="M28.1 13.6667L26.476 29.9961C26.2305 32.4714 26.1087 33.7081 25.548 34.6433C25.0563 35.4666 24.3331 36.125 23.4697 36.5353C22.4895 37 21.256 37 18.7813 37H14.2187C11.7459 37 10.5105 37 9.53033 36.5333C8.66623 36.1233 7.94232 35.465 7.45007 34.6414C6.89327 33.7081 6.76953 32.4714 6.52207 29.9961L4.9 13.6667M19.4 26.3056V16.5833M13.6 26.3056V16.5833M2 8.80556H10.9223M10.9223 8.80556L11.6686 3.61C11.8851 2.665 12.6662 2 13.5633 2H19.4367C20.3338 2 21.1129 2.665 21.3314 3.61L22.0777 8.80556M10.9223 8.80556H22.0777M22.0777 8.80556H31" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -100,7 +100,7 @@ export function createPic(picData, user) {
 					<p id="comments-count" count="${picData.commentsCount}"></p>
 				</div>
 				<div class="pic-header-icons">
-					<button class="button-icon selectable">
+					<button class="button-icon selectable trash">
 						<svg class="icon" width="33" height="39" viewBox="0 0 33 39" xmlns="http://www.w3.org/2000/svg">
 						<path fill="none" d="M28.1 13.6667L26.476 29.9961C26.2305 32.4714 26.1087 33.7081 25.548 34.6433C25.0563 35.4666 24.3331 36.125 23.4697 36.5353C22.4895 37 21.256 37 18.7813 37H14.2187C11.7459 37 10.5105 37 9.53033 36.5333C8.66623 36.1233 7.94232 35.465 7.45007 34.6414C6.89327 33.7081 6.76953 32.4714 6.52207 29.9961L4.9 13.6667M19.4 26.3056V16.5833M13.6 26.3056V16.5833M2 8.80556H10.9223M10.9223 8.80556L11.6686 3.61C11.8851 2.665 12.6662 2 13.5633 2H19.4367C20.3338 2 21.1129 2.665 21.3314 3.61L22.0777 8.80556M10.9223 8.80556H22.0777M22.0777 8.80556H31" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -225,6 +225,19 @@ export function createPic(picData, user) {
 		else
 			observer.unobserve(commentsObserver)
 	}))
+
+	// Suppression
+	const deletePopup = document.getElementById('delete-popup');
+
+	const trashButtons = pic.querySelectorAll(".trash")
+	trashButtons.forEach((trashButton) => {
+		if (picData.user.id == user.id)
+			trashButton.style.display = 'block'
+
+		trashButton.addEventListener('click', () => {
+		deletePopup.style.display = 'flex';
+		deletePopup.setAttribute('picId', picData.id)
+	})})
 
 	// Commentaires
 

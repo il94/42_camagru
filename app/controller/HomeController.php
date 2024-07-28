@@ -95,4 +95,20 @@ class HomeController {
 			require_once('view/layout.php');
 		}
 	}
+
+	public function deletePic($userId, $picId) {
+		try {
+			$this->service->deletePic($userId, $picId);
+			http_response_code(200);
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
 }

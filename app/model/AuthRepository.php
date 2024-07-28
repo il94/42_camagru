@@ -180,4 +180,12 @@ class AuthRepository {
 		$request->bindParam(':update_email_token', $userDatas->update_email_token, PDO::PARAM_STR);
 		$request->execute();
 	}
+
+	// Supprime une pic
+	function deletePic($id) {
+		$request = $this->database->prepare("DELETE FROM `pic` WHERE `id` = :id");
+
+		$request->bindParam(':id', $id, PDO::PARAM_INT);
+		$request->execute();
+	}
 }

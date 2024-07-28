@@ -29,7 +29,7 @@
 
 	<!-- FEED -->
 
-	<div id="feed" username="<?php echo $user->username; ?>" avatar="<?php echo $user->avatar; ?>">
+	<div id="feed" userId="<?php echo $user->id; ?>" username="<?php echo $user->username; ?>" avatar="<?php echo $user->avatar; ?>">
 
 		<!-- FEED HEADER -->
 
@@ -92,6 +92,23 @@
 				<p>Lorem ipsum commented your pic : “Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod”.</p>
 			</div>
 		</div> -->
+	</div>
+
+	<!-- DELETE POPUP -->
+
+	<div id="delete-popup" class="window">
+		<form id="delete-pic-form" class="window-form">
+
+			<button id="close-delete-popup" class="button-icon window-return-button" type="button">
+				<?php require ("view/assets/icons/return.svg"); ?>
+			</button>
+			
+			<p class="window-title">Remove this pic ?</p>
+			<p class="window-message">This act is not reversible. Are you sure ?</p>
+			
+			<button id="delete-button" class="window-button red">Remove</button>
+			
+		</form>
 	</div>
 </div>
 

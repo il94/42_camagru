@@ -211,6 +211,10 @@
 	margin-bottom: 19px;
 }
 
+.window-button.red {
+	background-color: var(--window-button-red);	
+}
+
 .window-redirect {
 	margin-top: 8px;
 	margin-bottom: 6px;
