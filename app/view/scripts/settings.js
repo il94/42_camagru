@@ -229,3 +229,26 @@ if (form) {
 		}
 	}
 }
+
+const sendPasswordReinitialization =  document.getElementById('send-password-reinitialization');
+sendPasswordReinitialization?.addEventListener('click', () => {
+
+	const xhr = new XMLHttpRequest();
+	xhr.open('POST', `index.php?page=settings&route=forgot-password`, true);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 201) {
+				const response = JSON.parse(xhr.responseText);
+				window.location.href = `index.php?page=settings&state=reinitialization-start&email=${encodeURIComponent(response)}`;
+			}
+			else {
+				console.error('ERROR')
+			}
+		}
+	}
+
+	const postData = ``;
+	xhr.send(postData);
+})

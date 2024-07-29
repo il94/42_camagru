@@ -189,8 +189,17 @@ if (paramExist($_GET['page'])) {
 		}
 		else {
 
+			// POST
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+				// FORGOT PASSWORD
+				if ($_GET['route'] === 'forgot-password') {
+					$settingsController->forgotPassword($_SESSION['logged_in']);
+				}
+			}
+
 			// GET
-			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+			else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 				// STATE
 				if (paramExist($_GET['state'])) {

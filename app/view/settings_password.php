@@ -19,7 +19,7 @@
 						<?php require ("view/assets/icons/hidden.svg"); ?>
 					</button>
 				</div>
-				<a href="/?page=auth&route=login&state=forgot-password" class="window-input-link">Forgot your password ?</a>
+				<p id="send-password-reinitialization" href="/?page=settings&state=forgot-password" class="window-input-link">Forgot your password ?</p>
 			</div>
 
 			<div id="new-password-field" class="window-field">

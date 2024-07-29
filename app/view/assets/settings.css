@@ -10,11 +10,16 @@
 }
 
 #success-popup {
-	position: absolute;
+	position: fixed;
 	top: 15%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 
-	width: 336px;
+	max-width: 336px;
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		top: 7%;
+	}
+
 	height: 67px;
 }

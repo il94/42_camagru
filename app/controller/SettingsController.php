@@ -10,6 +10,25 @@ class SettingsController {
 		$this->service = new SettingsService();
 	}
 
+	public function forgotPassword($userId) {
+		try {
+			$response = $this->service->forgotPassword($userId);
+
+			http_response_code(201);
+			echo json_encode($response);
+
+		}
+		catch (HttpException $error) {
+			http_response_code($error->getCode());
+
+			$response = new stdClass();
+			$response->message = $error->getMessage();
+			$response->field = $error->getField();
+
+			echo json_encode($response);
+		}
+	}
+
 	public function get($state, $id) {
 
 		$headers = require_once("view/layouts/settings_assets.php");
@@ -36,6 +55,8 @@ class SettingsController {
 				$body = require_once('view/settings_email.php');
 			else if ($state === "password")
 				$body = require_once('view/settings_password.php');
+			else if ($state === "reinitialization-start")
+				$body = require_once('view/settings_reinitialization_start.php');
 			else if ($state === "notifications")
 				$body = require_once('view/settings_notifications.php');
 		}
