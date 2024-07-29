@@ -83,7 +83,7 @@ export function createPic(picData, user) {
 
 			<div class="pic-footer">
 				${user ? `
-					<button class="like-button button-icon selectable ${picData.liked && 'selected like'}">
+					<button class="like-button button-icon selectable ${picData.liked ? 'selected like' : ''}">
 						<svg id="like-icon" class="icon" width="44" height="38" viewBox="0 0 44 38" xmlns="http://www.w3.org/2000/svg">
 						<path fill="none" d="M12.8955 2C6.87823 2 2 6.87823 2 12.8955C2 23.7911 14.8765 33.6961 21.8101 36C28.7436 33.6961 41.6201 23.7911 41.6201 12.8955C41.6201 6.87823 36.7419 2 30.7246 2C27.0399 2 23.7812 3.82946 21.8101 6.62961C20.8054 5.19854 19.4706 4.03062 17.9189 3.22475C16.3671 2.41887 14.6441 1.99877 12.8955 2Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -143,6 +143,49 @@ export function createPic(picData, user) {
 	// Applique une couleur random a la pic
 	pic.style.backgroundColor = getRandomColor();
 
+	// buttons
+	const buttonIcons = document.getElementsByClassName("button-icon")
+
+	for (const buttonIcon of buttonIcons) {
+		const icons = buttonIcon.querySelectorAll(".icon")
+	
+		buttonIcon.addEventListener('click', () => {
+	
+			if (buttonIcon.classList.contains("selectable"))
+			{	
+				if (buttonIcon.classList.contains("selected"))
+					icons.forEach(icon => icon.style.opacity = 0.5);
+				else
+					icons.forEach(icon => icon.style.opacity = 1);
+				buttonIcon.classList.toggle("selected")
+			}
+		})
+	
+		buttonIcon.addEventListener('mouseenter', () => {
+			icons.forEach(icon => icon.style.opacity = 1);
+		})
+	
+		buttonIcon.addEventListener('mouseleave', () => {
+			if (!buttonIcon.classList.contains("selected"))
+				icons.forEach(icon => icon.style.opacity = 0.5);
+		})
+	}
+	
+	const selectablesButtons = document.getElementsByClassName('selectable')
+	
+	document.addEventListener('click', (event) => {
+		for (const button of selectablesButtons) {
+			if (!button.contains(event.target) && button.classList.contains("selected") && !button.classList.contains("like"))
+			{
+				button.classList.remove("selected")
+				const icon = button.querySelector(".icon")
+				if (icon)
+					icon.style.opacity = 0.5
+				break
+			}
+		}
+	})
+
 	// Like
 	const likesCount = pic.querySelector('#likes-count');
 	const likes = likesCount.getAttribute('count');
@@ -179,9 +222,9 @@ export function createPic(picData, user) {
 			xhr.send(postData)
 
 			likeButton.classList.toggle("like")
+			likeButton.classList.toggle("selected")
 		})
 	}
-
 
 	// Recuperation des comments
 
