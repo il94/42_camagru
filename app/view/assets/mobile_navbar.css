@@ -23,3 +23,8 @@
 	width: 38px;
 	height: 38px;
 }
+
+.mobile-navbar > button > img {
+	object-fit: cover;
+}
+

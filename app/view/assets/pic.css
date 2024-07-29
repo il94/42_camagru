@@ -72,6 +72,8 @@
 	height: 34px;
 	
 	border-radius: 50%;
+
+	object-fit: cover;
 }
 .pic-header-user-datas > p {
 	margin-left: 8px;
