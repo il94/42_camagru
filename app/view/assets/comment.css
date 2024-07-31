@@ -22,12 +22,16 @@
 	display: flex;
 	flex-direction: column;
 
-	padding-right: 20px;
-
-	width: 80%;
+	padding-right: 5px;
 
 	font-size: 14px;
 
+	overflow: hidden;
+
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
 }
 .comment-text-username {
 	width: auto;
@@ -39,5 +43,7 @@
 	cursor: default;
 }
 .comment-text-content {
+	overflow: hidden;
+
 	font-size: clamp(11.5px, 5vw, 14px);
 }
