@@ -3,7 +3,7 @@
 <div class="desktop-navbar">
 	<button id="logo" class="logo">CraftyPic</button>
 	<div id="desktop-navbar-icons">
-		<button id="auth-button" class="button-icon selectable">
+		<button class="auth-button button-icon selectable">
 			<?php require('uploads/default_avatar.svg'); ?>
 		</button>
 	</div>

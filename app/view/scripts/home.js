@@ -70,7 +70,9 @@ deletePicForm?.addEventListener('submit', (event) => {
 
 /* AUTH BUTTON GUEST */
 
-const authButton = document.getElementById("auth-button");
-authButton?.addEventListener('click', () => {
-	window.location.href = "/";
-})
+const authButtons = document.getElementsByClassName("auth-button");
+for (const authButton of authButtons) {
+	authButton?.addEventListener('click', () => {
+		window.location.href = "/";
+	})
+}

@@ -1,17 +1,17 @@
 /* Logo sur la page d'authentification */
 .logo {
+	user-select: none;
+	cursor: default;
+
 	text-align: center;
 	font-family: "Twinkle Star", cursive;
 
 	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		font-size: 22.92vw;
+	@media screen and (max-width: 1080px) { /* 1080px = logo 513px + form 468xp + marge arbitraire */
+		/* font-size: 110px; */
+		font-size: clamp(30px, 10vh, 128px);
 	}
-	/* DESKTOP 1 */
-	@media screen and (min-width: 480px) and (max-width: 1080px) { /* 1080px = logo 513px + form 468xp + marge arbitraire */
-		font-size: 110px;
-	}
-	/* DESKTOP 2 */
+	/* DESKTOP */
 	@media screen and (min-width: 1080px) {
 		font-size: 128px;
 	}

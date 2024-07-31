@@ -15,7 +15,7 @@
 		<p class="window-title">Forgot password</p>
 		<p class="window-message">An account validation email has been sent to <?php echo $message ?>. Please check your inbox to activate it.</p>
 		<button class="window-button login-redirection-button">
-			Log in
+			Done
 		</button>
 	</div>
 

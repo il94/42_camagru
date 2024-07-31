@@ -169,8 +169,9 @@ if (form) {
 
 // Permet aux boutons "login" de rediriger vers la page de connexion
 const loginRedirectionButtons = document.getElementsByClassName("login-redirection-button");
+const returnButton = document.getElementsByClassName("window-return-button");
 
-for (const button of loginRedirectionButtons) {
+for (const button of [...loginRedirectionButtons, ...returnButton]) {
 	button.addEventListener('click', () => {
 		window.location.href = "/?page=auth&route=login";
 	});

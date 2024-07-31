@@ -33,11 +33,14 @@
 }
 
 #angle-popup-title {
-
 	padding-top: 10px;
 	margin-bottom: 4px;
 
 	width: 100%;
+
+	user-select: none;
+	cursor: default;
+
 	font-size: 24px;
 	text-overflow: ellipsis;
 	overflow: hidden;

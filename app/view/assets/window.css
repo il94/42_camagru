@@ -40,8 +40,12 @@
 	margin-top: 24px;
 	margin-bottom: 27px;
 
+	user-select: none;
+	cursor: default;
+
 	font-weight: 500;
 	font-size: clamp(16px, 6vw, 25px);
+	text-align: center;
 }
 .window-title:is(:has(+ .window-message)) {
 	margin-bottom: 18px;
@@ -217,7 +221,11 @@
 }
 
 .window-redirect {
+	user-select: none;
+	cursor: default;
+
 	font-size: 16px;
+	text-align: center;
 }
 .window-redirect.guest {
 	font-size: 14px;
@@ -229,9 +237,13 @@
 	margin-top: 10px;
 	margin-bottom: 3px;
 }
-.window-redirect:is(:last-of-type) {
+.window-redirect:last-of-type {
 	margin-bottom: 7px;
 }
+.window-button + .window-redirect {
+	margin-top: 10px;
+}
+
 .window-section {
 	display: flex;
 	align-items: center;

@@ -24,15 +24,15 @@ if (paramExist($_GET['page'])) {
 	// HOME
 	else if ($_GET['page'] === 'home') {
 
-		if (!$_SESSION['logged_in']) {
-			$body = require_once('view/pas_co.php');
+		// POST
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-			require_once('view/layout.php');
-		}
-		else {
-
-			// POST
-			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if (!$_SESSION['logged_in']) {
+				$body = require_once('view/pas_co.php');
+	
+				require_once('view/layout.php');
+			}
+			else {
 
 				// COMMENT
 				if ($_GET['route'] === 'comment') {
@@ -45,37 +45,46 @@ if (paramExist($_GET['page'])) {
 				}
 			}
 
-			// GET
-			else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+		}
 
-				if (paramExist($_GET['route'])) {
+		// GET
+		else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-					// PICS
-					if ($_GET['route'] === 'pics') {
-						$homeController->getPics($_SESSION['logged_in'], $_GET['cursor']);
-						http_response_code(200);
-					}
+			if (paramExist($_GET['route'])) {
 
-					// COMMENTS
-					else if ($_GET['route'] === 'comments') {
-						$homeController->getComments($_GET['picId'], $_GET['cursor']);
-						http_response_code(200);
-					}
+				// PICS
+				if ($_GET['route'] === 'pics') {
+					$homeController->getPics($_SESSION['logged_in'], $_GET['cursor']);
+					http_response_code(200);
 				}
 
-				// DEFAULT
-				else {
+				// COMMENTS
+				else if ($_GET['route'] === 'comments') {
+					$homeController->getComments($_GET['picId'], $_GET['cursor']);
+					http_response_code(200);
+				}
+			}
+
+			// DEFAULT
+			else {
+
+				if (!$_SESSION['logged_in']) {
+					$body = require_once('view/pas_co.php');
+		
+					require_once('view/layout.php');
+				}
+				else {	
 					$homeController->get(null, null);
 				}
 			}
-
-			// DELETE
-			else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-				$homeController->deletePic($_SESSION['logged_in'], $_GET['picId']);
-				http_response_code(200);
-			}
 		}
 
+		// DELETE
+		else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+			$homeController->deletePic($_SESSION['logged_in'], $_GET['picId']);
+			http_response_code(200);
+		}
+		
 	}
 
 	// CREATE
