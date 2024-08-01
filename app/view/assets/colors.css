@@ -6,6 +6,7 @@
 
 	/* BUTTONS */
 	--button: #222222;
+	--button-hover: #777777;
 
 	/* FONTS */
 	--text: white;
@@ -27,4 +28,8 @@
 	--window-button-cursor: #ffffff;
 	--window-button-off: #4F4F4F;
 	--window-button-on: #49A953;
+
+	/* BAR */
+	--bar-bg: #282828;
+
 }

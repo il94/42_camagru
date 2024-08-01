@@ -21,6 +21,8 @@
 .desktop-navbar > .logo {
 	margin-left: 16px;
 
+	cursor: pointer;
+
 	font-size: 48px;
 }
 

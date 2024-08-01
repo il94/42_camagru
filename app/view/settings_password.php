@@ -49,6 +49,7 @@
 				Done
 			</button>
 			
+			<p id="logout-button" class="window-redirect window-input-link">Logout</p> 
 		</form>
 	</div>
 

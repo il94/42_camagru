@@ -21,8 +21,9 @@
 
 			<button class="window-button" type="submit">
 				Done
-			</button>
+			</button>	
 			
+			<p id="logout-button" class="window-redirect window-input-link">Logout</p> 
 		</form>
 	</div>
 

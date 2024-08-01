@@ -1,11 +1,18 @@
 /* CREATE BUTTON */
 
-const createbutton = document.getElementsByClassName("create-button")[0];
-createbutton?.addEventListener('click', () => {
-	window.location.href = "index.php?page=create";
-})
+const createButtons = document.getElementsByClassName("create-button");
+for (const createButton of createButtons) {
+	createButton.addEventListener('click', () => {
+		window.location.href = "index.php?page=create";
+	})
+}
 
 /* ANGLE POPUP */
+
+const settingsButton = document.getElementById("settings-button");
+settingsButton?.addEventListener('click', () => {
+	window.location.href = "index.php?page=settings";
+})
 
 const logoutButton = document.getElementById("logout-button");
 logoutButton?.addEventListener('click', () => {
@@ -25,11 +32,6 @@ logoutButton?.addEventListener('click', () => {
 	}
 
 	xhr.send();
-})
-
-const settingsButton = document.getElementById("settings-button");
-settingsButton?.addEventListener('click', () => {
-	window.location.href = "index.php?page=settings";
 })
 
 // Suppression

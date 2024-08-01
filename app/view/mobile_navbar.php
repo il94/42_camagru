@@ -4,7 +4,7 @@
 	<button id="mobile-home-button" class="button-icon selectable">
 		<?php require ("view/assets/icons/home.svg"); ?>
 	</button>
-	<button class="button-icon selectable">
+	<button class="button-icon selectable create-button">
 		<?php require ("view/assets/icons/add.svg"); ?>
 	</button>
 	<button id="mobile-logout-button" class="button-icon">

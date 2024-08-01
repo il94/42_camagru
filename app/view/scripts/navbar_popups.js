@@ -1,6 +1,7 @@
 const profilePopup = document.getElementById("angle-popup-profile")
 const profileButton = document.getElementById("profile-button")
 const mobileProfileButton = document.getElementById("mobile-profile-button")
+
 if (profilePopup && (profileButton || mobileProfileButton)) {
 
 	profilePopup.style.display = "none"
@@ -9,8 +10,6 @@ if (profilePopup && (profileButton || mobileProfileButton)) {
 		profilePopup.style.display = profilePopup.style.display === "none" ? "block" : "none"
 	})
 	mobileProfileButton?.addEventListener('click', () => {
-		console.log("click")
-		console.log("clprofilePopupick", profilePopup)
 		profilePopup.style.display = profilePopup.style.display === "none" ? "block" : "none"
 	})
 	document.addEventListener('click',(event) => {

@@ -9,7 +9,7 @@
 	/* MOBILE */
 	@media screen and (max-width: 480px) {
 		min-width: 97.46%;
-		aspect-ratio: 48/61;
+		aspect-ratio: 468/572;
 	}
 	/* DESKTOP */
 	@media screen and (min-width: 480px) {
@@ -259,4 +259,26 @@
 	margin-left: 16px;
 
 	font-size: 12px;
+}
+
+.pic.mini {
+	border-radius: 5.77px 11.54px 5.77px 11.54px;
+
+}
+.pic-header.mini {
+	height: 10px;
+}
+.pic-body-recto.mini {
+	height: calc(100% - 20px); /* 104px = header 52px + footer-recto 52px */
+
+	overflow: hidden;
+}
+.pic-body-recto.mini img {
+	width: 100%;
+    height: 100%;
+	
+    object-fit: cover;
+}
+.pic-footer.mini {
+	height: 10px;
 }

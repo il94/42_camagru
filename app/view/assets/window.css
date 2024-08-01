@@ -227,6 +227,9 @@
 	font-size: 16px;
 	text-align: center;
 }
+.window-redirect.window-input-link {
+	cursor: pointer;
+}
 .window-redirect.guest {
 	font-size: 14px;
 }
@@ -243,7 +246,9 @@
 .window-button + .window-redirect {
 	margin-top: 10px;
 }
-
+.window-switch-list + .window-redirect {
+	margin-top: 10px;
+}
 .window-section {
 	display: flex;
 	align-items: center;
