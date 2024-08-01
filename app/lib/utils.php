@@ -32,7 +32,22 @@ function paramExist($param) {
 	return (isset($param) && $param);
 }
 
-function saveImage($imageType) {
+function createImage($base64Image) {
+	list($type, $base64Image) = explode(';', $base64Image);
+	list(, $base64Image)      = explode(',', $base64Image);
+
+	$base64Image = base64_decode($base64Image);
+
+	$imageName = uniqid() . '.png';
+	$picPath = UPLOAD_RELATIVE_PATH . $imageName;
+
+	if (file_put_contents(UPLOAD_ABSOLUTE_PATH . $imageName, $base64Image))
+		return ($picPath);
+	return (false);
+}
+
+function saveImage($imageType, $file) {
+	
 	$imageName = urlencode(basename($_FILES[$imageType]['name']));
 	$imagePath = UPLOAD_RELATIVE_PATH . $imageName;
 

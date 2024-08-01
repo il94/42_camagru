@@ -15,7 +15,9 @@
 			</div>
 		</div>
 		<div class="pic-body-recto">
-			<img src="<?php echo $user->avatar; ?>" />
+			<video id="video"></video>
+			<img id="captured-photo" src="" alt="Captured Photo">
+			<canvas id="canvas" width="640" height="480"></canvas>
 		</div>
 		
 

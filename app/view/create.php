@@ -17,14 +17,7 @@
 
 			<?php require("view/assets/pic_model.php") ?>
 
-			<div id="preview-bar">
-				<?php require("view/assets/pic_model_mini.php") ?>
-				<?php require("view/assets/pic_model_mini.php") ?>
-				<?php require("view/assets/pic_model_mini.php") ?>
-				<?php require("view/assets/pic_model_mini.php") ?>
-				<?php require("view/assets/pic_model_mini.php") ?>
-				<?php require("view/assets/pic_model_mini.php") ?>
-			</div>
+			<div id="preview-bar"></div>
 
 			<div id="sticker-bar">
 				<img class="sticker" src="view/assets/s_dog.svg" />
@@ -39,14 +32,17 @@
 
 			<div id="preview-sticker-bar">
 				<div id="preview-sticker">
-					<img class="sticker" src="view/assets/s_dog.svg" />
-					<img class="sticker" src="view/assets/s_cat.svg" />
-					<img class="sticker" src="view/assets/s_panda.svg" />
-					<img class="sticker" src="view/assets/s_pikachu.svg" />
-					<img class="sticker" src="view/assets/s_mario.svg" />
-					<img class="sticker" src="view/assets/s_rolling_stones.svg" />
-					<img class="sticker" src="view/assets/s_rock.svg" />
-					<img class="sticker" src="view/assets/s_risitas.svg" />
+					<div id="stickers">
+						<img class="sticker" src="view/assets/s_dog.svg" />
+						<img class="sticker" src="view/assets/s_cat.svg" />
+						<img class="sticker" src="view/assets/s_panda.svg" />
+						<img class="sticker" src="view/assets/s_pikachu.svg" />
+						<img class="sticker" src="view/assets/s_mario.svg" />
+						<img class="sticker" src="view/assets/s_rolling_stones.svg" />
+						<img class="sticker" src="view/assets/s_rock.svg" />
+						<img class="sticker" src="view/assets/s_risitas.svg" />
+					</div>
+					<div id="previews"></div>
 				</div>
 				<div id="preview-sticker-bar-buttons">
 					<button id="stickers-button">
@@ -67,7 +63,7 @@
 					<?php require ("view/assets/icons/onoff.svg"); ?>
 				</button>
 
-				<button id="picture-button" class="button-icon create-big-button">
+				<button class="camera-button button-icon create-big-button">
 					<?php require ("view/assets/icons/camera.svg"); ?>
 				</button>
 
@@ -89,7 +85,7 @@
 					<?php require ("view/assets/icons/onoff.svg"); ?>
 				</button>
 
-				<button id="picture-button" class="button-icon create-big-button">
+				<button class="camera-button button-icon create-big-button">
 					<?php require ("view/assets/icons/camera.svg"); ?>
 				</button>
 
@@ -107,7 +103,7 @@
 					<?php require ("view/assets/icons/gallery.svg"); ?>
 				</button>
 
-				<button id="picture-button" class="button-icon create-big-button">
+				<button class="camera-button button-icon create-big-button">
 					<?php require ("view/assets/icons/camera.svg"); ?>
 				</button>
 

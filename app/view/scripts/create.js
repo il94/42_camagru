@@ -1,5 +1,7 @@
 // const form = document.getElementById("form")
 
+import { createPicMini } from "./pic.js";
+
 // form.addEventListener('click', () => {
 // 	const fileInput = form.querySelector(`#file-input`);
 
@@ -117,6 +119,61 @@ for (const pic of pics) {
 	}
 }
 
+/* CREATE PIC */
+
+const picModel = document.getElementById('pic-model')
+
+const video = picModel.querySelector("#video");
+navigator.mediaDevices.getUserMedia({ video: true })
+	.then(stream => {
+		video.srcObject = stream;
+		video.play();
+	})
+	.catch(err => {
+		console.error("Error accessing the camera: " + err);
+});
+
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+const capturedPhoto = document.getElementById("captured-photo");
+
+const previewBar = document.getElementById("preview-bar")
+const previewBar2 = document.getElementById("previews")
+
+const cameraButtons = document.getElementsByClassName("camera-button");
+for (const cameraButton of cameraButtons) {
+
+	cameraButton.addEventListener("click", () => {
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST', `index.php?page=create`, true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	
+		context.save();
+		context.scale(-1, 1);
+		context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+		context.restore();
+		
+		const imageData = canvas.toDataURL("image/png");
+
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 201) {
+					console.log("OK")
+					capturedPhoto.src = imageData;
+					previewBar.appendChild(createPicMini(imageData))
+					previewBar2.appendChild(createPicMini(imageData))
+				}
+				else {
+					console.log("ERROR")
+				}
+			}
+		};
+
+		const postData = `pic=${encodeURIComponent(imageData)}`
+		xhr.send(postData);
+	});
+}
+
 /* BUTTONS */
 
 const logo = document.querySelector('.logo');
@@ -133,3 +190,18 @@ returnTopButtons.forEach((button) => {
 
 const createButton = document.getElementsByClassName("create-button")[0];
 createButton.style.display = 'none'
+
+const stickersButton = document.getElementById('stickers-button')
+const previewsButton = document.getElementById('previews-button')
+const stickers = document.getElementById('stickers')
+const previews = document.getElementById('previews')
+
+stickers.classList.add("show")
+stickersButton.addEventListener('click', () => {
+	stickers.classList.add("show")
+	previews.classList.remove("show")
+})
+previewsButton.addEventListener('click', () => {
+	previews.classList.add("show")
+	stickers.classList.remove("show")
+})

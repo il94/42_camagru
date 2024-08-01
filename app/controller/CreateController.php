@@ -10,9 +10,9 @@ class CreateController {
 		$this->service = new CreateService();
 	}
 
-	public function createPic($userId, $files) {
+	public function createPic($userId, $picUrl) {
 		try {
-			$this->service->createPic($userId, $files);
+			$this->service->createPic($userId, $picUrl);
 			http_response_code(201);
 		}
 		catch (HttpException $error) {
