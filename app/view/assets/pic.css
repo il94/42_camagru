@@ -111,8 +111,15 @@
 }
 
 .pic-body-recto {
+	position: relative;
 	height: calc(100% - 104px); /* 104px = header 52px + footer-recto 52px */
 	max-height: 468px;
+
+	overflow: hidden;
+}
+.pic-body-recto.model {
+	height: calc(100% - 88.88px); /* 104px = header 52px + footer-recto 52px */
+	max-height: 400px;
 
 	overflow: hidden;
 }
@@ -124,6 +131,10 @@
 
 }
 .pic-body-recto video {
+	position: absolute;
+	top: 0;
+	left: 0;
+
 	width: 100%;
     height: 100%;
 	
@@ -269,9 +280,16 @@
 	font-size: 12px;
 }
 
-.pic.mini {
-	border-radius: 5.77px 11.54px 5.77px 11.54px;
+.pic-header.model,
+.pic-footer.model {
+	height: 44.44px;
+}
 
+.pic.mini {
+	width: auto;
+	height: auto;
+
+	border-radius: 5.77px 11.54px 5.77px 11.54px;
 }
 .pic-header.mini {
 	height: 10px;

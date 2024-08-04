@@ -20,27 +20,27 @@
 			<div id="preview-bar"></div>
 
 			<div id="sticker-bar">
-				<img class="sticker" src="view/assets/s_dog.svg" />
-				<img class="sticker" src="view/assets/s_cat.svg" />
-				<img class="sticker" src="view/assets/s_panda.svg" />
-				<img class="sticker" src="view/assets/s_pikachu.svg" />
-				<img class="sticker" src="view/assets/s_mario.svg" />
-				<img class="sticker" src="view/assets/s_rolling_stones.svg" />
-				<img class="sticker" src="view/assets/s_rock.svg" />
-				<img class="sticker" src="view/assets/s_risitas.svg" />
+				<img class="sticker" src="view/assets/s_dog.png" />
+				<img class="sticker" src="view/assets/s_cat.png" />
+				<img class="sticker" src="view/assets/s_panda.png" />
+				<img class="sticker" src="view/assets/s_pikachu.png" />
+				<img class="sticker" src="view/assets/s_mario.png" />
+				<img class="sticker" src="view/assets/s_rolling_stones.png" />
+				<img class="sticker" src="view/assets/s_rock.png" />
+				<img class="sticker" src="view/assets/s_risitas.png" />
 			</div>
 
 			<div id="preview-sticker-bar">
 				<div id="preview-sticker">
 					<div id="stickers">
-						<img class="sticker" src="view/assets/s_dog.svg" />
-						<img class="sticker" src="view/assets/s_cat.svg" />
-						<img class="sticker" src="view/assets/s_panda.svg" />
-						<img class="sticker" src="view/assets/s_pikachu.svg" />
-						<img class="sticker" src="view/assets/s_mario.svg" />
-						<img class="sticker" src="view/assets/s_rolling_stones.svg" />
-						<img class="sticker" src="view/assets/s_rock.svg" />
-						<img class="sticker" src="view/assets/s_risitas.svg" />
+						<img class="sticker" src="view/assets/s_dog.png" />
+						<img class="sticker" src="view/assets/s_cat.png" />
+						<img class="sticker" src="view/assets/s_panda.png" />
+						<img class="sticker" src="view/assets/s_pikachu.png" />
+						<img class="sticker" src="view/assets/s_mario.png" />
+						<img class="sticker" src="view/assets/s_rolling_stones.png" />
+						<img class="sticker" src="view/assets/s_rock.png" />
+						<img class="sticker" src="view/assets/s_risitas.png" />
 					</div>
 					<div id="previews"></div>
 				</div>

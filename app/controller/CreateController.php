@@ -10,10 +10,15 @@ class CreateController {
 		$this->service = new CreateService();
 	}
 
-	public function createPic($userId, $picUrl) {
+	public function createPic($userId) {
 		try {
-			$this->service->createPic($userId, $picUrl);
+			$data = json_decode(file_get_contents('php://input'));
+			$imageUrl = $data->imageUrl;
+			$stickers = $data->stickers;
+
+			$response = $this->service->createPic($userId, $imageUrl, $stickers);
 			http_response_code(201);
+			echo json_encode($response);
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());

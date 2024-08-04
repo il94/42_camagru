@@ -94,8 +94,8 @@
 
 	width: 108px;
 	min-width: 108px;
-	height: 136.8px;
-	min-height: 136.8px;
+	max-width: 108px;
+	aspect-ratio: 468/572;
 }
 
 #sticker-bar {
@@ -192,8 +192,8 @@
 
 	width: 59px;
 	min-width: 59px;
-	height: 75px;
-	min-height: 75px;
+	max-width: 59px;
+	aspect-ratio: 468/572;
 }
 #stickers > .sticker {
 	margin-bottom: 0;

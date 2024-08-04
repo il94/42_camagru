@@ -1,6 +1,6 @@
 <div id="pic-model" class="pic">
 	<div class="pic-recto">
-		<div class="pic-header">
+		<div class="pic-header model">
 			<div class="pic-header-user-datas">
 				<img src="<?php echo $user->avatar; ?>">
 				<p><?php echo $user->username; ?></p>
@@ -14,14 +14,14 @@
 				</button>
 			</div>
 		</div>
-		<div class="pic-body-recto">
+		<div class="pic-body-recto model">
 			<video id="video"></video>
 			<img id="captured-photo" src="" alt="Captured Photo">
-			<canvas id="canvas" width="640" height="480"></canvas>
+			<canvas id="canvas" width="533.34" height="400"></canvas>
 		</div>
 		
 
-		<div class="pic-footer">
+		<div class="pic-footer model">
 			<button class="button-icon selectable">
 				<?php require ("view/assets/icons/like.svg") ?>
 			</button>

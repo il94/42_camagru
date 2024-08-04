@@ -1,67 +1,4 @@
-// const form = document.getElementById("form")
-
 import { createPicMini } from "./pic.js";
-
-// form.addEventListener('click', () => {
-// 	const fileInput = form.querySelector(`#file-input`);
-
-// 	// fileInput.addEventListener('change', (event) => {
-// 	// 	const file = event.target.files[0];
-
-// 	// 	if (file) {
-// 	// 		const reader = new FileReader();
-// 	// 		reader.onload = function(e) {
-// 	// 			avatarField.src = e.target.result;
-// 	// 		};
-// 	// 		reader.readAsDataURL(file);
-// 	// 	}
-// 	// });
-
-// 	const file = fileInput.files[0];
-
-// 	if (!file) {
-// 		// formErrorMessage.textContent = 'Please select a file.';
-// 		return;
-// 	}
-
-// 	const xhr = new XMLHttpRequest();
-// 	xhr.open('POST', `index.php?page=create`, true);
-// 	xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-// 	xhr.onreadystatechange = () => {
-// 		if (xhr.readyState === 4) {
-// 			if (xhr.status === 201) {
-// 				console.log("OK")
-
-// 				// window.location.href = `index.php?page=settings&state=updated&data=avatar`;
-// 			}
-// 			else {
-// 				console.log("ERROR")
-// 				// const response = JSON.parse(xhr.responseText);
-
-// 				// formErrorMessage.textContent = response.message
-// 			}
-// 		}
-// 	};
-
-// 	const formData = new FormData();
-// 	formData.append('pic', file);
-// 	xhr.send(formData);
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ANGLE POPUP */
 
@@ -119,49 +56,117 @@ for (const pic of pics) {
 	}
 }
 
-/* CREATE PIC */
+/* ================ CREATE PIC ================ */
 
 const picModel = document.getElementById('pic-model')
-
-const video = picModel.querySelector("#video");
-navigator.mediaDevices.getUserMedia({ video: true })
-	.then(stream => {
-		video.srcObject = stream;
-		video.play();
-	})
-	.catch(err => {
-		console.error("Error accessing the camera: " + err);
-});
+const picBodyRecto = picModel.querySelector(".pic-body-recto");
+const previewBar = document.getElementById("preview-bar")
+const previewBar2 = document.getElementById("previews")
+const cameraButtons = document.getElementsByClassName("camera-button");
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-const capturedPhoto = document.getElementById("captured-photo");
+const PICSIZE = 400
 
-const previewBar = document.getElementById("preview-bar")
-const previewBar2 = document.getElementById("previews")
+let stickerSelected;
+const stickersList = document.getElementsByClassName("sticker")
+for (const sticker of stickersList) {
+    sticker.addEventListener('click', (event) => {
 
-const cameraButtons = document.getElementsByClassName("camera-button");
+		// Selectionne le sticker
+        stickerSelected = event.target;
+
+		// Defini la version svg du sticker pour le cursor
+		const svg = stickerSelected.src.replace(".png", ".svg")
+        video.style.cursor = `url('${svg}') ${sticker.width / 2} ${sticker.height / 2}, auto`;
+    });
+}
+
+const video = picModel.querySelector("#video");
+try {
+	const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+
+	video.srcObject = stream;
+	video.play();
+}
+catch (error) {
+	console.error("Error accessing the camera: " + error);
+}
+
+// Place les stickers sur l'image
+video.addEventListener('click', (event) => {
+	const videoRect = video.getBoundingClientRect();
+
+	const clickX = event.clientX - videoRect.left;
+	const clickY = event.clientY - videoRect.top;
+
+	const img = document.createElement('img');
+	img.src = stickerSelected.src;
+	img.className = 'sticker';
+	img.style.position = 'absolute';
+
+	const stickerWidthPx = stickerSelected.width * (videoRect.width / PICSIZE);
+    const stickerHeightPx = stickerSelected.height * (videoRect.height / PICSIZE);
+
+	// Rendu front
+	img.style.left = `${clickX - stickerWidthPx / 2}px`;
+    img.style.top = `${clickY - stickerHeightPx / 2}px`;
+	img.style.width = `${stickerWidthPx}px`;
+	img.style.height = `${stickerHeightPx}px`;
+
+	// Rendu back
+	img.baseLeft = `${(clickX - stickerWidthPx / 2) * (PICSIZE / videoRect.width)}px`;
+	img.baseTop = `${(clickY - stickerHeightPx / 2) * (PICSIZE / videoRect.height)}px`;
+	img.baseWidth = `${stickerSelected.width}px`;
+	img.baseHight = `${stickerSelected.height}px`;
+
+	picBodyRecto.appendChild(img);
+})
+
 for (const cameraButton of cameraButtons) {
-
 	cameraButton.addEventListener("click", () => {
+
 		const xhr = new XMLHttpRequest();
 		xhr.open('POST', `index.php?page=create`, true);
-		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	
+		xhr.setRequestHeader('Content-Type', 'application/json');
+
+		// Dessine la photo prise
 		context.save();
 		context.scale(-1, 1);
 		context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
 		context.restore();
+
+		// Crop la photo (rectangle -> carré)
+		const squareCanvas = document.createElement('canvas');
+		squareCanvas.width = PICSIZE;
+		squareCanvas.height = PICSIZE;
 		
-		const imageData = canvas.toDataURL("image/png");
+		const offsetX = (canvas.width - PICSIZE) / 2;
+        const offsetY = (canvas.height - PICSIZE) / 2;
+
+		const squareContext = squareCanvas.getContext('2d');
+		squareContext.drawImage(canvas, offsetX, offsetY, PICSIZE, PICSIZE, 0, 0, PICSIZE, PICSIZE);
+
+        const imageData = squareCanvas.toDataURL('image/png');
+
+		// Data des stickers a placer
+        const stickersData = Array.from(document.querySelectorAll('.pic-body-recto .sticker')).map(sticker => {
+			return {
+				src: sticker.src,
+				left: sticker.baseLeft,
+				top: sticker.baseTop,
+				width: sticker.baseWidth,
+				height: sticker.baseHight
+			}
+        });
 
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 201) {
-					console.log("OK")
-					capturedPhoto.src = imageData;
-					previewBar.appendChild(createPicMini(imageData))
-					previewBar2.appendChild(createPicMini(imageData))
+					const response = JSON.parse(xhr.responseText)
+
+					previewBar.appendChild(createPicMini(response))
+					previewBar2.appendChild(createPicMini(response))
 				}
 				else {
 					console.log("ERROR")
@@ -169,7 +174,10 @@ for (const cameraButton of cameraButtons) {
 			}
 		};
 
-		const postData = `pic=${encodeURIComponent(imageData)}`
+		const postData = JSON.stringify({
+			imageUrl: imageData,
+			stickers: stickersData
+		});
 		xhr.send(postData);
 	});
 }

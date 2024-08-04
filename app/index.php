@@ -99,7 +99,7 @@ if (paramExist($_GET['page'])) {
 
 			// POST
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-				$createController->createPic($_SESSION['logged_in'], $_POST['pic']);
+				$createController->createPic($_SESSION['logged_in']);
 			}
 
 			// GET
