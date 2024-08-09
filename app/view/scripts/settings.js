@@ -154,7 +154,7 @@ if (form) {
 		}
 
 		case "form-avatar" : {
-			const fileInput = form.querySelector(`#file-input`);
+			const fileInput = form.querySelector(`#input-file`);
 			const avatarField = document.getElementById('avatar-field');
 
 			fileInput.addEventListener('change', (event) => {

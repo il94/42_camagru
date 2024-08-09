@@ -16,7 +16,11 @@
 		</div>
 		<div class="pic-body-recto model">
 			<video id="video"></video>
-			<img id="captured-photo" src="" alt="Captured Photo">
+			<div id="camera-off">
+				<p>Camera off</p>
+			</div>
+			<img id="gallery-image" src="" />
+			<img id="preview-image" src="" />
 			<canvas id="canvas" width="533.34" height="400"></canvas>
 		</div>
 		

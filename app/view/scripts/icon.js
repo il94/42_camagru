@@ -17,11 +17,12 @@ for (const buttonIcon of buttonIcons) {
 	})
 
 	buttonIcon.addEventListener('mouseenter', () => {
-		icons.forEach(icon => icon.style.opacity = 1);
+		if (!buttonIcon.classList.contains("blocked"))
+			icons.forEach(icon => icon.style.opacity = 1);
 	})
 
 	buttonIcon.addEventListener('mouseleave', () => {
-		if (!buttonIcon.classList.contains("selected"))
+		if (!buttonIcon.classList.contains("selected") && !buttonIcon.classList.contains("blocked"))
 			icons.forEach(icon => icon.style.opacity = 0.5);
 	})
 

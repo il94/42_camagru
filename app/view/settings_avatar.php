@@ -11,10 +11,10 @@
 			<p class="window-title">Change avatar</p>
 
 			<div class="window-avatar">
-				<label for="file-input">
+				<label for="input-file">
 					<img id="avatar-field" class="window-field-avatar" src="<?php echo $user->avatar; ?>"/>
 				</label>
-				<input type="file" id="file-input" accept="image/*"/>
+				<input type="file" id="input-file" accept="image/*"/>
 			</div>
 
 			<p class="window-error-message"></p>

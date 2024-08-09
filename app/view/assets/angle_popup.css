@@ -6,11 +6,15 @@
     position: fixed;
 	/* MOBILE */
 	@media screen and (max-width: 480px) {
-		top: 40px;
+		bottom: 52px;
+
+		border-radius: 45px 0 0 0px;
 	}
 	/* DESKTOP */
 	@media screen and (min-width: 480px) {
 		top: 65px;
+
+		border-radius: 0 0 0 45px;
 	}
     right: 0;
 	z-index: 999;
@@ -19,7 +23,6 @@
 	max-width: 100%;
 	max-height: 254px;
 	
-	border-radius: 0 0 0 45px;
 
     background-color: var(--window-bg);
 }

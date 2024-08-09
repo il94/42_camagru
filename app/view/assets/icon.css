@@ -22,3 +22,17 @@
 .selected > svg {
 	opacity: 1;
 }
+
+.blocked,
+.blocked > svg {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.error {
+	background-color: var(--window-input-error);
+}
+
+.success {
+	background-color: var(--window-bg-valid);
+}

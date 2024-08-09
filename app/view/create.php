@@ -54,22 +54,24 @@
 				</div>
 			</div>
 			
+			<input type="file" id="input-file" accept="image/*"/>
+
 			<div id="action-bar">
-				<button id="cancel-button" class="button-icon window-button">
+				<button class="cancel-button button-icon window-button">
 					Cancel
 				</button>
 
-				<button id="onoff-button" class="button-icon create-medium-button">
+				<button class="onoff-button button-icon create-medium-button">
 					<?php require ("view/assets/icons/onoff.svg"); ?>
 				</button>
 
-				<button class="camera-button button-icon create-big-button">
+				<button class="camera-button blocked button-icon create-big-button">
 					<?php require ("view/assets/icons/camera.svg"); ?>
 				</button>
 
-				<button id="gallery-button" class="button-icon create-medium-button">
-					<?php require ("view/assets/icons/gallery.svg"); ?>
-				</button>
+					<button class="gallery-button button-icon create-medium-button">
+						<?php require ("view/assets/icons/gallery.svg"); ?>
+					</button>
 
 				<button id="publish-button" class="button-icon window-button">
 					Publish
@@ -77,21 +79,23 @@
 			</div>
 
 			<div id="action-bar-2">
-				<button id="cancel-button" class="button-icon create-little-button">
+				<button class="cancel-button button-icon create-little-button">
 					<?php require ("view/assets/icons/return.svg"); ?>
 				</button>
 
-				<button id="onoff-button" class="button-icon create-medium-button">
+				<button class="onoff-button button-icon create-medium-button">
 					<?php require ("view/assets/icons/onoff.svg"); ?>
 				</button>
 
-				<button class="camera-button button-icon create-big-button">
+				<button class="camera-button blocked button-icon create-big-button">
 					<?php require ("view/assets/icons/camera.svg"); ?>
 				</button>
 
-				<button id="gallery-button" class="button-icon create-medium-button">
-					<?php require ("view/assets/icons/gallery.svg"); ?>
-				</button>
+				<label for="input-file">
+					<button class="gallery-button button-icon create-medium-button">
+						<?php require ("view/assets/icons/gallery.svg"); ?>
+					</button>
+				</label>
 
 				<button id="publish-button" class="button-icon create-little-button">
 					<?php require ("view/assets/icons/arrow_up.svg"); ?>
@@ -99,11 +103,14 @@
 			</div>
 
 			<div id="mobile-action-bar">
-				<button id="gallery-button" class="button-icon create-medium-button">
-					<?php require ("view/assets/icons/gallery.svg"); ?>
-				</button>
 
-				<button class="camera-button button-icon create-big-button">
+				<label for="input-file">
+					<button class="gallery-button button-icon create-medium-button">
+						<?php require ("view/assets/icons/gallery.svg"); ?>
+					</button>
+				</label>
+
+				<button class="camera-button blocked button-icon create-big-button">
 					<?php require ("view/assets/icons/camera.svg"); ?>
 				</button>
 

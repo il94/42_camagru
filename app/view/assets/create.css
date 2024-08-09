@@ -59,7 +59,36 @@
 	}
 	aspect-ratio: 468/572;
 	height: auto;
+}
 
+#camera-off {
+	display: none;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+
+	background-color: black;
+	color: var(--text);
+}
+
+#gallery-image {
+	display: none;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+}
+
+#preview-image {
+	display: none;
+
+	width: 100%;
+	height: 100%;
 }
 
 #preview-bar {
