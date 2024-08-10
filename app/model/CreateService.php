@@ -11,7 +11,7 @@ class CreateService {
 
 	/* ==================== ROUTES ==================== */
 
-	// Crée une pic
+	// Crée des pics
 	public function createPics($userId, $dataPics) {
 		$user = $this->authService->repository->findUserById($userId);
 		if (!$user)
@@ -20,238 +20,76 @@ class CreateService {
 
 		$uploadedFiles = [];
 
-		prettyPrint($dataPics);
+		// prettyPrint($dataPics);
+		echo("\n\n");
 
-		foreach ($dataPics as $dataPic) {
-			// if ($file['error'] !== UPLOAD_ERR_OK)
-			// 	return //error
+		foreach ($dataPics->image as $imagesKey => $imageData) {
+			$stickersKey = 'stickersData_' . str_replace('canvas_', '', $imagesKey);
 
+			// prettyPrint($imagesKey);
 
-
-			// $image = imagecreatefrompng($uploadedFile);
-
-			// foreach ($stickers as $file->sticker) {
-			// 	if (!isset($sticker->src, $sticker->width, $sticker->height, $sticker->left, $sticker->top)) {
-			// 		continue;
-			// 	}
-			
-			// 	$stickerPath = STICKERS_PATH . basename($sticker->src);
-			
-			// 	$stickerData = file_get_contents($stickerPath);
-			// 	if ($stickerData === false) {
-			// 		die('Impossible de lire le fichier sticker : ' . $stickerPath);
-			// 	}
-			
-			// 	$stickerImage = imagecreatefromstring($stickerData);
-			// 	if ($stickerImage === false) {
-			// 		die('Impossible de créer le sticker à partir du PNG.');
-			// 	}
-
-			// 	imagealphablending($image, true);
-			// 	imagesavealpha($image, true);
-
-			// 	imagecopyresampled(
-			// 		$image,
-			// 		$stickerImage,
-			// 		(int) $sticker->left,
-			// 		(int) $sticker->top,
-			// 		0,
-			// 		0,
-			// 		(int) $sticker->width,
-			// 		(int) $sticker->height,
-			// 		imagesx($stickerImage),
-			// 		imagesy($stickerImage)
-			// 	);
-				
-			// 	imagedestroy($stickerImage);
-			// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-				// // Déplacer le fichier vers le répertoire de destination
-				// $picName = uniqid() . '.png';
-				// $uploadedFile = UPLOAD_ABSOLUTE_PATH . $picName;
-				
-				// $picPath = UPLOAD_RELATIVE_PATH . $picName;
-
-				// if (move_uploaded_file($file['tmp_name'], $uploadedFile)) {
-				// 	$uploadedFiles[$key] = $uploadedFile;
-				// 	$picDatas = new stdClass();
-			
-				// 	$picDatas->userId = $userId;
-				// 	$picDatas->image = $picPath;
-			
-				// 	$this->repository->createPic($picDatas);
-				// } else {
-				// 	// Gestion des erreurs
-				// 	echo "Failed to move uploaded file: " . $file['name'];
-				// }
-			// }
-		}
-
-
-
-
-
-
-
-
-		// $imageData = str_replace('data:image/png;base64,', '', $imageData);
-		// $imageData = base64_decode($imageData);
-
-		// $image = imagecreatefromstring($imageData);
-		// if ($image === false) {
-		// 	die('Impossible de créer l\'image.');
-		// }
-
-		// foreach ($stickers as $sticker) {
-		// 	if (!isset($sticker->src, $sticker->width, $sticker->height, $sticker->left, $sticker->top)) {
-		// 		continue;
-		// 	}
-		
-		// 	$stickerPath = STICKERS_PATH . basename($sticker->src);
-		
-		// 	$stickerData = file_get_contents($stickerPath);
-		// 	if ($stickerData === false) {
-		// 		die('Impossible de lire le fichier sticker : ' . $stickerPath);
-		// 	}
-		
-		// 	$stickerImage = imagecreatefromstring($stickerData);
-		// 	if ($stickerImage === false) {
-		// 		die('Impossible de créer le sticker à partir du PNG.');
-		// 	}
-
-		// 	imagealphablending($image, true);
-		// 	imagesavealpha($image, true);
-
-		// 	imagecopyresampled(
-		// 		$image,
-		// 		$stickerImage,
-		// 		(int) $sticker->left,
-		// 		(int) $sticker->top,
-		// 		0,
-		// 		0,
-		// 		(int) $sticker->width,
-		// 		(int) $sticker->height,
-		// 		imagesx($stickerImage),
-		// 		imagesy($stickerImage)
-		// 	);
-			
-		// 	imagedestroy($stickerImage);
-		// }
+			if (isset($dataPics->stickersData[$stickersKey])) {
+				$stickers = json_decode($dataPics->stickersData[$stickersKey], true);
 	
-		// $picName = uniqid() . '.png';
-		// $picPath = UPLOAD_RELATIVE_PATH . $picName;
-
-		// imagepng($image, UPLOAD_ABSOLUTE_PATH . $picName);
-		// imagedestroy($image);
-
-		// $picDatas = new stdClass();
-
-		// $picDatas->userId = $userId;
-		// $picDatas->image = $picPath;
-
-		// $this->repository->createPic($picDatas);
-
-		// return $picPath;
+				$uploadedFiles[] = $this->processImageWithStickers($imageData, $stickers);
+			}
+			else
+				echo "HERE";
+		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-	// // Crée une pic
-	// public function createPics($userId, $imageData, $stickers) {
-	// 	$user = $this->authService->repository->findUserById($userId);
-	// 	if (!$user)
-	// 		throw new HttpException("User not found", 404, '');
-
-	// 	$imageData = str_replace('data:image/png;base64,', '', $imageData);
-	// 	$imageData = base64_decode($imageData);
-
-	// 	$image = imagecreatefromstring($imageData);
-	// 	if ($image === false) {
-	// 		die('Impossible de créer l\'image.');
-	// 	}
-
-	// 	foreach ($stickers as $sticker) {
-	// 		if (!isset($sticker->src, $sticker->width, $sticker->height, $sticker->left, $sticker->top)) {
-	// 			continue;
-	// 		}
+	private function processImageWithStickers($imageData, $stickers) {
+		// Charger l'image de base depuis le fichier temporaire
+		$image = imagecreatefrompng($imageData['tmp_name']);
 		
-	// 		$stickerPath = STICKERS_PATH . basename($sticker->src);
-		
-	// 		$stickerData = file_get_contents($stickerPath);
-	// 		if ($stickerData === false) {
-	// 			die('Impossible de lire le fichier sticker : ' . $stickerPath);
-	// 		}
-		
-	// 		$stickerImage = imagecreatefromstring($stickerData);
-	// 		if ($stickerImage === false) {
-	// 			die('Impossible de créer le sticker à partir du PNG.');
-	// 		}
-
-	// 		imagealphablending($image, true);
-	// 		imagesavealpha($image, true);
-
-	// 		imagecopyresampled(
-	// 			$image,
-	// 			$stickerImage,
-	// 			(int) $sticker->left,
-	// 			(int) $sticker->top,
-	// 			0,
-	// 			0,
-	// 			(int) $sticker->width,
-	// 			(int) $sticker->height,
-	// 			imagesx($stickerImage),
-	// 			imagesy($stickerImage)
-	// 		);
-			
-	// 		imagedestroy($stickerImage);
-	// 	}
+		if (!$image) {
+			throw new Exception("Failed to load image");
+		}
 	
-	// 	$picName = uniqid() . '.png';
-	// 	$picPath = UPLOAD_RELATIVE_PATH . $picName;
+		// Appliquer les stickers
+		foreach ($stickers as $sticker) {
+			$this->applySticker($image, $sticker);
+		}
+	
+		// Enregistrer ou retourner l'image résultante
+		$outputFile = UPLOAD_ABSOLUTE_PATH . uniqid() . '.png';
+		imagepng($image, $outputFile);
+	
+		// Libérer la mémoire
+		imagedestroy($image);
+	
+		return $outputFile;
+	}
 
-	// 	imagepng($image, UPLOAD_ABSOLUTE_PATH . $picName);
-	// 	imagedestroy($image);
+	private function applySticker($image, $sticker) {
+		// Charger le sticker depuis son URL
 
-	// 	$picDatas = new stdClass();
 
-	// 	$picDatas->userId = $userId;
-	// 	$picDatas->image = $picPath;
+		$stickerImage = imagecreatefrompng($sticker['src']);
+		
+		if (!$stickerImage) {
+			throw new Exception("Failed to load sticker: " . $sticker['src']);
+		}
+	
+		// Calculer la position et la taille
+		$stickerWidth = intval($sticker['width']);
+		$stickerHeight = intval($sticker['height']);
+		$stickerLeft = intval($sticker['left']);
+		$stickerTop = intval($sticker['top']);
+	
+		// Appliquer le sticker sur l'image de base
+		imagecopyresampled(
+			$image, $stickerImage,
+			$stickerLeft, $stickerTop,
+			0, 0,
+			$stickerWidth, $stickerHeight,
+			imagesx($stickerImage), imagesy($stickerImage)
+		);
+	
+		// Libérer la mémoire utilisée par le sticker
+		imagedestroy($stickerImage);
+	}
+	
 
-	// 	$this->repository->createPic($picDatas);
-
-	// 	return $picPath;
-	// }
 
 }

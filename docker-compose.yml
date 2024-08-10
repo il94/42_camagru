@@ -1,8 +1,10 @@
-version: '3.7'
+version: '3.8'
 
 services:
   nginx:
-    image: nginx:latest
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx
     ports:
       - "8080:80"
     volumes:
@@ -10,20 +12,23 @@ services:
       - ./app:/var/www/html
     depends_on:
       - php
+      - mysql
     env_file:
       - .env
 
   php:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_php
     volumes:
       - ./app:/var/www/html
     env_file:
       - .env
 
   mysql:
-    image: mysql:8.0
+    build:
+      context: .
+      dockerfile: Dockerfile_mysql
     # command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
@@ -48,4 +53,5 @@ services:
       - "8025:8025"
 
 volumes:
+  php_data:
   mysql_data:

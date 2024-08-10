@@ -1,0 +1,7 @@
+# Use the official MySQL image as the base
+FROM mariadb
+
+# Copy your SQL script into the container
+# COPY ./sql/init.sql /docker-entrypoint-initdb.d/
+
+# When the container starts, MySQL will automatically run the scripts in /docker-entrypoint-initdb.d/
