@@ -69,11 +69,11 @@
 					<?php require ("view/assets/icons/camera.svg"); ?>
 				</button>
 
-					<button class="gallery-button button-icon create-medium-button">
-						<?php require ("view/assets/icons/gallery.svg"); ?>
-					</button>
+				<button class="gallery-button button-icon create-medium-button">
+					<?php require ("view/assets/icons/gallery.svg"); ?>
+				</button>
 
-				<button id="publish-button" class="button-icon window-button">
+				<button class="publish-button blocked button-icon window-button">
 					Publish
 				</button>
 			</div>
@@ -97,7 +97,7 @@
 					</button>
 				</label>
 
-				<button id="publish-button" class="button-icon create-little-button">
+				<button class="publish-button blocked button-icon create-little-button">
 					<?php require ("view/assets/icons/arrow_up.svg"); ?>
 				</button>
 			</div>
@@ -114,7 +114,7 @@
 					<?php require ("view/assets/icons/camera.svg"); ?>
 				</button>
 
-				<button id="publish-button" class="button-icon create-medium-button">
+				<button class="publish-button blocked button-icon create-medium-button">
 					<?php require ("view/assets/icons/arrow_up.svg"); ?>
 				</button>
 			</div>

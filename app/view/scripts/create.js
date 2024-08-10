@@ -95,6 +95,8 @@ const galleryImage = document.getElementById('gallery-image');
 const galleryButtons = document.getElementsByClassName('gallery-button');
 const inputFile = document.getElementById('input-file');
 
+const publishButtons = document.getElementsByClassName('publish-button');
+
 let stream
 try {
 	stream = await navigator.mediaDevices.getUserMedia({ video: true })
@@ -242,14 +244,18 @@ function drawStickers(element, size, size2) {
 video.addEventListener('click', () => drawStickers(video, PICSIZE, PICSIZE))
 galleryImage.addEventListener('click', () => drawStickers(galleryImage, galleryImage.naturalHeight, galleryImage.naturalWidth))
 
+const canvasList = []
+
+const model = {
+	stickersData: false,
+	canvas: false
+}
+const previewBars = [previewBar, previewBar2]
+
 for (const cameraButton of cameraButtons) {
 	cameraButton.addEventListener("click", () => {
 		if (cameraButton.classList.contains("blocked"))
 			return
-
-		const xhr = new XMLHttpRequest();
-		xhr.open('POST', `index.php?page=create`, true);
-		xhr.setRequestHeader('Content-Type', 'application/json');
 
 		// Dessine la photo prise
 		context.save();
@@ -279,25 +285,10 @@ for (const cameraButton of cameraButtons) {
 			galleryContext.drawImage(galleryImage, 0, 0, galleryCanvas.width, galleryCanvas.height);	
 		}
 
-		let imageDataToSend
-		if (video.style.display === 'block')
-			imageDataToSend = squareCanvas.toDataURL('image/png');
-		else if (galleryImage.style.display === 'block')
-			imageDataToSend = galleryCanvas.toDataURL('image/png');
-
 		// Data des stickers a placer
-		const stickersData = Array.from(document.querySelectorAll('.pic-body-recto .sticker')).map(sticker => {
+		const stickersToDraw = Array.from(document.querySelectorAll('.pic-body-recto .sticker'))
 
-			const x = parseFloat(sticker.baseLeft);
-			const y = parseFloat(sticker.baseTop);
-			const width = parseFloat(sticker.baseWidth);
-			const height = parseFloat(sticker.baseHeight);
-
-			if (video.style.display === 'block')
-				squareContext.drawImage(sticker, x, y, width, height);
-			else if (galleryImage.style.display === 'block')
-				galleryContext.drawImage(sticker, x, y, width, height);
-
+		const stickersData = stickersToDraw.map(sticker => {
 			return {
 				src: sticker.src,
 				left: sticker.baseLeft,
@@ -307,22 +298,111 @@ for (const cameraButton of cameraButtons) {
 			}
 		});
 
+		function copyCanvas(originalCanvas) {
+			const newCanvas = document.createElement('canvas');
+			newCanvas.width = originalCanvas.width;
+			newCanvas.height = originalCanvas.height;
+			const ctx = newCanvas.getContext('2d');
+			ctx.drawImage(originalCanvas, 0, 0);
+			return newCanvas;
+	  }
+
+		if (video.style.display === 'block') {
+			canvasList.push({
+				stickersData: stickersData,
+				canvas: copyCanvas(squareCanvas)
+			})
+		}
+		else if (galleryImage.style.display === 'block') {
+			canvasList.push({
+				stickersData: stickersData,
+				canvas: copyCanvas(galleryCanvas)
+			})
+		}
+
+		stickersToDraw.forEach(sticker => {
+			const x = parseFloat(sticker.baseLeft);
+			const y = parseFloat(sticker.baseTop);
+			const width = parseFloat(sticker.baseWidth);
+			const height = parseFloat(sticker.baseHeight);
+
+			if (video.style.display === 'block')
+				squareContext.drawImage(sticker, x, y, width, height);
+			else if (galleryImage.style.display === 'block')
+				galleryContext.drawImage(sticker, x, y, width, height);
+		});
+
 		let imageDataPreview
 		if (video.style.display === 'block')
 			imageDataPreview = squareCanvas.toDataURL('image/png');
 		else if (galleryImage.style.display === 'block')
 			imageDataPreview = galleryCanvas.toDataURL('image/png');
+
+		for (const bar of previewBars) {
+			bar.appendChild(createPicMini(imageDataPreview))
+		}
+		for (const button of publishButtons) {
+			button.classList.remove('blocked')
+		}
+	});
+}
+
+for (const publishButton of publishButtons) {
+	
+	publishButton.addEventListener("click", async () => {
+		if (publishButton.classList.contains("blocked"))
+			return
+
+		const formData = new FormData()
+		const promises = [];
+
+		canvasList.forEach((canvas, index) => {
+			 // Ajouter les données des stickers
   
+			 // Convertir le canvas en blob et ajouter au FormData
+			 const promise = new Promise((resolve, reject) => {
+					formData.append(`stickersData_${index}`, JSON.stringify(canvas.stickersData));
+
+				  canvas.canvas.toBlob((blob) => {
+						if (blob) {
+							 formData.append(`canvas_${index}`, blob, `canvas_${index}.png`);
+							 resolve();
+						} else {
+							 reject(new Error('Failed to create blob'));
+						}
+				  }, 'image/png', 1);
+			 });
+  
+			 // Ajouter la promesse à la liste des promesses
+			 promises.push(promise);
+		});
+
+		try {
+			await Promise.all(promises);
+
+
+			for (let [key, value] of formData.entries()) {
+				if (value instanceof Blob) {
+					 console.log(`${key}: [Blob]`, value);
+				} else {
+					 console.log(`${key}:`, value);
+				}
+		  }
+
+
+
+
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST', `index.php?page=create`, true);
+
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 201) {
-					const response = JSON.parse(xhr.responseText)
+					// const response = JSON.parse(xhr.responseText)
 
-					previewBar.appendChild(createPicMini(imageDataPreview))
-					previewBar2.appendChild(createPicMini(imageDataPreview))
-		
-					previewBar.appendChild(createPicMini(response))
-					previewBar2.appendChild(createPicMini(response))
+					console.log("OK")
+
+					// window.location.href = "index.php?page=home";
 				}
 				else {
 					console.log("ERROR")
@@ -330,12 +410,18 @@ for (const cameraButton of cameraButtons) {
 			}
 		};
 
-		const postData = JSON.stringify({
-			imageUrl: imageDataToSend,
-			stickers: stickersData
-		});
-		xhr.send(postData);
-	});
+		console.log("HEER")
+
+		for (const entry of formData.entries()) {
+			console.log("ENRTY ", entry)
+		}
+
+		xhr.send(formData);
+		}
+		catch (error) {
+			//jsp
+		}
+	})
 }
 
 function clearStickers() {
