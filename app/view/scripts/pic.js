@@ -385,7 +385,7 @@ export function createPicMini(image) {
 		<div class="pic-header mini"></div>
 
 		<div class="pic-body-recto mini">
-			<img src="${image}" />
+			<img class="preview" src="${image}" />
 		</div>
 		
 		<div class="pic-footer mini"></div>

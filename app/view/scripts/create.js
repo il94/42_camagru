@@ -61,11 +61,78 @@ for (const pic of pics) {
 
 /* ================ CREATE PIC ================ */
 
+async function handlePanel(button) {
+	video.style.display = 'none'
+	galleryImage.style.display = 'none';
+	previewImage.style.display = 'none';
+	cameraOffScreen.style.display = 'none';
+	clearStickers()
+
+	for (const button of cameraButtons) {
+		button.classList.add('blocked')
+	}
+	for (const button of onOffButtons) {
+		button.classList.add('error')
+		button.classList.remove('success')
+	}
+	trashButton.style.display = 'none'
+
+	if (button == 'onoff') {
+		if (!stream) {
+			try {
+				cameraOffScreen.style.display = 'flex';
+				stream = await navigator.mediaDevices.getUserMedia({ video: true })
+			
+				video.srcObject = stream;
+				video.play();
+
+				video.style.display = 'block'
+				cameraOffScreen.style.display = 'none';
+				for (const button of onOffButtons) {
+					button.classList.add('success')
+				}
+				for (const button of cameraButtons) {
+					button.classList.remove('blocked')
+				}
+			}
+			catch (error) {
+				console.error("Error accessing the camera: " + error);
+			}
+		}
+		else {
+			const tracks = stream.getTracks();
+			tracks.forEach(track => track.stop());
+			stream = null
+			
+			cameraOffScreen.style.display = 'flex';
+		}
+	}
+	else {
+		if (stream) {
+			const tracks = stream.getTracks();
+			tracks.forEach(track => track.stop());
+			stream = null
+		}
+
+		if (button == 'gallery') {
+			galleryImage.style.display = 'block';
+			for (const button of cameraButtons) {
+				button.classList.remove('blocked')
+			}
+		}
+		else if (button == 'preview') {
+			previewImage.style.display = 'block';
+			trashButton.style.display = 'block'
+		}
+	}
+}
+
 const picModel = document.getElementById('pic-model')
 const picBodyRecto = picModel.querySelector(".pic-body-recto");
 const previewBar = document.getElementById("preview-bar")
 const previewBar2 = document.getElementById("previews")
 const cameraButtons = document.getElementsByClassName("camera-button");
+const trashButton = document.getElementById("trash");
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
@@ -74,16 +141,13 @@ const PICSIZE = 400
 let stickerSelected;
 const stickersList = document.getElementsByClassName("sticker")
 for (const sticker of stickersList) {
-    sticker.addEventListener('click', (event) => {
+	sticker.addEventListener('click', (event) => {
+		stickerSelected = event.target;
 
-		// Selectionne le sticker
-        stickerSelected = event.target;
-
-		// Defini la version svg du sticker pour le cursor
 		const svg = stickerSelected.src.replace(".png", ".svg")
         video.style.cursor = `url('${svg}') ${sticker.width / 2} ${sticker.height / 2}, auto`;
         galleryImage.style.cursor = `url('${svg}') ${sticker.width / 2} ${sticker.height / 2}, auto`;
-    });
+	});
 }
 
 const video = picModel.querySelector("#video");
@@ -94,6 +158,8 @@ const cameraOffScreen = document.getElementById('camera-off');
 const galleryImage = document.getElementById('gallery-image');
 const galleryButtons = document.getElementsByClassName('gallery-button');
 const inputFile = document.getElementById('input-file');
+
+const previewImage = document.getElementById('preview-image');
 
 const publishButtons = document.getElementsByClassName('publish-button');
 
@@ -119,49 +185,8 @@ catch (error) {
 
 for (const button of onOffButtons) {
 	button?.addEventListener('click', async () => {
-		if (stream) {
-			const tracks = stream.getTracks();
-			tracks.forEach(track => track.stop());
-			stream = null
-			
-			video.style.display = 'none'
-			galleryImage.style.display = 'none';
-			cameraOffScreen.style.display = 'flex'
-
-			for (const button of cameraButtons) {
-				button.classList.add('blocked')
-			}
-			for (const button of onOffButtons) {
-				button.classList.add('error')
-				button.classList.remove('success')
-			}
-		}
-		else {
-			try {
-				stream = await navigator.mediaDevices.getUserMedia({ video: true })
-			
-				video.srcObject = stream;
-				video.play();
-
-				galleryImage.style.display = 'none';
-				cameraOffScreen.style.display = 'none'
-				video.style.display = 'block'
-				clearStickers()
-
-				inputFile.value = ''
-
-				for (const button of cameraButtons) {
-					button.classList.remove('blocked')
-				}
-				for (const button of onOffButtons) {
-					button.classList.add('success')
-					button.classList.remove('error')
-				}
-			}
-			catch (error) {
-				console.error("Error accessing the camera: " + error);
-			}
-		}
+		handlePanel('onoff')
+		inputFile.value = ''
 	})
 }
 
@@ -170,6 +195,20 @@ for (const button of galleryButtons) {
 		inputFile.click()
 	})
 }
+
+const picMinis = document.getElementsByClassName('pic mini')
+trashButton.addEventListener('click', () => {
+	if (previewImage.style.display !== 'block')
+		return
+
+	for (const picMini of picMinis) {
+		const preview = picMini.querySelector(".preview")
+		if (preview.src === previewImage.src)
+			picMini.remove()
+	}
+
+	handlePanel('onoff')
+})
 
 inputFile.addEventListener('change', (event) => {
     const fileInput = event.target;
@@ -182,25 +221,7 @@ inputFile.addEventListener('change', (event) => {
 
 			galleryImage.src = e.target.result;
 
-			if (stream) {
-				const tracks = stream.getTracks();
-				tracks.forEach(track => track.stop());
-				stream = null
-			}
-	
-			cameraOffScreen.style.display = 'none'
-			video.style.display = 'none'
-			galleryImage.style.display = 'block';
-			clearStickers()
-
-			for (const button of cameraButtons) {
-				button.classList.remove('blocked')
-			}
-			for (const button of onOffButtons) {
-				button.classList.add('error')
-				button.classList.remove('success')
-			}
-
+			handlePanel('gallery')
         };
 
         reader.readAsDataURL(file);
@@ -339,7 +360,16 @@ for (const cameraButton of cameraButtons) {
 			imageDataPreview = galleryCanvas.toDataURL('image/png');
 
 		for (const bar of previewBars) {
-			bar.appendChild(createPicMini(imageDataPreview))
+			const picMini = createPicMini(imageDataPreview)
+
+			const preview = picMini.querySelector(".preview");
+			preview.addEventListener('click', () => {
+				previewImage.src = imageDataPreview;
+
+				handlePanel('preview')
+			})
+
+			bar.appendChild(picMini)
 		}
 		for (const button of publishButtons) {
 			button.classList.remove('blocked')

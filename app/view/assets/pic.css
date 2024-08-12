@@ -48,6 +48,7 @@
 .pic-header {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 
 	width: 100%;
 	height: 52px;
@@ -86,13 +87,12 @@
 
 .pic-header-icons {
 	display: flex;
+	justify-content: flex-end;
 	align-items: center;
-	/* justify-content: space-between; */
 
-	margin-right: auto;
+	margin-right: 13px;
 	margin-left: 0;
 
-	width: 80px;
 	height: 100%;
 }
 .pic-header-icons > button {
@@ -288,8 +288,10 @@
 .pic.mini {
 	width: auto;
 	height: auto;
-
+	
 	border-radius: 5.77px 11.54px 5.77px 11.54px;
+
+	cursor: pointer;
 }
 .pic-header.mini {
 	height: 10px;
