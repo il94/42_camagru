@@ -20,4 +20,16 @@ class CreateRepository {
 		$request->execute();
 	}
 
+	public function createPics($picsDatas) {
+		$request = $this->database->prepare("INSERT INTO `pic` (
+			 `userId`, `image`
+		) VALUES
+			 (:userId, :image)");
+		
+		foreach ($picsDatas as $picData) {
+			 $request->bindParam(':userId', $picData->userId, PDO::PARAM_INT);
+			 $request->bindParam(':image', $picData->image, PDO::PARAM_STR);
+			 $request->execute();
+		}
+  }
 }

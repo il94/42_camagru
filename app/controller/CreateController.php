@@ -12,15 +12,12 @@ class CreateController {
 
 	public function createPics($userId, $image, $stickersData) {
 		try {
-			// $data = json_decode(file_get_contents('php://input'));
-			// $imageUrl = $data->imageUrl;
-			// $stickers = $data->stickers;
 			$dataPics = new stdClass();
 			$dataPics->image = $image;
 			$dataPics->stickersData = $stickersData;
+			
 			$this->service->createPics($userId, $dataPics);
 			http_response_code(201);
-			// echo json_encode($response);
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());

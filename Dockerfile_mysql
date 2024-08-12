@@ -1,5 +1,5 @@
 # Use the official MySQL image as the base
-FROM mariadb
+FROM mariadb:latest
 
 # Copy your SQL script into the container
 # COPY ./sql/init.sql /docker-entrypoint-initdb.d/

@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM php:7.4-fpm
 
 # Mettre à jour les dépôts et installer les dépendances nécessaires
 RUN apt-get update \
@@ -20,15 +20,9 @@ COPY php.ini /usr/local/etc/php/conf.d/custom-php.ini
 
 # Configurer msmtp
 COPY msmtprc /etc/msmtprc
-RUN chown root:www-data /etc/msmtprc \
+RUN chown root:msmtp /etc/msmtprc \
     && chmod 640 /etc/msmtprc \
     && mkdir -p /var/log \
     && touch /var/log/msmtp.log \
     && chown www-data:www-data /var/log/msmtp.log \
     && chmod 600 /var/log/msmtp.log
-
-RUN mkdir -p /var/www/html/uploads \
-    && chown www-data:www-data /var/www/html/uploads \
-    && chmod 775 /var/www/html/uploads
-
-RUN chmod -R 755 /var/www/html

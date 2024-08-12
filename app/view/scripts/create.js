@@ -402,7 +402,7 @@ for (const publishButton of publishButtons) {
 
 					console.log("OK")
 
-					// window.location.href = "index.php?page=home";
+					window.location.href = "index.php?page=home";
 				}
 				else {
 					console.log("ERROR")
