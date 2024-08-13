@@ -141,12 +141,25 @@ const PICSIZE = 400
 let stickerSelected;
 const stickersList = document.getElementsByClassName("sticker")
 for (const sticker of stickersList) {
-	sticker.addEventListener('click', (event) => {
+	sticker.addEventListener('click', async (event) => {
 		stickerSelected = event.target;
 
 		const svg = stickerSelected.src.replace(".png", ".svg")
-        video.style.cursor = `url('${svg}') ${sticker.width / 2} ${sticker.height / 2}, auto`;
-        galleryImage.style.cursor = `url('${svg}') ${sticker.width / 2} ${sticker.height / 2}, auto`;
+		const videoRect = video.getBoundingClientRect()
+
+		const width = sticker.width / (PICSIZE / videoRect.width)
+		const height = sticker.height / (PICSIZE / videoRect.width)
+
+		const response = await fetch(svg);
+		let svgText = await response.text();
+		svgText = svgText.replace(/width="[^"]+"/, `width="${width}px"`);
+		svgText = svgText.replace(/height="[^"]+"/, `height="${height}px"`);
+
+		const svgBlob = new Blob([svgText], { type: 'image/svg+xml' });
+		const svgDataURL = URL.createObjectURL(svgBlob);
+
+		video.style.cursor = `url('${svgDataURL}') ${width / 2} ${height / 2}, auto`;
+		galleryImage.style.cursor = `url('${svgDataURL}') ${width / 2} ${height / 2}, auto`;
 	});
 }
 
