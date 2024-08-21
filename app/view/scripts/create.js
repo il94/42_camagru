@@ -67,7 +67,6 @@ async function handlePanel(button) {
 		button.classList.add('error')
 		button.classList.remove('success')
 	}
-	trashButton.style.display = 'none'
 
 	if (button == 'onoff') {
 		if (!stream) {
@@ -114,7 +113,6 @@ async function handlePanel(button) {
 		}
 		else if (button == 'preview') {
 			previewImage.style.display = 'block';
-			trashButton.style.display = 'block'
 		}
 	}
 }
@@ -156,9 +154,6 @@ for (const sticker of stickersList) {
 
 		video.style.cursor = `url('${svgDataURL}') ${widthVideo / 2} ${heightVideo / 2}, auto`;
 		galleryImage.style.cursor = `url('${svg}') ${widthGallery / 2} ${heightGallery / 2}, auto`;
-
-		// video.style.cursor = `url('${svgDataURL}') ${width / 2} ${height / 2}, auto`;
-		// galleryImage.style.cursor = `url('${svgDataURL}') ${width / 2} ${height / 2}, auto`;
 	});
 }
 
@@ -210,16 +205,24 @@ for (const button of galleryButtons) {
 
 const picMinis = document.getElementsByClassName('pic mini')
 trashButton.addEventListener('click', () => {
-	if (previewImage.style.display !== 'block')
-		return
 
-	for (const picMini of picMinis) {
-		const preview = picMini.querySelector(".preview")
-		if (preview.src === previewImage.src)
-			picMini.remove()
+	if (video.style.display === 'block' || galleryImage.style.display === 'block')
+		clearStickers()
+	else if (previewImage.style.display === 'block') {
+		const picsToRemove = [];
+		for (const picMini of picMinis) {
+			const preview = picMini.querySelector(".preview")
+			console.log(preview)
+
+			if (preview.src === previewImage.src) {
+				console.log("PIC MINI = ", picMini)
+				picsToRemove.push(picMini)
+			}
+		}
+		picsToRemove.forEach((picMini) => picMini.remove())
+		handlePanel('onoff')
 	}
 
-	handlePanel('onoff')
 })
 
 inputFile.addEventListener('change', (event) => {
