@@ -1,13 +1,14 @@
 import { createComment } from "./comment.js";
 
-function getRandomColor() {
+export function getRandomColor() {
 	const r = Math.floor(Math.random() * 256);
 	const g = Math.floor(Math.random() * 256);
 	const b = Math.floor(Math.random() * 256);
 
 	const color = `rgba(${r}, ${g}, ${b}, 0.5)`
+	const darkColor = `rgba(0, 0, 0, 0.3)`
 
-	return (color);
+	return ([color, darkColor]);
 }
 
 // Soumet une requete au serveur pour poster le contenu de l'input text
@@ -141,7 +142,14 @@ export function createPic(picData, user) {
 	`
 
 	// Applique une couleur random a la pic
-	pic.style.backgroundColor = getRandomColor();
+	const picHeader = pic.querySelector(".pic-header")
+	const picFooter = pic.querySelector(".pic-footer")
+	const picBodyRecto = pic.querySelector(".pic-body-recto")
+	const [picColor, picBodyRectoColor] = getRandomColor()
+	// picHeader.style.backgroundColor = picColor;
+	// picFooter.style.backgroundColor = picColor;
+	pic.style.backgroundColor = picColor;
+	picBodyRecto.style.backgroundColor = picBodyRectoColor;
 
 	// buttons
 	const buttonIcons = document.getElementsByClassName("button-icon")

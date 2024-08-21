@@ -1,4 +1,4 @@
-import { createPicMini } from "./pic.js";
+import { createPicMini, getRandomColor } from "./pic.js";
 
 /* ANGLE POPUP */
 
@@ -32,23 +32,15 @@ logoutButton?.addEventListener('click', () => {
 
 /* PICS */
 
-function getRandomColor() {
-	const r = Math.floor(Math.random() * 256);
-	const g = Math.floor(Math.random() * 256);
-	const b = Math.floor(Math.random() * 256);
-
-	const color = `rgba(${r}, ${g}, ${b}, 0.5)`
-
-	return (color);
-}
-
 const pics = document.getElementsByClassName('pic')
 
-const randomColor = getRandomColor()
+const [picColor, picBodyRectoColor] = getRandomColor()
 for (const pic of pics) {
 
 	// Applique une couleur random a la pic
-	pic.style.backgroundColor = randomColor;
+	const picBodyRecto = pic.querySelector(".pic-body-recto")
+	pic.style.backgroundColor = picColor;
+	picBodyRecto.style.backgroundColor = picBodyRectoColor;
 
 	const likeButton = pic.querySelector(".like-button")
 	if (likeButton) {
@@ -244,38 +236,45 @@ inputFile.addEventListener('change', (event) => {
 // Place les stickers sur l'image
 function drawStickers(element, size, size2) {
 	const elementRect = element.getBoundingClientRect();
-
-	const clickX = event.clientX - elementRect.left;
-	const clickY = event.clientY - elementRect.top;
+	const picBodyRectoRect = picBodyRecto.getBoundingClientRect();
 
 	const img = document.createElement('img');
 	img.src = stickerSelected.src;
 	img.className = 'sticker';
 	img.style.position = 'absolute';
 
-	const stickerWidthPx = stickerSelected.width * (elementRect.width / PICSIZE);
-   const stickerHeightPx = stickerSelected.height * (elementRect.height / PICSIZE);
+	const frontOffsetX = elementRect.left - picBodyRectoRect.left
+
+	const frontClickX = event.clientX - elementRect.left ;
+	const frontClickY = event.clientY - elementRect.top;
+
+	const frontStickerWidthPx = stickerSelected.width * (elementRect.height / PICSIZE);
+   const frontStickerHeightPx = stickerSelected.height * (elementRect.height / PICSIZE);
 
 	// Rendu direct front
-	img.style.left = `${clickX - stickerWidthPx / 2}px`;
-   img.style.top = `${clickY - stickerHeightPx / 2}px`;
-	img.style.width = `${stickerWidthPx}px`;
-	img.style.height = `${stickerHeightPx}px`;
+	img.style.left = `${frontOffsetX + frontClickX - frontStickerWidthPx / 2}px`;
+   img.style.top = `${frontClickY - frontStickerHeightPx / 2}px`;
+	img.style.width = `${frontStickerWidthPx}px`;
+	img.style.height = `${frontStickerHeightPx}px`;
 
-	const halfStickerWidth = stickerSelected.width / 2 * size / PICSIZE
-	const offsetX = (size2 - size) / 2
-	const newClickX = (event.clientX - elementRect.left) * size / PICSIZE
+	const backClickX = (frontClickX * (Math.max(size / PICSIZE, PICSIZE / size)))
+	const backClickY = (frontClickY * (Math.max(size / PICSIZE, PICSIZE / size)))
+
+	const backOffsetX = (size2 - size) / 2
+
+	const backStickerWidthPx = stickerSelected.width * (Math.max(size / PICSIZE, 1))
+	const backStickerHeightPx = stickerSelected.height * (Math.max(size / PICSIZE, 1))
 
 	// Rendu back
-	img.baseLeft = `${newClickX + offsetX - halfStickerWidth}px`;
-	img.baseTop = `${(clickY - stickerHeightPx / 2) * (size / elementRect.height)}px`;
-	img.baseWidth = `${stickerSelected.width * (size / PICSIZE)}px`;
-	img.baseHeight = `${stickerSelected.height * (size / PICSIZE)}px`;
+	img.baseLeft = `${backOffsetX + backClickX - backStickerWidthPx / 2}px`;
+	img.baseTop = `${backClickY - backStickerHeightPx / 2}px`;
+	img.baseWidth = `${backStickerWidthPx}px`;
+	img.baseHeight = `${backStickerHeightPx}px`;
 
 	picBodyRecto.appendChild(img);
 }
-
-video.addEventListener('click', () => drawStickers(video, PICSIZE, PICSIZE))
+const videoRect = video.getBoundingClientRect()
+video.addEventListener('click', () => drawStickers(video, videoRect.height, videoRect.width))
 galleryImage.addEventListener('click', () => drawStickers(galleryImage, galleryImage.naturalHeight, galleryImage.naturalWidth))
 
 const canvasList = []
@@ -475,6 +474,7 @@ function clearStickers() {
   });
 
   stickerSelected = null
+
   video.style.cursor = 'default'
   galleryImage.style.cursor = 'default'
 
