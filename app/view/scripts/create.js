@@ -138,20 +138,27 @@ for (const sticker of stickersList) {
 
 		const svg = stickerSelected.src.replace(".png", ".svg")
 		const videoRect = video.getBoundingClientRect()
+		const galleryRect = galleryImage.getBoundingClientRect()
 
-		const width = sticker.width / (PICSIZE / videoRect.width)
-		const height = sticker.height / (PICSIZE / videoRect.width)
+		const widthVideo = sticker.width / (PICSIZE / videoRect.width)
+		const heightVideo = sticker.height / (PICSIZE / videoRect.width)
+
+		const widthGallery = sticker.width / (PICSIZE / galleryRect.width)
+		const heightGallery = sticker.height / (PICSIZE / galleryRect.width)
 
 		const response = await fetch(svg);
 		let svgText = await response.text();
-		svgText = svgText.replace(/width="[^"]+"/, `width="${width}px"`);
-		svgText = svgText.replace(/height="[^"]+"/, `height="${height}px"`);
+		svgText = svgText.replace(/width="[^"]+"/, `width="${widthVideo}px"`);
+		svgText = svgText.replace(/height="[^"]+"/, `height="${heightVideo}px"`);
 
 		const svgBlob = new Blob([svgText], { type: 'image/svg+xml' });
 		const svgDataURL = URL.createObjectURL(svgBlob);
 
-		video.style.cursor = `url('${svgDataURL}') ${width / 2} ${height / 2}, auto`;
-		galleryImage.style.cursor = `url('${svgDataURL}') ${width / 2} ${height / 2}, auto`;
+		video.style.cursor = `url('${svgDataURL}') ${widthVideo / 2} ${heightVideo / 2}, auto`;
+		galleryImage.style.cursor = `url('${svg}') ${widthGallery / 2} ${heightGallery / 2}, auto`;
+
+		// video.style.cursor = `url('${svgDataURL}') ${width / 2} ${height / 2}, auto`;
+		// galleryImage.style.cursor = `url('${svgDataURL}') ${width / 2} ${height / 2}, auto`;
 	});
 }
 
