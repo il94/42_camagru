@@ -48,6 +48,9 @@
 					<button id="stickers-button">
 						Stickers
 					</button>
+					<button id="mobile-onoff-button" class="onoff-button">
+						<?php require ("view/assets/icons/onoff.svg"); ?>
+					</button>
 					<button id="previews-button">
 						Previews
 					</button>

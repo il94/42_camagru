@@ -6,7 +6,7 @@
 				<p><?php echo $user->username; ?></p>
 			</div>
 			<div class="pic-header-icons">
-				<button id="trash" class="button-icon selectable">
+				<button id="trash" class="button-icon">
 					<?php require ("view/assets/icons/trash.svg"); ?>
 				</button>
 				<button class="button-icon">

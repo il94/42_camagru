@@ -56,6 +56,7 @@ for (const pic of pics) {
 async function handlePanel(button) {
 	video.style.display = 'none'
 	galleryImage.style.display = 'none';
+	inputFile.value = ''
 	previewImage.style.display = 'none';
 	cameraOffScreen.style.display = 'none';
 	clearStickers()
@@ -80,6 +81,7 @@ async function handlePanel(button) {
 				video.style.display = 'block'
 				cameraOffScreen.style.display = 'none';
 				for (const button of onOffButtons) {
+					button.classList.remove('error')
 					button.classList.add('success')
 				}
 				for (const button of cameraButtons) {
@@ -193,7 +195,6 @@ catch (error) {
 for (const button of onOffButtons) {
 	button?.addEventListener('click', async () => {
 		handlePanel('onoff')
-		inputFile.value = ''
 	})
 }
 
@@ -212,12 +213,8 @@ trashButton.addEventListener('click', () => {
 		const picsToRemove = [];
 		for (const picMini of picMinis) {
 			const preview = picMini.querySelector(".preview")
-			console.log(preview)
-
-			if (preview.src === previewImage.src) {
-				console.log("PIC MINI = ", picMini)
+			if (preview.src === previewImage.src)
 				picsToRemove.push(picMini)
-			}
 		}
 		picsToRemove.forEach((picMini) => picMini.remove())
 		handlePanel('onoff')
@@ -245,6 +242,9 @@ inputFile.addEventListener('change', (event) => {
 
 // Place les stickers sur l'image
 function drawStickers(element, size, size2) {
+
+	if (!stickerSelected) return
+
 	const elementRect = element.getBoundingClientRect();
 	const picBodyRectoRect = picBodyRecto.getBoundingClientRect();
 

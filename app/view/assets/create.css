@@ -269,11 +269,45 @@
 }
 #stickers-button {
 	width: 50%;
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		width: 45%;
+	}
+
 	border-radius: 0 0 0 45px;
 }
 #previews-button {
 	width: 50%;
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		width: 45%;
+	}
+
 	border-radius: 0 0 45px 0;
+}
+#mobile-onoff-button {
+	display: none;
+
+	/* MOBILE */
+	@media screen and (max-width: 480px) {
+		display: block;
+	}
+
+	width: 10%;
+}
+#mobile-onoff-button svg {
+	width: 90%;
+	height: 80%;
+
+	opacity: 1;
+}
+#mobile-onoff-button.success > svg path {
+	fill: var(--window-bg-valid);
+	stroke: var(--window-bg-valid);
+}
+#mobile-onoff-button.error > svg path {
+	fill: var(--window-input-error);
+	stroke: var(--window-input-error);
 }
 
 #action-bar {
