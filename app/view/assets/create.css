@@ -77,35 +77,14 @@
 	color: var(--text);
 }
 
-#video {
+#video,
+#gallery-image,
+#preview-image {
 	display: none;
 
 	height: 100%;
 
 	overflow: hidden;
-}
-
-#gallery-image {
-	display: none;
-
-
-	width: 100%;
-	height: 100%;
-   object-fit: cover;
-}
-
-#preview-image {
-	display: none;
-
-	height: 100%;
-	
-   object-fit: cover;
-}
-
-#preview-image {
-	display: none;
-
-	height: 100%;
 }
 
 #preview-bar {

@@ -237,11 +237,26 @@ inputFile.addEventListener('change', (event) => {
 			const reader = new FileReader();
 
 			reader.onload = function(e) {
+				const img = new Image();
+				img.onload = function() {
 
-			galleryImage.src = e.target.result;
+					const canvas = document.createElement('canvas');
+					const ctx = canvas.getContext('2d');
 
-			handlePanel('gallery')
-        };
+					canvas.width = PICSIZE;
+					canvas.height = PICSIZE;
+
+					const min = Math.min(img.naturalWidth, img.naturalHeight)
+
+					const offsetX = (img.naturalWidth - min) / 2;
+					const offsetY = (img.naturalHeight - min) / 2;
+
+					ctx.drawImage(img, offsetX, offsetY, min, min, 0, 0, PICSIZE, PICSIZE);
+					galleryImage.src = canvas.toDataURL();
+				}
+				img.src = e.target.result;
+				handlePanel('gallery')
+			};
 
         reader.readAsDataURL(file);
     }
@@ -274,10 +289,10 @@ function drawStickers(element, size, size2) {
 	img.style.width = `${frontStickerWidthPx}px`;
 	img.style.height = `${frontStickerHeightPx}px`;
 
-	const backClickX = (frontClickX * (Math.max(size / PICSIZE, PICSIZE / size)))
-	const backClickY = (frontClickY * (Math.max(size / PICSIZE, PICSIZE / size)))
-
 	const backOffsetX = (size2 - size) / 2
+
+	const backClickX = (frontClickX * (Math.max(size / PICSIZE, PICSIZE / size)))
+	const backClickY = (frontClickY * (Math.max(size / PICSIZE, PICSIZE / size)))	
 
 	const backStickerWidthPx = stickerSelected.width * (Math.max(size / PICSIZE, 1))
 	const backStickerHeightPx = stickerSelected.height * (Math.max(size / PICSIZE, 1))
@@ -292,14 +307,10 @@ function drawStickers(element, size, size2) {
 }
 const videoRect = video.getBoundingClientRect()
 video.addEventListener('click', () => drawStickers(video, videoRect.height, videoRect.width))
-galleryImage.addEventListener('click', () => drawStickers(galleryImage, galleryImage.naturalHeight, galleryImage.naturalWidth))
+galleryImage.addEventListener('click', () => drawStickers(galleryImage, videoRect.height, videoRect.width))
 
 const canvasList = []
 
-const model = {
-	stickersData: false,
-	canvas: false
-}
 const previewBars = [previewBar, previewBar2]
 
 for (const cameraButton of cameraButtons) {
@@ -332,7 +343,10 @@ for (const cameraButton of cameraButtons) {
 			galleryCanvas.width = galleryImage.naturalWidth;
 			galleryCanvas.height = galleryImage.naturalHeight;
 
-			galleryContext.drawImage(galleryImage, 0, 0, galleryCanvas.width, galleryCanvas.height);	
+			const offsetX = (galleryImage.naturalWidth - PICSIZE) / 2;
+			const offsetY = (galleryImage.naturalHeight - PICSIZE) / 2;
+
+			galleryContext.drawImage(galleryImage, offsetX, offsetY, PICSIZE, PICSIZE, 0, 0, PICSIZE, PICSIZE);
 		}
 
 		// Data des stickers a placer
