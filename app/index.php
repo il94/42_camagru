@@ -247,7 +247,5 @@ if (paramExist($_GET['page'])) {
 }
 
 else {
-	// initApp(); // A appeller lors du premier lancement du programme
-
 	$authController->getLogin(null, null);
 }
