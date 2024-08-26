@@ -77,6 +77,10 @@ class AuthService {
 		$this->parseUsername($username);
 		$this->parsePassword($password, $reTypePassword);
 
+		$userFound = !!$this->repository->findUserByEmail($email);
+		if ($userFound)
+			throw new HttpException("Email already taken", 403, self::EMAIL_ERROR);
+
 		$userFound = !!$this->repository->findUserByUsername($username);
 		if ($userFound)
 			throw new HttpException("Username already taken", 403, self::USERNAME_ERROR);
