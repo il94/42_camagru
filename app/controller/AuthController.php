@@ -123,7 +123,7 @@ class AuthController
 		}
 	}
 
-	public function getLogin($state, $id) {
+	public function getLogin($state) {
 
 		$header = require_once('view/layouts/auth_assets.php');
 
@@ -136,6 +136,12 @@ class AuthController
 				$body = require_once('view/auth_reinitialization.php');
 			else if ($state === "reinitialized")
 				$body = require_once('view/auth_reinitialized.php');
+			else if ($state === "redirect") {
+				$body = require_once('view/auth_login.php');
+				header('Location: http://localhost:8080/?page=auth&route=login');
+			}
+			else
+				$body = require_once('view/not_found.php');
 		}
 		else {
 			$body = require_once('view/auth_login.php');

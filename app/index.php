@@ -1,6 +1,5 @@
 <?php
 
-require_once('init.php');
 require_once('config.php');
 
 require_once('controller/AuthController.php');
@@ -14,6 +13,11 @@ $createController = new CreateController();
 $settingsController = new SettingsController();
 
 session_start();
+
+function notFound() {
+	$body = require_once('view/not_found.php');
+	require_once('view/layout.php');
+}
 
 if (paramExist($_GET['page'])) {
 
@@ -43,6 +47,9 @@ if (paramExist($_GET['page'])) {
 				else if ($_GET['route'] === 'like') {
 					$homeController->likePic($_SESSION['logged_in'], $_POST['picId']);
 				}
+
+				else
+					notFound();	
 			}
 
 		}
@@ -63,6 +70,9 @@ if (paramExist($_GET['page'])) {
 					$homeController->getComments($_GET['picId'], $_GET['cursor']);
 					http_response_code(200);
 				}
+
+				else
+					notFound();
 			}
 
 			// DEFAULT
@@ -84,7 +94,9 @@ if (paramExist($_GET['page'])) {
 			$homeController->deletePic($_SESSION['logged_in'], $_GET['picId']);
 			http_response_code(200);
 		}
-		
+
+		else
+			notFound();
 	}
 
 	// CREATE
@@ -106,6 +118,9 @@ if (paramExist($_GET['page'])) {
 			else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				$createController->get(null, null);
 			}
+
+			else
+				notFound();
 		}
 	}
 
@@ -143,6 +158,9 @@ if (paramExist($_GET['page'])) {
 			else if ($_GET['route'] === 'logout') {
 				$authController->logout();
 			}
+
+			else
+				notFound();
 		}
 
 		// GET
@@ -175,17 +193,23 @@ if (paramExist($_GET['page'])) {
 
 				// FORGOT PASSWORD
 				if (paramExist($_GET['state'])) {
-					$authController->getLogin($_GET['state'], null);
+					$authController->getLogin($_GET['state']);
 					http_response_code(200);
 				}
 
 				// DEFAULT
 				else {
-					$authController->getLogin(null, null);
+					$authController->getLogin(null);
 					http_response_code(200);
 				}
 			}
+
+			else
+				notFound();
 		}
+
+		else
+			notFound();
 	}
 
 	// SETTINGS
@@ -205,6 +229,9 @@ if (paramExist($_GET['page'])) {
 				if ($_GET['route'] === 'forgot-password') {
 					$settingsController->forgotPassword($_SESSION['logged_in']);
 				}
+
+				else
+					notFound();
 			}
 
 			// GET
@@ -218,8 +245,6 @@ if (paramExist($_GET['page'])) {
 
 				// UPDATE
 				else if (paramExist($_GET['token'])) {
-
-					// echo "LOL";
 					$settingsController->updateEmail($_GET['email'], $_GET['token']);
 					http_response_code(200);
 				}
@@ -235,17 +260,16 @@ if (paramExist($_GET['page'])) {
 				}
 			}
 
+			else
+				notFound();
 		}
 	}
 
-	else {
-		$body = require_once('view/not_found.php');
-
-		require_once('view/layout.php');
-	}
+	else
+		notFound();
 
 }
 
 else {
-	$authController->getLogin(null, null);
+	$authController->getLogin('redirect');
 }
