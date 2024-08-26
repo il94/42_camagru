@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(128) NOT NULL,
     `email` VARCHAR(128) NOT NULL,
-    `password` VARCHAR(128) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
     `avatar` VARCHAR(128) NOT NULL,
     `role` ENUM('USER', 'ADMIN', 'BAN', '') NOT NULL DEFAULT 'USER',
     `notification_like` TINYINT(1) NOT NULL DEFAULT FALSE,
