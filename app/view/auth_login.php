@@ -23,7 +23,7 @@
 						<?php require ("view/assets/icons/hidden.svg"); ?>
 					</button>
 				</div>
-				<a href="/?page=auth&route=login&state=forgot-password" class="window-input-link">Forgot your password ?</a>
+				<a href="/login/forgot-password" class="window-input-link">Forgot your password ?</a>
 			</div>
 
 			<p class="window-error-message"></p>
@@ -32,8 +32,8 @@
 				Log in
 			</button>
 
-			<p class="window-redirect" >Don't have an account ? <a href="/?page=auth&route=signup">Sign up</a></p> 
-			<p class="window-redirect guest">Or continue as <a href="/?page=home_guest">guest</a></p>
+			<p class="window-redirect" >Don't have an account ? <a href="/signup">Sign up</a></p> 
+			<p class="window-redirect guest">Or continue as <a href="/home_guest">guest</a></p>
 		</form>
 	</div>
 </div>

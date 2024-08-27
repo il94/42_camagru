@@ -27,7 +27,7 @@
 				Send
 			</button>
 
-			<p class="window-redirect" >Don't have an account ? <a href="/?page=auth&route=signup">Sign up</a></p> 
+			<p class="window-redirect" >Don't have an account ? <a href="/signup">Sign up</a></p> 
 
 		</form>
 	</div>

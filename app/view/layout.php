@@ -8,11 +8,11 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" type="text/css" href="view/assets/index.css">
-	<link rel="stylesheet" type="text/css" href="view/assets/colors.css">
+	<link rel="stylesheet" type="text/css" href="/view/assets/index.css">
+	<link rel="stylesheet" type="text/css" href="/view/assets/colors.css">
 
-	<link rel="stylesheet" type="text/css" href="view/assets/page.css">
-	<link rel="stylesheet" type="text/css" href="view/assets/mobile_navbar.css">
+	<link rel="stylesheet" type="text/css" href="/view/assets/page.css">
+	<link rel="stylesheet" type="text/css" href="/view/assets/mobile_navbar.css">
 
 	<?php $headers; ?>
 

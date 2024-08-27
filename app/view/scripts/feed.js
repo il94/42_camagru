@@ -38,7 +38,7 @@ returnTopButtons.forEach((button) => {
 			});
 		}
 		else {
-			window.location.href = "index.php?page=home";
+			window.location.href = "/home";
 		}
 	});
 })

@@ -34,7 +34,7 @@ if (form) {
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						window.location.href = "index.php?page=home";
+						window.location.href = "/home";
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);
@@ -62,13 +62,13 @@ if (form) {
 			const loginValue = form.querySelector("#login-value").value;
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `index.php?page=auth&route=forgot-password`, true);
+			xhr.open('POST', `/login/forgot-password`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						window.location.href = `index.php?page=auth&route=login&state=reinitialization-start&login=${encodeURIComponent(loginValue)}`;
+						window.location.href = `/login/reinitialization-start?login=${encodeURIComponent(loginValue)}`;
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);
@@ -94,13 +94,13 @@ if (form) {
 			const retypePasswordValue = form.querySelector("#re-type-password-value").value;
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `index.php?page=auth&route=reinitialization`, true);
+			xhr.open('POST', `/login/reinitialization`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						window.location.href = `index.php?page=auth&route=login&state=reinitialized`;
+						window.location.href = `/login/reinitialized`;
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);
@@ -132,13 +132,12 @@ if (form) {
 			const retypePasswordValue = form.querySelector("#re-type-password-value").value;
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `index.php?page=auth&route=signup`, true);
+			xhr.open('POST', `/signup`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						window.location.href = `index.php?page=auth&route=signup&state=activation&email=${encodeURIComponent(emailValue)}`;
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);
@@ -173,6 +172,6 @@ const returnButton = document.getElementsByClassName("window-return-button");
 
 for (const button of [...loginRedirectionButtons, ...returnButton]) {
 	button.addEventListener('click', () => {
-		window.location.href = "/?page=auth&route=login";
+		window.location.href = "/login";
 	});
 }

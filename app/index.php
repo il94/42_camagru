@@ -132,17 +132,26 @@ if (paramExist($_GET['page'])) {
 
 			// LOGIN
 			if ($_GET['route'] === 'login') {
-				$authController->login($_POST['login'], $_POST['password']);
-			}
 
-			// FORGOT PASSWORD
-			else if ($_GET['route'] === 'forgot-password') {
-				$authController->forgotPassword($_POST['login']);
-			}
+				if (paramExist($_GET['state'])) {
 
-			// REINITIALIZATION
-			else if ($_GET['route'] === 'reinitialization') {
-				$authController->reinitialization($_POST['password'], $_POST['retypepassword'], $_POST['token']);
+					// FORGOT PASSWORD
+					if ($_GET['state'] === 'forgot-password') {
+						$authController->forgotPassword($_POST['login']);
+					}
+
+					// REINITIALIZATION
+					else if ($_GET['state'] === 'reinitialization') {
+						$authController->reinitialization($_POST['password'], $_POST['retypepassword'], $_POST['token']);
+					}
+
+					else
+						notFound();
+
+				}
+				else {
+					$authController->login($_POST['login'], $_POST['password']);
+				}
 			}
 
 			// SIGNUP

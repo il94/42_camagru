@@ -1,7 +1,7 @@
 const returnHomeButton = document.getElementById("return-home");
 
 returnHomeButton?.addEventListener('click', () => {
-	window.location.href = "index.php?page=home";
+	window.location.href = "/home";
 })
 
 // Permet aux boutons "login" de rediriger vers la page de connexion
@@ -9,7 +9,7 @@ const returnSettingsButtons = document.getElementsByClassName("settings-redirect
 
 for (const button of returnSettingsButtons) {
 	button.addEventListener('click', () => {
-		window.location.href = "/?page=settings";
+		window.location.href = "/settings";
 	});
 }
 
@@ -18,7 +18,7 @@ const loginRedirectionButtons = document.getElementsByClassName("login-redirecti
 
 for (const button of loginRedirectionButtons) {
 	button.addEventListener('click', () => {
-		window.location.href = "/?page=auth&route=login";
+		window.location.href = "/login";
 	});
 }
 
@@ -32,7 +32,7 @@ logoutButton?.addEventListener('click', () => {
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
-				window.location.href = "index.php?page=auth&route=login";
+				window.location.href = "/login";
 			}
 			else {
 				console.error("ERROR", xhr.responseText);
@@ -48,7 +48,7 @@ const sections = document.getElementsByClassName("window-section");
 for (const section of sections) {
 	if (section.id.split('-')[0] !== "logout") {
 		section.addEventListener('click', () => {
-			window.location.href = `index.php?page=settings&state=${section.id.split('-')[0]}`;
+			window.location.href = `/settings/${section.id.split('-')[0]}`;
 		})
 	}
 }
@@ -88,9 +88,9 @@ if (form) {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {
 							if (form.name === "username")
-								window.location.href = `index.php?page=settings&state=updated&data=${form.name}`;
+								window.location.href = `/settings&state=updated&data=${form.name}`;
 							else
-								window.location.href = `index.php?page=settings&state=update_start&email=${encodeURIComponent(value)}`;
+								window.location.href = `/settings&state=update_start&email=${encodeURIComponent(value)}`;
 						}
 						else {
 							const response = JSON.parse(xhr.responseText);
@@ -126,7 +126,7 @@ if (form) {
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {
-							window.location.href = `index.php?page=settings&state=updated&data=password`;
+							window.location.href = `/settings&state=updated&data=password`;
 						}
 						else {
 							const response = JSON.parse(xhr.responseText);
@@ -186,7 +186,7 @@ if (form) {
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {
-							window.location.href = `index.php?page=settings&state=updated&data=avatar`;
+							window.location.href = `/settings&state=updated&data=avatar`;
 						}
 						else {
 							const response = JSON.parse(xhr.responseText);
@@ -241,7 +241,7 @@ sendPasswordReinitialization?.addEventListener('click', () => {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
 				const response = JSON.parse(xhr.responseText);
-				window.location.href = `index.php?page=settings&state=reinitialization-start&email=${encodeURIComponent(response)}`;
+				window.location.href = `/settings&state=reinitialization-start&email=${encodeURIComponent(response)}`;
 			}
 			else {
 				console.error('ERROR')

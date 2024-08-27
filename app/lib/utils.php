@@ -29,7 +29,7 @@ function prettyPrint($object) {
 }
 
 function paramExist($param) {
-	return (isset($param) && $param);
+	return !empty($param) || $param === '0' || $param === 0;
 }
 
 function createImage($base64Image) {

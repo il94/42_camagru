@@ -7,7 +7,7 @@ createButton.style.display = 'none'
 
 const settingsButton = document.getElementById("settings-button");
 settingsButton?.addEventListener('click', () => {
-	window.location.href = "index.php?page=settings";
+	window.location.href = "/settings";
 })
 
 const logoutButton = document.getElementById("logout-button");
@@ -19,7 +19,7 @@ logoutButton?.addEventListener('click', () => {
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
-				window.location.href = "index.php?page=auth&route=login";
+				window.location.href = "/login";
 			}
 			else {
 				console.error("ERROR", xhr.responseText);
@@ -466,7 +466,7 @@ for (const publishButton of publishButtons) {
 
 
 		const xhr = new XMLHttpRequest();
-		xhr.open('POST', `index.php?page=create`, true);
+		xhr.open('POST', `/reate`, true);
 
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
@@ -475,7 +475,7 @@ for (const publishButton of publishButtons) {
 
 					console.log("OK")
 
-					window.location.href = "index.php?page=home";
+					window.location.href = "/home";
 				}
 				else {
 					console.log("ERROR")
@@ -538,6 +538,6 @@ const returnHomeButtons = [
 ]
 returnHomeButtons.forEach((button) => {
 	button?.addEventListener('click', () => {
-		window.location.href = "index.php?page=home";
+		window.location.href = "/home";
 	})
 })

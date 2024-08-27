@@ -3,7 +3,7 @@
 const createButtons = document.getElementsByClassName("create-button");
 for (const createButton of createButtons) {
 	createButton.addEventListener('click', () => {
-		window.location.href = "index.php?page=create";
+		window.location.href = "/create";
 	})
 }
 
@@ -11,7 +11,7 @@ for (const createButton of createButtons) {
 
 const settingsButton = document.getElementById("settings-button");
 settingsButton?.addEventListener('click', () => {
-	window.location.href = "index.php?page=settings";
+	window.location.href = "/settings";
 })
 
 const logoutButton = document.getElementById("logout-button");
@@ -23,7 +23,7 @@ logoutButton?.addEventListener('click', () => {
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
-				window.location.href = "index.php?page=auth&route=login";
+				window.location.href = "/login";
 			}
 			else {
 				console.error("ERROR", xhr.responseText);

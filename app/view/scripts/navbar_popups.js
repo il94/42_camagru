@@ -51,7 +51,7 @@ if (desktopNavbarIcons && logoutHiddenButton) {
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 201) {
-					window.location.href = "index.php?page=auth&route=login";
+					window.location.href = "/login";
 				}
 				else {
 					console.error("ERROR", xhr.responseText);
@@ -74,7 +74,7 @@ if (mobileLogoutButton) {
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 201) {
-					window.location.href = "index.php?page=auth&route=login";
+					window.location.href = "/login";
 				}
 				else {
 					console.error("ERROR", xhr.responseText);

@@ -274,7 +274,7 @@ class AuthService {
 		$headers = "From: noreply@craftypic.com\r\n";
 		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 		$subject = 'Confirmation of your CraftyPic account';
-		$activationLink = 'http://localhost:8080/index.php?page=auth&route=signup&token=' . urlencode($userDatas->activation_token);
+		$activationLink = 'http://localhost:8080/signup?token=' . urlencode($userDatas->activation_token);
 		$message = '
 			<html>
 			<head>
@@ -305,7 +305,7 @@ class AuthService {
 		$headers = "From: noreply@craftypic.com\r\n";
 		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 		$subject = 'Reset your CraftyPic password';
-	    $resetLink = 'http://localhost:8080/index.php?page=auth&route=login&state=reinitialization&token=' . urlencode($userDatas->reset_password_token);
+		$resetLink = 'http://localhost:8080/login/reinitialization?token=' . urlencode($userDatas->reset_password_token);
 		$message = '
 			<html>
 			<head>
@@ -332,7 +332,7 @@ class AuthService {
 		$headers = "From: noreply@craftypic.com\r\n";
 		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 		$subject = 'Confirm your new email address for CraftyPic';
-		$updateLink = 'http://localhost:8080/index.php?page=settings&email=' . urlencode($userDatas->email) . '&token=' . urlencode($userDatas->update_email_token);
+		$updateLink = 'http://localhost:8080/settings?email=' . urlencode($userDatas->email) . '&token=' . urlencode($userDatas->update_email_token);
 		$message = '
 			<html>
 			<head>

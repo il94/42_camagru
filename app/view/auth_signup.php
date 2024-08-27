@@ -47,8 +47,8 @@
 				Sign up
 			</button>
 
-			<p class="window-redirect">Have an account ? <a href="/?page=auth&route=login">Log in</a></p> 
-			<p class="window-redirect guest">Or continue as <a href="/?page=home_guest">guest</a></p>
+			<p class="window-redirect">Have an account ? <a href="/login">Log in</a></p> 
+			<p class="window-redirect guest">Or continue as <a href="/home_guest">guest</a></p>
 		</form>
 	</div>
 
