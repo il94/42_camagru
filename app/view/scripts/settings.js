@@ -234,14 +234,14 @@ const sendPasswordReinitialization =  document.getElementById('send-password-rei
 sendPasswordReinitialization?.addEventListener('click', () => {
 
 	const xhr = new XMLHttpRequest();
-	xhr.open('POST', `index.php?page=settings&route=forgot-password`, true);
+	xhr.open('POST', `/settings/forgot-password`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
 				const response = JSON.parse(xhr.responseText);
-				window.location.href = `/settings&state=reinitialization-start&email=${encodeURIComponent(response)}`;
+				window.location.href = `/settings/reinitialization-start?email=${encodeURIComponent(response)}`;
 			}
 			else {
 				console.error('ERROR')
