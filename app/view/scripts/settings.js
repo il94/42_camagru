@@ -81,16 +81,16 @@ if (form) {
 				const value = form.querySelector(`#${form.name}-value`).value;
 
 				const xhr = new XMLHttpRequest();
-				xhr.open('POST', `index.php?page=auth&route=update`, true);
+				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {
 							if (form.name === "username")
-								window.location.href = `/settings&state=updated&data=${form.name}`;
+								window.location.href = `/settings/updated?data=${form.name}`;
 							else
-								window.location.href = `/settings&state=update_start&email=${encodeURIComponent(value)}`;
+								window.location.href = `/settings/update_start?email=${encodeURIComponent(value)}`;
 						}
 						else {
 							const response = JSON.parse(xhr.responseText);
@@ -120,13 +120,13 @@ if (form) {
 				const retypeNewPasswordValue = form.querySelector("#re-type-new-password-value").value;
 
 				const xhr = new XMLHttpRequest();
-				xhr.open('POST', `index.php?page=auth&route=update`, true);
+				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {
-							window.location.href = `/settings&state=updated&data=password`;
+							window.location.href = `/settings/updated?data=password`;
 						}
 						else {
 							const response = JSON.parse(xhr.responseText);
@@ -180,13 +180,13 @@ if (form) {
 				}
 
 				const xhr = new XMLHttpRequest();
-				xhr.open('POST', `index.php?page=auth&route=update`, true);
+				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {
-							window.location.href = `/settings&state=updated&data=avatar`;
+							window.location.href = `/settings/updated?data=avatar`;
 						}
 						else {
 							const response = JSON.parse(xhr.responseText);
@@ -207,7 +207,7 @@ if (form) {
 		case "form-notifications" : {
 			function sendRequest(paramName, paramValue) {
 				const xhr = new XMLHttpRequest();
-				xhr.open('POST', `index.php?page=auth&route=update`, true);
+				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 				
 				xhr.send(`${paramName}=${paramValue}`);
