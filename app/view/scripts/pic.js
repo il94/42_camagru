@@ -14,7 +14,7 @@ export function getRandomColor() {
 // Soumet une requete au serveur pour poster le contenu de l'input text
 function postComment(pic, inputText, user) {
 	const xhr = new XMLHttpRequest();
-	xhr.open('POST', `index.php?page=home&route=comment`, true);
+	xhr.open('POST', `/comment`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	const commentsContainer = pic.querySelector('#comments-container');
@@ -204,7 +204,7 @@ export function createPic(picData, user) {
 		likeButton.addEventListener('click', () => {
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `index.php?page=home&route=like`, true);
+			xhr.open('POST', `/like`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		
 			xhr.onreadystatechange = () => {
@@ -243,7 +243,7 @@ export function createPic(picData, user) {
 				const cursor = comments.length ? comments[comments.length - 1].id : null
 
 				const xhr = new XMLHttpRequest();
-				xhr.open('GET', `index.php?page=home&route=comments&picId=${picData.id}${cursor ? `&cursor=${cursor}` : ''}`, true);
+				xhr.open('GET', `/comments?picId=${picData.id}${cursor ? `&cursor=${cursor}` : ''}`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 				xhr.onreadystatechange = () => {

@@ -38,7 +38,7 @@ returnTopButtons.forEach((button) => {
 			});
 		}
 		else {
-			window.location.href = "/home";
+			window.location.href = "/";
 		}
 	});
 })
@@ -84,7 +84,7 @@ function handlePicObserver(entries) {
 			const cursor = pics.length ? pics[pics.length - 1].id : null
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('GET', `index.php?page=home&route=pics${cursor ? `&cursor=${cursor}` : ''}`, true);
+			xhr.open('GET', `/pics${cursor ? `?cursor=${cursor}` : ''}`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 			xhr.onreadystatechange = () => {

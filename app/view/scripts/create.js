@@ -13,7 +13,7 @@ settingsButton?.addEventListener('click', () => {
 const logoutButton = document.getElementById("logout-button");
 logoutButton?.addEventListener('click', () => {
 	const xhr = new XMLHttpRequest();
-	xhr.open('POST', `index.php?page=auth&route=logout`, true);
+	xhr.open('POST', `/logout`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 	xhr.onreadystatechange = () => {
@@ -466,7 +466,7 @@ for (const publishButton of publishButtons) {
 
 
 		const xhr = new XMLHttpRequest();
-		xhr.open('POST', `/reate`, true);
+		xhr.open('POST', `/create`, true);
 
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
@@ -475,7 +475,7 @@ for (const publishButton of publishButtons) {
 
 					console.log("OK")
 
-					window.location.href = "/home";
+					window.location.href = "/";
 				}
 				else {
 					console.log("ERROR")
@@ -538,6 +538,6 @@ const returnHomeButtons = [
 ]
 returnHomeButtons.forEach((button) => {
 	button?.addEventListener('click', () => {
-		window.location.href = "/home";
+		window.location.href = "/";
 	})
 })

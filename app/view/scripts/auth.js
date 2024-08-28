@@ -34,7 +34,7 @@ if (form) {
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						window.location.href = "/home";
+						window.location.href = "/";
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);

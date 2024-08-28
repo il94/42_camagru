@@ -45,7 +45,7 @@ if (desktopNavbarIcons && logoutHiddenButton) {
 
 	logoutHiddenButton.addEventListener('click', () => {
 		const xhr = new XMLHttpRequest();
-		xhr.open('POST', `index.php?page=auth&route=logout`, true);
+		xhr.open('POST', `/logout`, true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 		xhr.onreadystatechange = () => {
@@ -68,7 +68,7 @@ if (mobileLogoutButton) {
 
 	mobileLogoutButton.addEventListener('click', () => {
 		const xhr = new XMLHttpRequest();
-		xhr.open('POST', `index.php?page=auth&route=logout`, true);
+		xhr.open('POST', `/logout`, true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
 		xhr.onreadystatechange = () => {
