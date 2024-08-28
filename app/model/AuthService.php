@@ -116,6 +116,13 @@ class AuthService {
 
 		if (array_key_exists('email', $datas)) {
 			
+			if ($user->email === $datas['email'])
+				throw new HttpException("This email is already linked to your account", 400, self::EMAIL_ERROR);
+
+			$userFound = !!$this->repository->findUserByEmail($datas['email']);
+			if ($userFound)
+				throw new HttpException("Email already taken", 403, self::EMAIL_ERROR);
+	
 			$this->parseEmail($datas['email']);
 			$userDatas->email = $datas['email'];
 			$userDatas->username = $user->username;
