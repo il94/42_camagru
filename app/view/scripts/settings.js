@@ -126,7 +126,7 @@ if (form) {
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {
-							window.location.href = `/settings/updated?data=password`;
+							window.location.href = `/login`;
 						}
 						else {
 							const response = JSON.parse(xhr.responseText);

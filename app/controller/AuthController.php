@@ -45,7 +45,10 @@ class AuthController
 	public function reinitialization($password, $reTypePassword, $token) {
 		try {
 			$this->service->reinitialization($password, $reTypePassword, $token);
+
 			http_response_code(201);
+			header("Location: /login");
+			exit();
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -76,8 +79,13 @@ class AuthController
 
 	public function update($userId, $datas, $files) {
 		try {
-			$this->service->update($userId, $datas, $files);
+			$redirect = $this->service->update($userId, $datas, $files);
+
 			http_response_code(200);
+			if ($redirect) {
+				header("Location: /login");
+				exit();
+			}
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -110,7 +118,10 @@ class AuthController
 	public function logout() {
 		try {
 			$this->service->logout();
+
 			http_response_code(201);
+			header("Location: /login");
+			exit();
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());

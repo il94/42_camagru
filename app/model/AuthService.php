@@ -38,6 +38,7 @@ class AuthService {
 		else if (!$userDatas->active)
 			throw new HttpException("You have to activate your account", 403, self::PASSWORD_ERROR);
 
+		session_regenerate_id(true);
 		$_SESSION['logged_in'] = $userDatas->id;
 	}
 
@@ -130,6 +131,8 @@ class AuthService {
 
 			$this->repository->updateUserUpdateEmailToken($userDatas);
 			$this->sendUpdateEmailEmail($userDatas);
+
+			return false;
 		}
 		else if (array_key_exists('username', $datas)) {
 
@@ -140,6 +143,8 @@ class AuthService {
 			$this->parseUsername($datas['username']);
 			$userDatas->username = $datas['username'];
 			$this->repository->updateUserUsername($userDatas);
+
+			return false;
 		}
 		else if (array_key_exists('currentpassword', $datas)) {
 
@@ -157,6 +162,9 @@ class AuthService {
 
 			$userDatas->password = password_hash($datas['newpassword'], PASSWORD_DEFAULT);
 			$this->repository->updateUserPassword($userDatas);
+
+			session_destroy();
+			return true;
 		}
 		else if (array_key_exists('avatar', $files)) {
 
@@ -166,19 +174,27 @@ class AuthService {
 
 			$userDatas->avatar = $avatarPath;
 			$this->repository->updateUserAvatar($userDatas);
+
+			return false;
 		}
 		else if (array_key_exists('notification_like', $datas)) {
 
 			$this->parseNotif($datas['notification_like']);
 			$userDatas->notification_like = $datas['notification_like'];
 			$this->repository->updateUserNotificationLike($userDatas);
+
+			return false;
 		}
 		else if (array_key_exists('notification_comment', $datas)) {
 
 			$this->parseNotif($datas['notification_comment']);
 			$userDatas->notification_comment = $datas['notification_comment'];
 			$this->repository->updateUserNotificationComment($userDatas);
+
+			return false;
 		}
+		else
+			return false;
 	}
 
 	// Update l'email du user
