@@ -14,6 +14,8 @@ class AuthController
 		try {
 			$this->service->login($login, $password);
 			http_response_code(201);
+			header("Location: /");
+			exit();
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -29,7 +31,10 @@ class AuthController
 	public function forgotPassword($login) {
 		try {
 			$this->service->forgotPassword($login);
+			
 			http_response_code(201);
+			header("Location: /login/reinitialization-start");
+			exit();
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -64,7 +69,10 @@ class AuthController
 	public function signup($email, $username, $password, $reTypePassword) {
 		try {
 			$this->service->signup($email, $username, $password, $reTypePassword);
+
 			http_response_code(201);
+			header("Location: /signup/activation");
+			exit();
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -83,7 +91,7 @@ class AuthController
 
 			http_response_code(200);
 			if ($redirect) {
-				header("Location: /login");
+				header("Location: " . $redirect);
 				exit();
 			}
 		}

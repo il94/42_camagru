@@ -132,7 +132,7 @@ class AuthService {
 			$this->repository->updateUserUpdateEmailToken($userDatas);
 			$this->sendUpdateEmailEmail($userDatas);
 
-			return false;
+			return "/settings/update_start";
 		}
 		else if (array_key_exists('username', $datas)) {
 
@@ -144,7 +144,7 @@ class AuthService {
 			$userDatas->username = $datas['username'];
 			$this->repository->updateUserUsername($userDatas);
 
-			return false;
+			return "/settings/updated";
 		}
 		else if (array_key_exists('currentpassword', $datas)) {
 
@@ -164,7 +164,7 @@ class AuthService {
 			$this->repository->updateUserPassword($userDatas);
 
 			session_destroy();
-			return true;
+			return "/login";
 		}
 		else if (array_key_exists('avatar', $files)) {
 
@@ -175,7 +175,7 @@ class AuthService {
 			$userDatas->avatar = $avatarPath;
 			$this->repository->updateUserAvatar($userDatas);
 
-			return false;
+			return "/settings/updated";
 		}
 		else if (array_key_exists('notification_like', $datas)) {
 
@@ -183,7 +183,7 @@ class AuthService {
 			$userDatas->notification_like = $datas['notification_like'];
 			$this->repository->updateUserNotificationLike($userDatas);
 
-			return false;
+			return null;
 		}
 		else if (array_key_exists('notification_comment', $datas)) {
 
@@ -191,10 +191,10 @@ class AuthService {
 			$userDatas->notification_comment = $datas['notification_comment'];
 			$this->repository->updateUserNotificationComment($userDatas);
 
-			return false;
+			return null;
 		}
 		else
-			return false;
+			return null;
 	}
 
 	// Update l'email du user

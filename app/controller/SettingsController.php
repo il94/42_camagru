@@ -15,7 +15,9 @@ class SettingsController {
 			$response = $this->service->forgotPassword($userId);
 
 			http_response_code(201);
+			header("Location: /settings/reinitialization-start");
 			echo json_encode($response);
+			exit();
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());

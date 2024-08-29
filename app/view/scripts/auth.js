@@ -28,13 +28,13 @@ if (form) {
 			const passwordValue = form.querySelector("#password-value").value;
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', `index.php?page=auth&route=login`, true);
+			xhr.open('POST', `/login`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						window.location.href = "/";
+						// window.location.href = "/";
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);
@@ -138,6 +138,7 @@ if (form) {
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
+						window.location.href = "/signup/activation"
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);

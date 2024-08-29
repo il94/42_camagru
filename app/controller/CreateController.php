@@ -18,6 +18,8 @@ class CreateController {
 			
 			$this->service->createPics($userId, $dataPics);
 			http_response_code(201);
+			header("Location: /");
+			exit();
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
