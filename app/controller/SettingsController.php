@@ -16,7 +16,6 @@ class SettingsController {
 
 			http_response_code(201);
 			echo json_encode($response);
-
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -67,12 +66,15 @@ class SettingsController {
 		$scripts = require_once("view/layouts/settings_scripts.php");
 
 		require_once('view/layout.php');
+
+		http_response_code(200);
 	}
 
 	public function updateEmail($email, $token) {
 		try {
 			$this->service->authService->updateEmail($email, $token);
 			$this->get("updatedEmail", null);
+			
 			http_response_code(200);
 		}
 		catch (HttpException $error) {

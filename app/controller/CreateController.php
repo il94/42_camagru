@@ -44,6 +44,9 @@ class CreateController {
 		$scripts = require_once("view/layouts/create_scripts.php");
 
 		require_once('view/layout.php');
+		
+		http_response_code(200);
 	}
+
 
 }

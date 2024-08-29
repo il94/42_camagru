@@ -17,6 +17,8 @@ session_start();
 function notFound() {
 	$body = require_once('view/not_found.php');
 	require_once('view/layout.php');
+	
+	http_response_code(404);
 }
 
 // Inputs client
@@ -90,13 +92,11 @@ if ($page) {
 				// PICS
 				if ($route === 'pics') {
 					$homeController->getPics($userId, $cursor);
-					http_response_code(200);
 				}
 
 				// COMMENTS
 				else if ($route === 'comments') {
 					$homeController->getComments($picId, $cursor);
-					http_response_code(200);
 				}
 
 				else
@@ -120,7 +120,6 @@ if ($page) {
 		// DELETE
 		else if ($method === 'DELETE') {
 			$homeController->deletePic($userId, $picId);
-			http_response_code(200);
 		}
 
 		else
@@ -209,19 +208,16 @@ if ($page) {
 				// ACTIVATE
 				if ($state) {
 					$authController->getSignup($state, null);
-					http_response_code(200);
 				}
 
 				// ACTIVATION
 				else if ($token) {
 					$authController->activateAccount($token);
-					http_response_code(200);
 				}
 
 				// DEFAULT
 				else {
 					$authController->getSignup(null, null);
-					http_response_code(200);
 				}
 			}
 
@@ -231,13 +227,11 @@ if ($page) {
 				// FORGOT PASSWORD
 				if ($state) {
 					$authController->getLogin($state);
-					http_response_code(200);
 				}
 
 				// DEFAULT
 				else {
 					$authController->getLogin(null);
-					http_response_code(200);
 				}
 			}
 
@@ -277,13 +271,11 @@ if ($page) {
 				// STATE
 				if ($state) {
 					$settingsController->get($state, null);
-					http_response_code(200);
 				}
 
 				// UPDATE
 				else if ($token) {
 					$settingsController->updateEmail($email, $token);
-					http_response_code(200);
 				}
 
 				// UPDATED

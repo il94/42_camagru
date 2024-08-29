@@ -46,8 +46,8 @@ class HomeController {
 		try {
 			$response = $this->service->getPics($userId, $cursor);
 
-			http_response_code(200);
 			echo json_encode($response);
+			http_response_code(200);
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -64,8 +64,8 @@ class HomeController {
 		try {
 			$response = $this->service->getComments($picId, $cursor);
 
-			http_response_code(200);
 			echo json_encode($response);
+			http_response_code(200);
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());
@@ -94,6 +94,8 @@ class HomeController {
 
 			require_once('view/layout.php');
 		}
+
+		http_response_code(200);
 	}
 
 	public function getGuest($route, $id) {
@@ -108,6 +110,8 @@ class HomeController {
 
 			require_once('view/layout.php');
 		}
+
+		http_response_code(200);
 	}
 
 	public function deletePic($userId, $picId) {
