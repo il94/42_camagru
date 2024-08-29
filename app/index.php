@@ -19,19 +19,47 @@ function notFound() {
 	require_once('view/layout.php');
 }
 
-if (paramExist($_GET['page'])) {
+// Inputs client
+$page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
+$route = filter_input(INPUT_GET, 'route', FILTER_SANITIZE_SPECIAL_CHARS);
+$state = filter_input(INPUT_GET, 'state', FILTER_SANITIZE_SPECIAL_CHARS);
 
-	if ($_GET['page'] === 'home_guest') {
+$picIdGet = filter_input(INPUT_GET, 'picId', FILTER_VALIDATE_INT);
+$picIdPost = filter_input(INPUT_POST, 'picId', FILTER_VALIDATE_INT);
+$picId = $picIdGet ?? $picIdPost;
+$comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_SPECIAL_CHARS);
+$cursor = filter_input(INPUT_GET, 'cursor', FILTER_VALIDATE_INT);
+
+$emailGet = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+$emailPost = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+$email = $emailGet ?? $emailPost;
+$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+$login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+$retypepassword = filter_input(INPUT_POST, 'retypepassword', FILTER_SANITIZE_SPECIAL_CHARS);
+$tokenGet = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_SPECIAL_CHARS);
+$tokenPost = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_SPECIAL_CHARS);
+$token = $tokenGet ?? $tokenPost;
+
+// Session
+$userId = $_SESSION['logged_in'];
+
+// Method
+$method = $_SERVER['REQUEST_METHOD'];
+
+if ($page) {
+
+	if ($page === 'home_guest') {
 		$homeController->getGuest(null, null);
 	}
 
 	// HOME
-	else if ($_GET['page'] === 'home') {
+	else if ($page === 'home') {
 
 		// POST
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		if ($method === 'POST') {
 
-			if (!$_SESSION['logged_in']) {
+			if (!$userId) {
 				$body = require_once('view/pas_co.php');
 	
 				require_once('view/layout.php');
@@ -39,13 +67,13 @@ if (paramExist($_GET['page'])) {
 			else {
 
 				// COMMENT
-				if ($_GET['route'] === 'comment') {
-					$homeController->postComment($_SESSION['logged_in'], $_POST['picId'], $_POST['comment']);
+				if ($route === 'comment') {
+					$homeController->postComment($userId, $picId, $comment);
 				}
 
 				// LIKE
-				else if ($_GET['route'] === 'like') {
-					$homeController->likePic($_SESSION['logged_in'], $_POST['picId']);
+				else if ($route === 'like') {
+					$homeController->likePic($userId, $picId);
 				}
 
 				else
@@ -55,19 +83,19 @@ if (paramExist($_GET['page'])) {
 		}
 
 		// GET
-		else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+		else if ($method === 'GET') {
 
-			if (paramExist($_GET['route'])) {
+			if ($route) {
 
 				// PICS
-				if ($_GET['route'] === 'pics') {
-					$homeController->getPics($_SESSION['logged_in'], $_GET['cursor']);
+				if ($route === 'pics') {
+					$homeController->getPics($userId, $cursor);
 					http_response_code(200);
 				}
 
 				// COMMENTS
-				else if ($_GET['route'] === 'comments') {
-					$homeController->getComments($_GET['picId'], $_GET['cursor']);
+				else if ($route === 'comments') {
+					$homeController->getComments($picId, $cursor);
 					http_response_code(200);
 				}
 
@@ -78,7 +106,7 @@ if (paramExist($_GET['page'])) {
 			// DEFAULT
 			else {
 
-				if (!$_SESSION['logged_in']) {
+				if (!$userId) {
 					$body = require_once('view/pas_co.php');
 		
 					require_once('view/layout.php');
@@ -90,8 +118,8 @@ if (paramExist($_GET['page'])) {
 		}
 
 		// DELETE
-		else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-			$homeController->deletePic($_SESSION['logged_in'], $_GET['picId']);
+		else if ($method === 'DELETE') {
+			$homeController->deletePic($userId, $picId);
 			http_response_code(200);
 		}
 
@@ -100,9 +128,9 @@ if (paramExist($_GET['page'])) {
 	}
 
 	// CREATE
-	else if ($_GET['page'] === 'create') {
+	else if ($page === 'create') {
 
-		if (!$_SESSION['logged_in']) {
+		if (!$userId) {
 			$body = require_once('view/pas_co.php');
 
 			require_once('view/layout.php');
@@ -110,12 +138,12 @@ if (paramExist($_GET['page'])) {
 		else {
 
 			// POST
-			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-				$createController->createPics($_SESSION['logged_in'], $_FILES, $_POST);
+			if ($method === 'POST') {
+				$createController->createPics($userId, $_FILES, $_POST);
 			}
 
 			// GET
-			else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+			else if ($method === 'GET') {
 				$createController->get(null, null);
 			}
 
@@ -125,24 +153,24 @@ if (paramExist($_GET['page'])) {
 	}
 
 	// AUTH
-	else if ($_GET['page'] === 'auth') {
+	else if ($page === 'auth') {
 
 		// POST
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		if ($method === 'POST') {
 
 			// LOGIN
-			if ($_GET['route'] === 'login') {
+			if ($route === 'login') {
 
-				if (paramExist($_GET['state'])) {
+				if ($state) {
 
 					// FORGOT PASSWORD
-					if ($_GET['state'] === 'forgot-password') {
-						$authController->forgotPassword($_POST['login']);
+					if ($state === 'forgot-password') {
+						$authController->forgotPassword($login);
 					}
 
 					// REINITIALIZATION
-					else if ($_GET['state'] === 'reinitialization') {
-						$authController->reinitialization($_POST['password'], $_POST['retypepassword'], $_POST['token']);
+					else if ($state === 'reinitialization') {
+						$authController->reinitialization($password, $retypepassword, $token);
 					}
 
 					else
@@ -150,21 +178,21 @@ if (paramExist($_GET['page'])) {
 
 				}
 				else {
-					$authController->login($_POST['login'], $_POST['password']);
+					$authController->login($login, $password);
 				}
 			}
 
 			// SIGNUP
-			else if ($_GET['route'] === 'signup') {
-				$authController->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['retypepassword']);
+			else if ($route === 'signup') {
+				$authController->signup($email, $username, $password, $retypepassword);
 			}
 
-			else if ($_GET['route'] === 'update') {
-				$authController->update($_SESSION['logged_in'], $_POST, $_FILES);
+			else if ($route === 'update') {
+				$authController->update($userId, $_POST, $_FILES);
 			}
 
 			// LOGOUT
-			else if ($_GET['route'] === 'logout') {
+			else if ($route === 'logout') {
 				$authController->logout();
 			}
 
@@ -173,20 +201,20 @@ if (paramExist($_GET['page'])) {
 		}
 
 		// GET
-		else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+		else if ($method === 'GET') {
 
 			// SIGNUP
-			if ($_GET['route'] === 'signup') {
+			if ($route === 'signup') {
 
 				// ACTIVATE
-				if (paramExist($_GET['state'])) {
-					$authController->getSignup($_GET['state'], null);
+				if ($state) {
+					$authController->getSignup($state, null);
 					http_response_code(200);
 				}
 
 				// ACTIVATION
-				else if (paramExist($_GET['token'])) {
-					$authController->activateAccount($_GET['token']);
+				else if ($token) {
+					$authController->activateAccount($token);
 					http_response_code(200);
 				}
 
@@ -198,11 +226,11 @@ if (paramExist($_GET['page'])) {
 			}
 
 			// LOGIN
-			else if ($_GET['route'] === 'login') {
+			else if ($route === 'login') {
 
 				// FORGOT PASSWORD
-				if (paramExist($_GET['state'])) {
-					$authController->getLogin($_GET['state']);
+				if ($state) {
+					$authController->getLogin($state);
 					http_response_code(200);
 				}
 
@@ -222,9 +250,9 @@ if (paramExist($_GET['page'])) {
 	}
 
 	// SETTINGS
-	else if ($_GET['page'] === 'settings') {
+	else if ($page === 'settings') {
 
-		if (!$_SESSION['logged_in']) {
+		if (!$userId) {
 			$body = require_once('view/pas_co.php');
 
 			require_once('view/layout.php');
@@ -232,11 +260,11 @@ if (paramExist($_GET['page'])) {
 		else {
 
 			// POST
-			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if ($method === 'POST') {
 
 				// FORGOT PASSWORD
-				if ($_GET['route'] === 'forgot-password') {
-					$settingsController->forgotPassword($_SESSION['logged_in']);
+				if ($route === 'forgot-password') {
+					$settingsController->forgotPassword($userId);
 				}
 
 				else
@@ -244,22 +272,22 @@ if (paramExist($_GET['page'])) {
 			}
 
 			// GET
-			else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+			else if ($method === 'GET') {
 
 				// STATE
-				if (paramExist($_GET['state'])) {
-					$settingsController->get($_GET['state'], null);
+				if ($state) {
+					$settingsController->get($state, null);
 					http_response_code(200);
 				}
 
 				// UPDATE
-				else if (paramExist($_GET['token'])) {
-					$settingsController->updateEmail($_GET['email'], $_GET['token']);
+				else if ($token) {
+					$settingsController->updateEmail($email, $token);
 					http_response_code(200);
 				}
 
 				// UPDATED
-				else if ($_GET['route'] === 'updated') {
+				else if ($route === 'updated') {
 					$settingsController->get(null, null);
 				}
 
