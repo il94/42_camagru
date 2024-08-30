@@ -14,13 +14,6 @@ $settingsController = new SettingsController();
 
 session_start();
 
-function notFound() {
-	$body = require_once('view/not_found.php');
-	require_once('view/layout.php');
-	
-	http_response_code(404);
-}
-
 // Inputs client
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
 $route = filter_input(INPUT_GET, 'route', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -138,7 +131,7 @@ if ($page) {
 
 			// POST
 			if ($method === 'POST') {
-				$createController->createPics($userId, $_FILES, $_POST);
+				$createController->createPics($userId, $_FILES, sanitizeStickersData($_POST));
 			}
 
 			// GET

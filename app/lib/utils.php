@@ -63,3 +63,53 @@ function endsWith($haystack, $needle) {
 	}
 	return (substr($haystack, -$length) === $needle);
 }
+
+function sanitizeStickersData($data) {
+	$sanitizedData = [];
+
+	foreach ($data as $key => $jsonString) {
+		$decodedData = json_decode($jsonString, false);
+
+		if (json_last_error() === JSON_ERROR_NONE) {
+			$sanitizedEntry = [];
+			foreach ($decodedData as $item) {
+				if (!(property_exists($item, 'src') &&
+					property_exists($item, 'left') &&
+					property_exists($item, 'top') &&
+					property_exists($item, 'width') &&
+					property_exists($item, 'height'))) {
+					badRequest();
+				}
+
+				$sanitizedItem = [
+					'src' => filter_var($item->src, FILTER_SANITIZE_SPECIAL_CHARS),
+					'left' => filter_var($item->left, FILTER_SANITIZE_SPECIAL_CHARS),
+					'top' => filter_var($item->top, FILTER_SANITIZE_SPECIAL_CHARS),
+					'width' => filter_var($item->width, FILTER_SANITIZE_SPECIAL_CHARS),
+					'height' => filter_var($item->height, FILTER_SANITIZE_SPECIAL_CHARS)
+				];
+
+				$sanitizedEntry[] = $sanitizedItem;
+			}
+
+			$sanitizedData[$key] = json_encode($sanitizedEntry);
+		}
+		else {
+			badRequest();
+		}
+	}
+
+	return $sanitizedData;
+}
+
+function badRequest() {
+	http_response_code(400);
+	exit();
+}
+
+function notFound() {
+	$body = require_once('view/not_found.php');
+	require_once('view/layout.php');
+	
+	http_response_code(404);
+}

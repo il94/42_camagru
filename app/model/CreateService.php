@@ -23,11 +23,12 @@ class CreateService {
 
 			if (isset($dataPics->stickersData[$stickersKey])) {
 				$stickers = json_decode($dataPics->stickersData[$stickersKey], true);
-	
+
+				// REPRENDRE ICI
 				$uploadedFiles[] = $this->processImageWithStickers($imageData, $stickers);
 			}
 			else
-				echo "ERROR A GERER";
+				badRequest();
 		}
 
 		$picsDatas = [];
