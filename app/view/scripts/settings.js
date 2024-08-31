@@ -30,6 +30,8 @@ logoutButton?.addEventListener('click', () => {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/logout`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+	xhr.setRequestHeader('Pragma', 'no-cache');
 	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 	xhr.onreadystatechange = () => {
@@ -87,6 +89,8 @@ if (form) {
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+				xhr.setRequestHeader('Pragma', 'no-cache');
 				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 				xhr.onreadystatechange = () => {
@@ -129,6 +133,8 @@ if (form) {
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+				xhr.setRequestHeader('Pragma', 'no-cache');
 				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 			
 				xhr.onreadystatechange = () => {
@@ -191,7 +197,8 @@ if (form) {
 			
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', `/settings/update`, true);
-				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+				xhr.setRequestHeader('Pragma', 'no-cache');
 				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 				xhr.onreadystatechange = () => {
@@ -222,6 +229,8 @@ if (form) {
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+				xhr.setRequestHeader('Pragma', 'no-cache');
 				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 				
 				xhr.send(`${paramName}=${paramValue}`);
@@ -252,6 +261,8 @@ sendPasswordReinitialization?.addEventListener('click', () => {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/settings/forgot-password`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+	xhr.setRequestHeader('Pragma', 'no-cache');
 	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 	xhr.onreadystatechange = () => {

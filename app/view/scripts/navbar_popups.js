@@ -49,6 +49,8 @@ if (desktopNavbarIcons && logoutHiddenButton) {
 		const xhr = new XMLHttpRequest();
 		xhr.open('POST', `/logout`, true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+		xhr.setRequestHeader('Pragma', 'no-cache');
 		xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 		xhr.onreadystatechange = () => {
@@ -75,6 +77,8 @@ if (mobileLogoutButton) {
 		const xhr = new XMLHttpRequest();
 		xhr.open('POST', `/logout`, true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+		xhr.setRequestHeader('Pragma', 'no-cache');
 		xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 		xhr.onreadystatechange = () => {

@@ -18,6 +18,8 @@ function postComment(pic, inputText, user) {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/comment`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+	xhr.setRequestHeader('Pragma', 'no-cache');
 	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 	
 	const commentsContainer = pic.querySelector('#comments-container');
@@ -210,6 +212,8 @@ export function createPic(picData, user) {
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', `/like`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+			xhr.setRequestHeader('Pragma', 'no-cache');
 			xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 		
 			xhr.onreadystatechange = () => {
@@ -250,7 +254,9 @@ export function createPic(picData, user) {
 				const xhr = new XMLHttpRequest();
 				xhr.open('GET', `/comments?picId=${picData.id}${cursor ? `&cursor=${cursor}` : ''}`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
+				xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+				xhr.setRequestHeader('Pragma', 'no-cache');
+			
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {

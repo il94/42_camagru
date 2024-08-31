@@ -86,7 +86,9 @@ function handlePicObserver(entries) {
 			const xhr = new XMLHttpRequest();
 			xhr.open('GET', `/pics${cursor ? `?cursor=${cursor}` : ''}`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
+			xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+			xhr.setRequestHeader('Pragma', 'no-cache');
+	
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 200) {

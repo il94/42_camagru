@@ -17,6 +17,8 @@ logoutButton?.addEventListener('click', () => {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/logout`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+	xhr.setRequestHeader('Pragma', 'no-cache');
 	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 	xhr.onreadystatechange = () => {
@@ -471,8 +473,10 @@ for (const publishButton of publishButtons) {
 
 		const xhr = new XMLHttpRequest();
 		xhr.open('POST', `/create`, true);
+		xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+		xhr.setRequestHeader('Pragma', 'no-cache');
 		xhr.setRequestHeader('X-CSRF-Token', csrfToken);
-
+	
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 201) {

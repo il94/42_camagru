@@ -21,6 +21,8 @@ logoutButton?.addEventListener('click', () => {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/logout`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+	xhr.setRequestHeader('Pragma', 'no-cache');
 	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 	xhr.onreadystatechange = () => {
@@ -54,6 +56,8 @@ deletePicForm?.addEventListener('submit', (event) => {
 	const xhr = new XMLHttpRequest();
 	xhr.open('DELETE', `/?picId=${picId}`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+	xhr.setRequestHeader('Pragma', 'no-cache');
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {

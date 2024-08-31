@@ -30,7 +30,9 @@ if (form) {
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', `/login`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		
+			xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+			xhr.setRequestHeader('Pragma', 'no-cache');
+
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
@@ -64,6 +66,8 @@ if (form) {
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', `/login/forgot-password`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+			xhr.setRequestHeader('Pragma', 'no-cache');
 		
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
@@ -96,6 +100,8 @@ if (form) {
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', `/login/reinitialization`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+			xhr.setRequestHeader('Pragma', 'no-cache');
 		
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
@@ -134,6 +140,8 @@ if (form) {
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', `/signup`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+			xhr.setRequestHeader('Pragma', 'no-cache');
 		
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
