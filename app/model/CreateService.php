@@ -4,6 +4,15 @@ class CreateService {
 	public CreateRepository $repository;
 	public AuthService $authService;
 
+	// CONSTANTES
+	const ALLOWED_MIMETYPES = [
+		"image/png",
+	];
+	const ALLOWED_EXTENSIONS = [
+		"png",
+	];
+	const MAX_FILE_SIZE = 2.5 * 1024 * 1024;
+
 	public function __construct() {
 		$this->repository = new CreateRepository();
 		$this->authService = new AuthService();
@@ -20,16 +29,16 @@ class CreateService {
 		$uploadedFiles = [];
 		foreach ($dataPics->image as $imagesKey => $imageData) {
 			$stickersKey = 'stickersData_' . str_replace('canvas_', '', $imagesKey);
-
-			if (isset($dataPics->stickersData[$stickersKey])) {
-				$stickers = json_decode($dataPics->stickersData[$stickersKey], true);
-
-				// REPRENDRE ICI
-				$uploadedFiles[] = $this->processImageWithStickers($imageData, $stickers);
-			}
-			else
+			if (!isset($dataPics->stickersData[$stickersKey]))
 				badRequest();
+
+			$this->sanitizeFile($imageData);
+
+			$stickers = json_decode($dataPics->stickersData[$stickersKey], true);
+			$uploadedFiles[] = $this->processImageWithStickers($imageData, $stickers);
 		}
+
+		exit();
 
 		$picsDatas = [];
 		for ($i = 0; $i < count($uploadedFiles); $i++) {
@@ -42,6 +51,26 @@ class CreateService {
 		}
 
 		$this->repository->createPics($picsDatas);
+	}
+
+	private function sanitizeFile($file) {
+		if ($file['error'] !== UPLOAD_ERR_OK)
+			throw new HttpException("File upload error", 400, "");
+
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$mimeType = finfo_file($finfo, $file['tmp_name']);
+		finfo_close($finfo);
+
+		if (!in_array($mimeType, self::ALLOWED_MIMETYPES))
+			throw new HttpException("File upload error", 400, "");
+
+		$fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+		if (!in_array($fileExtension, self::ALLOWED_EXTENSIONS))
+			throw new HttpException("File upload error", 400, "");
+
+		if ($file['size'] > self::MAX_FILE_SIZE)
+			throw new HttpException("File upload error", 400, "");
 	}
 
 	private function processImageWithStickers($imageData, $stickers) {

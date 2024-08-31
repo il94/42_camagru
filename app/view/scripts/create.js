@@ -436,7 +436,7 @@ for (const publishButton of publishButtons) {
 			 const promise = new Promise((resolve, reject) => {
 					formData.append(`stickersData_${index}`, JSON.stringify(canvas.stickersData));
 
-				  canvas.canvas.toBlob((blob) => {
+					canvas.canvas.toBlob((blob) => {
 						if (blob) {
 							 formData.append(`canvas_${index}`, blob, `canvas_${index}.png`);
 							 resolve();
