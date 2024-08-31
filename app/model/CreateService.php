@@ -39,13 +39,20 @@ class CreateService {
 				badRequest();
 
 			$this->sanitizeFile($imageData);
-
-			// prettyPrint($imageData);
 			$stickers = json_decode($dataPics->stickersData[$stickersKey], false);
-			$uploadedFiles[] = $this->processImageWithStickers($imageData['tmp_name'], $stickers);
-		}
 
-		exit();
+			try {
+				$uploadedFiles[] = $this->processImageWithStickers($imageData['tmp_name'], $stickers);
+			}
+			catch (HttpException $error) {
+				foreach ($uploadedFiles as $uploadedFile) {
+					$uploadedFilePath = getcwd() . $uploadedFile;
+					if (file_exists($uploadedFilePath))
+						unlink($uploadedFilePath);
+				}
+				throw $error;
+			}
+		}
 
 		$picsDatas = [];
 		for ($i = 0; $i < count($uploadedFiles); $i++) {
@@ -85,23 +92,23 @@ class CreateService {
 		if (!$image)
 			throw new HttpException("Failed to load image", 400, "");
 
-		// prettyPrint($stickers);
+		try {
+			foreach ($stickers as $sticker) {
+				$this->applySticker($image, $sticker);
+			}
+		
+			$picName = uniqid() . '.png';
+			$filePath = UPLOAD_ABSOLUTE_PATH . $picName;
+			imagepng($image, $filePath);
 
-		// prettyPrint($stickers[0]->src);
-
-
-		foreach ($stickers as $sticker) {
-			$this->applySticker($image, $sticker);
+			$picPath = UPLOAD_RELATIVE_PATH . $picName;	
+		
+			return $picPath;
 		}
-	
-		$picName = uniqid() . '.png';
-		$filePath = UPLOAD_ABSOLUTE_PATH . $picName;
-		imagepng($image, $filePath);
+		finally {
+			imagedestroy($image);
+		}
 
-		$picPath = UPLOAD_RELATIVE_PATH . $picName;	
-		imagedestroy($image);
-	
-		return $picPath;
 	}
 
 	private function applySticker($image, $sticker) {
