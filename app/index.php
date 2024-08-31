@@ -188,7 +188,7 @@ if ($page) {
 			}
 
 			else if ($route === 'update') {
-				$authController->update($userId, $_POST, $_FILES);
+				$authController->update($userId, sanitizeUpdateDatas($_POST), $_FILES);
 			}
 
 			// LOGOUT

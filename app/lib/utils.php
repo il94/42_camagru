@@ -108,6 +108,24 @@ function sanitizeFile($file) {
 		throw new HttpException("File upload error", 400, "");
 }
 
+function sanitizeUpdateDatas($datas) {
+	$sanitizedData = [];
+
+	$stringFields = ['email', 'username', 'currentpassword', 'newpassword', 'retypenewpassword'];
+	foreach ($stringFields as $field) {
+		if (isset($datas[$field]))
+			$sanitizedData[$field] = filter_var(trim($datas[$field]), FILTER_SANITIZE_SPECIAL_CHARS);
+	}
+
+	$booleanFields = ['notification_like', 'notification_comment'];
+	foreach ($booleanFields as $field) {
+		if (isset($datas[$field]))
+			$sanitizedData[$field] = filter_var($datas[$field], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+	}
+
+	return $sanitizedData;
+}
+
 function badRequest() {
 	http_response_code(400);
 	exit();

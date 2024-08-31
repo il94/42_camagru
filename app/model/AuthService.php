@@ -284,7 +284,7 @@ class AuthService {
 
 	// Verifie si la string est un booleen
 	public function parseNotif($notif) {
-		if ($notif !== '0' && $notif !== '1')
+		if ($notif != '0' && $notif != '1')
 			throw new HttpException("Bool is required", 400, '');
 	}
 
