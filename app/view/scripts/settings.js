@@ -25,9 +25,12 @@ for (const button of loginRedirectionButtons) {
 const logoutButton = document.getElementById("logout-button");
 
 logoutButton?.addEventListener('click', () => {
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/logout`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
@@ -79,10 +82,12 @@ if (form) {
 
 				// Valeurs de l'input
 				const value = form.querySelector(`#${form.name}-value`).value;
-
+				const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+			
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
@@ -119,9 +124,12 @@ if (form) {
 				const newPasswordValue = form.querySelector("#new-password-value").value;
 				const retypeNewPasswordValue = form.querySelector("#re-type-new-password-value").value;
 
+				const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+			
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 			
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
@@ -179,9 +187,12 @@ if (form) {
 					return;
 				}
 
+				const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+			
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', `/settings/update`, true);
-				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 				xhr.onreadystatechange = () => {
 					if (xhr.readyState === 4) {
@@ -206,9 +217,12 @@ if (form) {
 
 		case "form-notifications" : {
 			function sendRequest(paramName, paramValue) {
+				const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+			
 				const xhr = new XMLHttpRequest();
 				xhr.open('POST', `/settings/update`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 				
 				xhr.send(`${paramName}=${paramValue}`);
 			}
@@ -233,9 +247,12 @@ if (form) {
 const sendPasswordReinitialization =  document.getElementById('send-password-reinitialization');
 sendPasswordReinitialization?.addEventListener('click', () => {
 
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+			
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/settings/forgot-password`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {

@@ -8,6 +8,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap" rel="stylesheet">
 
+	<meta name="csrf-token" content="<?php echo $_SESSION['csrf_token']; ?>">
+	
 	<link rel="stylesheet" type="text/css" href="/view/assets/index.css">
 	<link rel="stylesheet" type="text/css" href="/view/assets/colors.css">
 

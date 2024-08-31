@@ -14,6 +14,11 @@ $settingsController = new SettingsController();
 
 session_start();
 
+if (empty($_SESSION['csrf_token'])) {
+	$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrfToken = $_SERVER['HTTP_X_CSRF_TOKEN'];
+
 // Inputs client
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
 $route = filter_input(INPUT_GET, 'route', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -41,6 +46,9 @@ $userId = $_SESSION['logged_in'];
 
 // Method
 $method = $_SERVER['REQUEST_METHOD'];
+
+if ($method === 'POST' && $route !== 'login' && !hash_equals($_SESSION['csrf_token'], $csrfToken))
+	forbidden();
 
 if ($page) {
 

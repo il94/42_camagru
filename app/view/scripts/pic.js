@@ -13,10 +13,13 @@ export function getRandomColor() {
 
 // Soumet une requete au serveur pour poster le contenu de l'input text
 function postComment(pic, inputText, user) {
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/comment`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
+	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+	
 	const commentsContainer = pic.querySelector('#comments-container');
 	const commentData = {
 		id: -1,
@@ -202,10 +205,12 @@ export function createPic(picData, user) {
 	if (user) {
 		const likeButton = pic.querySelector(".like-button")
 		likeButton.addEventListener('click', () => {
-
+			const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+		
 			const xhr = new XMLHttpRequest();
 			xhr.open('POST', `/like`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 		
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {

@@ -113,6 +113,11 @@ function badRequest() {
 	exit();
 }
 
+function forbidden() {
+	http_response_code(403);
+	exit();
+}
+
 function notFound() {
 	$body = require_once('view/not_found.php');
 	require_once('view/layout.php');

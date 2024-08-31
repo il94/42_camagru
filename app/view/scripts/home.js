@@ -16,9 +16,12 @@ settingsButton?.addEventListener('click', () => {
 
 const logoutButton = document.getElementById("logout-button");
 logoutButton?.addEventListener('click', () => {
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', `/logout`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
