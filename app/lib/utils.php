@@ -46,16 +46,6 @@ function createImage($base64Image) {
 	return (false);
 }
 
-function saveImage($imageType, $file) {
-	
-	$imageName = urlencode(basename($_FILES[$imageType]['name']));
-	$imagePath = UPLOAD_RELATIVE_PATH . $imageName;
-
-	if (move_uploaded_file($_FILES[$imageType]['tmp_name'], UPLOAD_ABSOLUTE_PATH . $imageName))
-		return ($imagePath);
-	return (false);
-}
-
 function endsWith($haystack, $needle) {
 	$length = strlen($needle);
 	if ($length == 0) {
@@ -96,6 +86,26 @@ function sanitizeStickersData($data) {
 	}
 
 	return $sanitizedData;
+}
+
+function sanitizeFile($file) {
+	if ($file['error'] !== UPLOAD_ERR_OK)
+		throw new HttpException("File upload error", 400, "");
+
+	$finfo = finfo_open(FILEINFO_MIME_TYPE);
+	$mimeType = finfo_file($finfo, $file['tmp_name']);
+	finfo_close($finfo);
+
+	if (!in_array($mimeType, ALLOWED_MIMETYPES))
+		throw new HttpException("File upload error", 400, "");
+
+	$fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+	if (!in_array($fileExtension, ALLOWED_EXTENSIONS))
+		throw new HttpException("File upload error", 400, "");
+
+	if ($file['size'] > MAX_FILE_SIZE)
+		throw new HttpException("File upload error", 400, "");
 }
 
 function badRequest() {

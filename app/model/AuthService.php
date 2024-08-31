@@ -168,8 +168,14 @@ class AuthService {
 		}
 		else if (array_key_exists('avatar', $files)) {
 
-			$avatarPath = saveImage('avatar');
-			if (!$avatarPath)
+			if (count($files) !== 1)
+				throw new HttpException("Invalid avatar", 403, self::AVATAR_ERROR);
+
+			sanitizeFile($files['avatar']);
+
+			$avatarName = uniqid() . '.png';
+			$avatarPath = UPLOAD_RELATIVE_PATH . $avatarName;
+			if (!move_uploaded_file($files['avatar']['tmp_name'], UPLOAD_ABSOLUTE_PATH . $avatarName))
 				throw new HttpException("Invalid avatar", 403, self::AVATAR_ERROR);
 
 			$userDatas->avatar = $avatarPath;

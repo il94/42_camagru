@@ -5,14 +5,6 @@ class CreateService {
 	public AuthService $authService;
 
 	// CONSTANTES
-	const ALLOWED_MIMETYPES = [
-		"image/png",
-	];
-	const ALLOWED_EXTENSIONS = [
-		"png",
-	];
-	const MAX_FILE_SIZE = 2.5 * 1024 * 1024;
-
 	const STICKERS_HEIGHT = 75;
 	const STICKERS_MIN_LEFT = -50;
 	const STICKERS_MAX_LEFT = 350;
@@ -38,7 +30,7 @@ class CreateService {
 			if (!isset($dataPics->stickersData[$stickersKey]))
 				badRequest();
 
-			$this->sanitizeFile($imageData);
+			sanitizeFile($imageData);
 			$stickers = json_decode($dataPics->stickersData[$stickersKey], false);
 
 			try {
@@ -65,26 +57,6 @@ class CreateService {
 		}
 
 		$this->repository->createPics($picsDatas);
-	}
-
-	private function sanitizeFile($file) {
-		if ($file['error'] !== UPLOAD_ERR_OK)
-			throw new HttpException("File upload error", 400, "");
-
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		$mimeType = finfo_file($finfo, $file['tmp_name']);
-		finfo_close($finfo);
-
-		if (!in_array($mimeType, self::ALLOWED_MIMETYPES))
-			throw new HttpException("File upload error", 400, "");
-
-		$fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-
-		if (!in_array($fileExtension, self::ALLOWED_EXTENSIONS))
-			throw new HttpException("File upload error", 400, "");
-
-		if ($file['size'] > self::MAX_FILE_SIZE)
-			throw new HttpException("File upload error", 400, "");
 	}
 
 	private function processImageWithStickers($tmpName, $stickers) {
