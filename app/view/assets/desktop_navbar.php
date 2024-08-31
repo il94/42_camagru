@@ -7,7 +7,7 @@
 		<button id="profile-button" class="button-icon selectable">
 			<?php
 				if (endsWith($user->avatar, '.svg'))
-					echo file_get_contents($user->avatar);
+					echo file_get_contents("/var/www/html" . $user->avatar);
 				else 
 					echo "<img src='" . htmlspecialchars($user->avatar, ENT_QUOTES, 'UTF-8') . "' />";
 			?>

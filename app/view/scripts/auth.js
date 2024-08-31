@@ -146,7 +146,7 @@ if (form) {
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						window.location.href = "/signup/activation"
+						window.location.href = `/signup/activation?email=${emailValue}`
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);

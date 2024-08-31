@@ -47,7 +47,7 @@ $userId = $_SESSION['logged_in'];
 // Method
 $method = $_SERVER['REQUEST_METHOD'];
 
-if ($method === 'POST' && $route !== 'login' && !hash_equals($_SESSION['csrf_token'], $csrfToken))
+if ($method === 'POST' && $route !== 'login' && $route !== 'signup' && !hash_equals($_SESSION['csrf_token'], $csrfToken))
 	forbidden();
 
 if ($page) {

@@ -1,4 +1,4 @@
-<svg class="icon" width="28" height="34" viewBox="0 0 28 34" xmlns="http://www.w3.org/2000/svg">
+<svg class="icon" width="28" height="34" viewBox="0 0 28 34" fill="none" xmlns="http://www.w3.org/2000/svg">
 	<path d="M14 14C17.3137 14 20 11.3137 20 8C20 4.68629 17.3137 2 14 2C10.6863 2 8 4.68629 8 8C8 11.3137 10.6863 14 14 14Z" stroke="white" stroke-width="3.5"/>
 	<path d="M26 25.25C26 28.9775 26 32 14 32C2 32 2 28.9775 2 25.25C2 21.5225 7.373 18.5 14 18.5C20.627 18.5 26 21.5225 26 25.25Z" stroke="white" stroke-width="3.5"/>
 </svg>
