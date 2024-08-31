@@ -75,9 +75,7 @@ function sanitizeStickersData($data) {
 			foreach ($decodedData as $item) {
 				if (!(property_exists($item, 'src') &&
 					property_exists($item, 'left') &&
-					property_exists($item, 'top') &&
-					property_exists($item, 'width') &&
-					property_exists($item, 'height'))) {
+					property_exists($item, 'top'))) {
 					badRequest();
 				}
 
@@ -85,8 +83,6 @@ function sanitizeStickersData($data) {
 					'src' => filter_var($item->src, FILTER_SANITIZE_SPECIAL_CHARS),
 					'left' => filter_var($item->left, FILTER_SANITIZE_SPECIAL_CHARS),
 					'top' => filter_var($item->top, FILTER_SANITIZE_SPECIAL_CHARS),
-					'width' => filter_var($item->width, FILTER_SANITIZE_SPECIAL_CHARS),
-					'height' => filter_var($item->height, FILTER_SANITIZE_SPECIAL_CHARS)
 				];
 
 				$sanitizedEntry[] = $sanitizedItem;

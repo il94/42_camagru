@@ -13,6 +13,12 @@ class CreateService {
 	];
 	const MAX_FILE_SIZE = 2.5 * 1024 * 1024;
 
+	const STICKERS_HEIGHT = 75;
+	const STICKERS_MIN_LEFT = -50;
+	const STICKERS_MAX_LEFT = 350;
+	const STICKERS_MIN_TOP = -37.5;
+	const STICKERS_MAX_TOP = 362.5;
+
 	public function __construct() {
 		$this->repository = new CreateRepository();
 		$this->authService = new AuthService();
@@ -34,8 +40,9 @@ class CreateService {
 
 			$this->sanitizeFile($imageData);
 
-			$stickers = json_decode($dataPics->stickersData[$stickersKey], true);
-			$uploadedFiles[] = $this->processImageWithStickers($imageData, $stickers);
+			// prettyPrint($imageData);
+			$stickers = json_decode($dataPics->stickersData[$stickersKey], false);
+			$uploadedFiles[] = $this->processImageWithStickers($imageData['tmp_name'], $stickers);
 		}
 
 		exit();
@@ -73,12 +80,16 @@ class CreateService {
 			throw new HttpException("File upload error", 400, "");
 	}
 
-	private function processImageWithStickers($imageData, $stickers) {
-		$image = imagecreatefrompng($imageData['tmp_name']);
-		
+	private function processImageWithStickers($tmpName, $stickers) {
+		$image = imagecreatefrompng($tmpName);
 		if (!$image)
-			throw new Exception("Failed to load image");
-	
+			throw new HttpException("Failed to load image", 400, "");
+
+		// prettyPrint($stickers);
+
+		// prettyPrint($stickers[0]->src);
+
+
 		foreach ($stickers as $sticker) {
 			$this->applySticker($image, $sticker);
 		}
@@ -94,25 +105,33 @@ class CreateService {
 	}
 
 	private function applySticker($image, $sticker) {
-		$stickersPath = STICKERS_PATH . basename($sticker['src']);
-		$stickerImage = imagecreatefrompng($stickersPath);
+		try {
+			$stickerPath = STICKERS_PATH . basename($sticker->src);
+			$stickerImage = @imagecreatefrompng($stickerPath);
+
+			if (!$stickerImage)
+				throw new HttpException("Failed to load sticker", 400, "");
+
+			$stickerSize = getimagesize($stickerPath);
+
+			$width = $stickerSize[0] * (self::STICKERS_HEIGHT / $stickerSize[1]);
+			$height = self::STICKERS_HEIGHT;
+			$left = max(self::STICKERS_MIN_LEFT, min(floatval($sticker->left), self::STICKERS_MAX_LEFT));
+			$top = max(self::STICKERS_MIN_TOP, min(floatval($sticker->top), self::STICKERS_MAX_TOP));
 		
-		if (!$stickerImage)
-			throw new Exception("Failed to load sticker: " . $sticker['src']);
-	
-		$stickerWidth = floatval($sticker['width']);
-		$stickerHeight = floatval($sticker['height']);
-		$stickerLeft = floatval($sticker['left']);
-		$stickerTop = floatval($sticker['top']);
-	
-		imagecopyresampled(
-			$image, $stickerImage,
-			$stickerLeft, $stickerTop,
-			0, 0,
-			$stickerWidth, $stickerHeight,
-			imagesx($stickerImage), imagesy($stickerImage)
-		);
-	
-		imagedestroy($stickerImage);
+			$error = !imagecopyresampled(
+				$image, $stickerImage,
+				$left, $top,
+				0, 0,
+				$width, $height,
+				imagesx($stickerImage), imagesy($stickerImage)
+			);
+			if ($error)
+				throw new HttpException("Failed to create pic", 400, "");
+		}
+		finally {			
+			if ($stickerImage)
+				imagedestroy($stickerImage);
+		}
 	}
 }

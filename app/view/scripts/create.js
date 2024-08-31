@@ -357,8 +357,8 @@ for (const cameraButton of cameraButtons) {
 				src: sticker.src,
 				left: sticker.baseLeft,
 				top: sticker.baseTop,
-				width: sticker.baseWidth,
-				height: sticker.baseHeight
+				// width: sticker.baseWidth,
+				// height: sticker.baseHeight
 			}
 		});
 
