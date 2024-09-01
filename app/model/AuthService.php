@@ -227,8 +227,10 @@ class AuthService {
 		$userDatas = new stdClass();
 		$userDatas->id = $userFound->id;
 		$userDatas->active = true;
+		$userDatas->activation_token = '';
 
 		$this->repository->updateUserActive($userDatas);
+		$this->repository->updateUserActivationToken($userDatas);
 	}
 
 	// Déconnecte un compte
