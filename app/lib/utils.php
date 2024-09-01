@@ -147,3 +147,8 @@ function pasCo() {
 	header("Location: /login");
 	exit();
 }
+
+function Co() {
+	header("Location: /");
+	exit();
+}

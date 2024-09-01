@@ -149,86 +149,102 @@ if ($page) {
 		// POST
 		if ($method === 'POST') {
 
-			// LOGIN
-			if ($route === 'login') {
+			// LOGOUT
+			if ($route === 'logout') {
+				if (!$userId)
+					Co();
+				else
+					$authController->logout();
+			}
 
-				if ($state) {
+			else {
 
-					// FORGOT PASSWORD
-					if ($state === 'forgot-password') {
-						$authController->forgotPassword($login);
+				if ($userId)
+					Co();
+				else {
+
+					// LOGIN
+					if ($route === 'login') {
+
+						if ($state) {
+
+							// FORGOT PASSWORD
+							if ($state === 'forgot-password') {
+								$authController->forgotPassword($login);
+							}
+
+							// REINITIALIZATION
+							else if ($state === 'reinitialization') {
+								$authController->reinitialization($password, $retypepassword, $token);
+							}
+
+							else
+								notFound();
+
+						}
+						else {
+							$authController->login($login, $password);
+						}
 					}
 
-					// REINITIALIZATION
-					else if ($state === 'reinitialization') {
-						$authController->reinitialization($password, $retypepassword, $token);
+					// SIGNUP
+					else if ($route === 'signup') {
+						$authController->signup($email, $username, $password, $retypepassword);
+					}
+
+					else if ($route === 'update') {
+						$authController->update($userId, sanitizeUpdateDatas($_POST), $_FILES);
 					}
 
 					else
 						notFound();
-
-				}
-				else {
-					$authController->login($login, $password);
 				}
 			}
-
-			// SIGNUP
-			else if ($route === 'signup') {
-				$authController->signup($email, $username, $password, $retypepassword);
-			}
-
-			else if ($route === 'update') {
-				$authController->update($userId, sanitizeUpdateDatas($_POST), $_FILES);
-			}
-
-			// LOGOUT
-			else if ($route === 'logout') {
-				$authController->logout();
-			}
-
-			else
-				notFound();
 		}
 
 		// GET
 		else if ($method === 'GET') {
 
-			// SIGNUP
-			if ($route === 'signup') {
+			if ($userId)
+				Co();
+			else {
 
-				// ACTIVATE
-				if ($state) {
-					$authController->getSignup($state, null);
+				// SIGNUP
+				if ($route === 'signup') {
+
+					// ACTIVATE
+					if ($state) {
+						$authController->getSignup($state, null);
+					}
+
+					// ACTIVATION
+					else if ($token) {
+						$authController->activateAccount($token);
+					}
+
+					// DEFAULT
+					else {
+						$authController->getSignup(null, null);
+					}
 				}
 
-				// ACTIVATION
-				else if ($token) {
-					$authController->activateAccount($token);
+				// LOGIN
+				else if ($route === 'login') {
+
+					// FORGOT PASSWORD
+					if ($state) {
+						$authController->getLogin($state);
+					}
+
+					// DEFAULT
+					else {
+						$authController->getLogin(null);
+					}
 				}
 
-				// DEFAULT
-				else {
-					$authController->getSignup(null, null);
-				}
+				else
+					notFound();
 			}
-
-			// LOGIN
-			else if ($route === 'login') {
-
-				// FORGOT PASSWORD
-				if ($state) {
-					$authController->getLogin($state);
-				}
-
-				// DEFAULT
-				else {
-					$authController->getLogin(null);
-				}
-			}
-
-			else
-				notFound();
 		}
 
 		else
