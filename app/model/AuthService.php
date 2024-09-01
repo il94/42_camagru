@@ -52,14 +52,16 @@ class AuthService {
 			$userFound = $this->repository->findUserByUsername($login);
 
 		if (empty($userFound))
-			throw new HttpException("User not found", 403, self::LOGIN_ERROR);
+			throw new HttpException("User not found", 404, self::LOGIN_ERROR);
 
 		$userDatas = new stdClass();
 		$userDatas->id = $userFound->id;
 		$userDatas->email = $userFound->email;
 		$userDatas->reset_password_token = $this->getRandomToken();
+		$userDatas->reset_password_token_expires_at = $this->getExpiresDate(null);
 	
 		$this->repository->updateUserResetPasswordToken($userDatas);
+		$this->repository->updateUserResetPasswordTokenExpiresAt($userDatas);
 		$this->sendResetPasswordEmail($userDatas);
 	}
 
@@ -73,11 +75,21 @@ class AuthService {
 
 		$userDatas = new stdClass();
 		$userDatas->id = $userFound->id;
+		$userDatas->reset_password_token = null;
+		$userDatas->reset_password_token_expires_at = null;
+		
+		$this->repository->updateUserResetPasswordToken($userDatas);
+		$this->repository->updateUserResetPasswordTokenExpiresAt($userDatas);	
+
+		$expiresAt = new DateTime($userFound->reset_password_token_expires_at);
+		$now = new DateTime();
+
+		if ($now > $expiresAt)
+			throw new HttpException("Token expired", 403, "");
+
 		$userDatas->password = password_hash($password, PASSWORD_DEFAULT);
-		$userDatas->reset_password_token = '';
 
 		$this->repository->updateUserPassword($userDatas);
-		$this->repository->updateUserResetPasswordToken($userDatas);
 	}	
 
 	// Crée un compte
@@ -103,9 +115,10 @@ class AuthService {
 		$userDatas->notification_like = true;
 		$userDatas->notification_comment = true;
 		$userDatas->activation_token = $this->getRandomToken();
+		$userDatas->activation_token_expires_at = $this->getExpiresDate('activation');
 		$userDatas->active = false;
-		$userDatas->reset_password_token = '';
-		$userDatas->update_email_token = '';
+		$userDatas->reset_password_token = null;
+		$userDatas->update_email_token = null;
 
 		$this->repository->createUser($userDatas);
 		
@@ -136,8 +149,10 @@ class AuthService {
 			$userDatas->email = $datas['email'];
 			$userDatas->username = $user->username;
 			$userDatas->update_email_token = $this->getRandomToken();
+			$userDatas->update_email_token_expires_at = $this->getExpiresDate(null);
 
 			$this->repository->updateUserUpdateEmailToken($userDatas);
+			$this->repository->updateUserUpdateEmailTokenExpiresAt($userDatas);
 			$this->sendUpdateEmailEmail($userDatas);
 
 			return "/settings/update_start";
@@ -223,11 +238,20 @@ class AuthService {
 
 		$userDatas = new stdClass();
 		$userDatas->id = $userFound->id;
-		$userDatas->email = $newEmail;
-		$userDatas->update_email_token = '';
+		$userDatas->update_email_token = null;
+		$userDatas->update_email_token_expires_at = null;
 
-		$this->repository->updateUserEmail($userDatas);
 		$this->repository->updateUserUpdateEmailToken($userDatas);
+		$this->repository->updateUserUpdateEmailTokenExpiresAt($userDatas);
+
+		$expiresAt = new DateTime($userFound->update_email_token_expires_at);
+		$now = new DateTime();
+	
+		if ($now > $expiresAt)
+			throw new HttpException("Token expired", 403, "");
+
+		$userDatas->email = $newEmail;
+		$this->repository->updateUserEmail($userDatas);
 
 		session_destroy();
 	}
@@ -238,13 +262,23 @@ class AuthService {
 		if (!$userFound)
 			throw new HttpException("User not found", 404, '');
 
+		$expiresAt = new DateTime($userFound->activation_token_expires_at);
+		$now = new DateTime();
+		
+		if ($now > $expiresAt) {
+			$this->repository->deleteUser($userFound->id);
+			throw new HttpException("Token expired", 403, "");
+		}
+
 		$userDatas = new stdClass();
 		$userDatas->id = $userFound->id;
 		$userDatas->active = true;
-		$userDatas->activation_token = '';
+		$userDatas->activation_token = null;
+		$userDatas->activation_token_expires_at = null;
 
 		$this->repository->updateUserActive($userDatas);
 		$this->repository->updateUserActivationToken($userDatas);
+		$this->repository->updateUserActivationTokenExpiresAt($userDatas);
 	}
 
 	// Déconnecte un compte
@@ -312,6 +346,13 @@ class AuthService {
 	// Retourne un token aléatoire
 	public function getRandomToken(): string {
 		return hash("sha256", bin2hex(random_bytes(16)));
+	}
+
+	// Retourne une date d'expiration
+	public function getExpiresDate($token): string {
+		if ($token === "activation")
+			return (new DateTime())->modify('+1 day')->format('Y-m-d H:i:s');
+		return (new DateTime())->modify('+1 hour')->format('Y-m-d H:i:s');
 	}
 
 	// Envoie un email de confirmation de création de compte

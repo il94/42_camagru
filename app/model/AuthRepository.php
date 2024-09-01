@@ -10,9 +10,9 @@ class AuthRepository {
 	// Crée un user
 	public function createUser($userDatas) {
 		$request = $this->database->prepare("INSERT INTO `user` (
-			`email`, `username`, `password`, `avatar`, `role`, `notification_like`, `notification_comment`, `activation_token`, `active`, `reset_password_token`, `update_email_token`
+			`email`, `username`, `password`, `avatar`, `role`, `notification_like`, `notification_comment`, `activation_token`, `activation_token_expires_at`, `active`, `reset_password_token`, `update_email_token`
 		) VALUES
-			(:email, :username, :password, :avatar, :role, :notification_like, :notification_comment, :activation_token, :active, :reset_password_token, :update_email_token)");
+			(:email, :username, :password, :avatar, :role, :notification_like, :notification_comment, :activation_token, :activation_token_expires_at, :active, :reset_password_token, :update_email_token)");
 		
 		$request->bindParam(':email', $userDatas->email, PDO::PARAM_STR);
 		$request->bindParam(':username', $userDatas->username, PDO::PARAM_STR);
@@ -22,6 +22,7 @@ class AuthRepository {
   		$request->bindParam(':notification_like', $userDatas->notification_like, PDO::PARAM_BOOL);
   		$request->bindParam(':notification_comment', $userDatas->notification_comment, PDO::PARAM_BOOL);
   		$request->bindParam(':activation_token', $userDatas->activation_token, PDO::PARAM_STR);
+  		$request->bindParam(':activation_token_expires_at', $userDatas->activation_token_expires_at, PDO::PARAM_STR);
   		$request->bindParam(':active', $userDatas->active, PDO::PARAM_BOOL);
   		$request->bindParam(':reset_password_token', $userDatas->reset_password_token, PDO::PARAM_STR);
   		$request->bindParam(':update_email_token', $userDatas->update_email_token, PDO::PARAM_STR);
@@ -181,6 +182,14 @@ class AuthRepository {
 		$request->execute();
 	}
 
+	// Update le token d'activation d'un user expires at
+	public function updateUserActivationTokenExpiresAt($userDatas) {
+		$request = $this->database->prepare("UPDATE user SET activation_token_expires_at = :activation_token_expires_at WHERE id=:id");
+		$request->bindParam(':id', $userDatas->id, PDO::PARAM_INT);
+		$request->bindParam(':activation_token_expires_at', $userDatas->activation_token_expires_at, PDO::PARAM_STR);
+		$request->execute();
+	}
+
 	// Update le token de reset password d'un user
 	public function updateUserResetPasswordToken($userDatas) {
 		$request = $this->database->prepare("UPDATE user SET reset_password_token = :reset_password_token WHERE id=:id");
@@ -189,11 +198,35 @@ class AuthRepository {
 		$request->execute();
 	}
 
+	// Update le token de reset password d'un user expires at
+	public function updateUserResetPasswordTokenExpiresAt($userDatas) {
+		$request = $this->database->prepare("UPDATE user SET reset_password_token_expires_at = :reset_password_token_expires_at WHERE id=:id");
+		$request->bindParam(':id', $userDatas->id, PDO::PARAM_INT);
+		$request->bindParam(':reset_password_token_expires_at', $userDatas->reset_password_token_expires_at, PDO::PARAM_STR);
+		$request->execute();
+	}
+
 	// Update le token d'update email d'un user
 	public function updateUserUpdateEmailToken($userDatas) {
 		$request = $this->database->prepare("UPDATE user SET update_email_token = :update_email_token WHERE id=:id");
 		$request->bindParam(':id', $userDatas->id, PDO::PARAM_INT);
 		$request->bindParam(':update_email_token', $userDatas->update_email_token, PDO::PARAM_STR);
+		$request->execute();
+	}
+
+	// Update le token d'update email d'un user expires at
+	public function updateUserUpdateEmailTokenExpiresAt($userDatas) {
+		$request = $this->database->prepare("UPDATE user SET update_email_token_expires_at = :update_email_token_expires_at WHERE id=:id");
+		$request->bindParam(':id', $userDatas->id, PDO::PARAM_INT);
+		$request->bindParam(':update_email_token_expires_at', $userDatas->update_email_token_expires_at, PDO::PARAM_STR);
+		$request->execute();
+	}
+
+	// Supprime un user
+	function deleteUser($id) {
+		$request = $this->database->prepare("DELETE FROM `user` WHERE `id` = :id");
+
+		$request->bindParam(':id', $id, PDO::PARAM_INT);
 		$request->execute();
 	}
 

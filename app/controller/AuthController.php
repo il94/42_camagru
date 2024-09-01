@@ -56,13 +56,7 @@ class AuthController
 			exit();
 		}
 		catch (HttpException $error) {
-			http_response_code($error->getCode());
-
-			$response = new stdClass();
-			$response->message = $error->getMessage();
-			$response->field = $error->getField();
-
-			echo json_encode($response);
+			error($error->getMessage(), $error->getCode());
 		}
 	}
 
@@ -114,13 +108,7 @@ class AuthController
 			http_response_code(200);
 		}
 		catch (HttpException $error) {
-			http_response_code($error->getCode());
-
-			$response = new stdClass();
-			$response->message = $error->getMessage();
-			$response->field = $error->getField();
-
-			echo json_encode($response);
+			error($error->getMessage(), $error->getCode());
 		}
 	}
 

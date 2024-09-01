@@ -10,33 +10,19 @@ CREATE TABLE IF NOT EXISTS `user` (
     `password` VARCHAR(255) NOT NULL,
     `avatar` VARCHAR(128) NOT NULL,
     `role` ENUM('USER', 'ADMIN', 'BAN', '') NOT NULL DEFAULT 'USER',
-    `notification_like` TINYINT(1) NOT NULL DEFAULT FALSE,
-    `notification_comment` TINYINT(1) NOT NULL DEFAULT FALSE,
-    `activation_token` VARCHAR(64) NOT NULL,
+    `notification_like` TINYINT(1) NOT NULL DEFAULT TRUE,
+    `notification_comment` TINYINT(1) NOT NULL DEFAULT TRUE,
+    `activation_token` VARCHAR(64) DEFAULT NULL,
+	 `activation_token_expires_at` DATETIME DEFAULT NULL,
     `active` TINYINT(1) NOT NULL DEFAULT FALSE,
-    `reset_password_token` VARCHAR(64) NOT NULL,
-    `update_email_token` VARCHAR(64) NOT NULL,
+    `reset_password_token` VARCHAR(64) DEFAULT NULL,
+	 `reset_password_token_expires_at` DATETIME DEFAULT NULL,
+    `update_email_token` VARCHAR(64) DEFAULT NULL,
+	 `update_email_token_expires_at` DATETIME DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE (`username`),
     UNIQUE (`email`)
 ) ENGINE = InnoDB;
-
--- Insertion du compte 'root' dans la table 'user'
-INSERT INTO `user` (`username`, `email`, `password`, `avatar`, `role`, `notification_like`, `notification_comment`, `activation_token`, `active`, `reset_password_token`, `update_email_token`)
-VALUES 
-(
-    'root', 
-    'root@outlook.fr', 
-    '$2y$10$0va6xXZQjSJrbbR0nd5a..qqgK8wjtGgFQClnhXx0yNx5cdcWYoIa', 
-    'uploads/default_avatar.svg', 
-    'ADMIN', 
-    TRUE, 
-    TRUE, 
-    '', 
-    TRUE, 
-    '', 
-    ''
-);
 
 -- Crée la table 'pic'
 CREATE TABLE IF NOT EXISTS `pic` (

@@ -22,8 +22,10 @@ class SettingsService {
 		$userDatas->id = $userFound->id;
 		$userDatas->email = $userFound->email;
 		$userDatas->reset_password_token = $this->authService->getRandomToken();
+		$userDatas->reset_password_token_expires_at = $this->authService->getExpiresDate(null);
 	
 		$this->authService->repository->updateUserResetPasswordToken($userDatas);
+		$this->authService->repository->updateUserResetPasswordTokenExpiresAt($userDatas);
 		$this->authService->sendResetPasswordEmail($userDatas);
 
 		return ($userFound->email);

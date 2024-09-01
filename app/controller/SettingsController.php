@@ -81,13 +81,7 @@ class SettingsController {
 			exit();
 		}
 		catch (HttpException $error) {
-			http_response_code($error->getCode());
-
-			$response = new stdClass();
-			$response->message = $error->getMessage();
-			$response->field = $error->getField();
-
-			echo json_encode($response);
+			error($error->getMessage(), $error->getCode());
 		}
 	}
 
