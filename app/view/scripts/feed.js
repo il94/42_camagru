@@ -103,7 +103,8 @@ function handlePicObserver(entries) {
 						}
 					}
 					else {
-						console.error("ERROR", xhr.responseText);
+						const response = JSON.parse(xhr.responseText);
+						console.error(response.message);
 					}
 				}
 			}

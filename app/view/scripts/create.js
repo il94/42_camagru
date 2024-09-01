@@ -27,7 +27,9 @@ logoutButton?.addEventListener('click', () => {
 				window.location.href = "/login";
 			}
 			else {
-				console.error("ERROR", xhr.responseText);
+				const response = JSON.parse(xhr.responseText);
+
+				console.error(response.message);
 			}
 		}
 	}
@@ -492,14 +494,11 @@ for (const publishButton of publishButtons) {
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 201) {
-					// const response = JSON.parse(xhr.responseText)
-
-					console.log("OK")
-
 					window.location.href = "/";
 				}
 				else {
-					console.log("ERROR")
+					const response = JSON.parse(xhr.responseText);
+					console.error(response.message);
 				}
 			}
 		};

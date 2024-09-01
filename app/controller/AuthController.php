@@ -129,6 +129,9 @@ class AuthController
 
 			echo json_encode($response);
 		}
+		finally {
+			session_destroy();
+		}
 	}
 
 	public function getLogin($state) {

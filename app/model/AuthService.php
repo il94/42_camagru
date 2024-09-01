@@ -85,7 +85,7 @@ class AuthService {
 		$now = new DateTime();
 
 		if ($now > $expiresAt)
-			throw new HttpException("Token expired", 403, "");
+			throw new HttpException("The link you used has expired. Please request a new one to proceed.", 403, "");
 
 		$userDatas->password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -139,7 +139,7 @@ class AuthService {
 		if (array_key_exists('email', $datas)) {
 			
 			if ($user->email === $datas['email'])
-				throw new HttpException("This email is already linked to your account", 400, self::EMAIL_ERROR);
+				throw new HttpException("This email is already linked to your account", 403, self::EMAIL_ERROR);
 
 			$userFound = !!$this->repository->findUserByEmail($datas['email']);
 			if ($userFound)
@@ -192,14 +192,14 @@ class AuthService {
 		else if (array_key_exists('avatar', $files)) {
 
 			if (count($files) !== 1)
-				throw new HttpException("Invalid avatar", 403, self::AVATAR_ERROR);
+				throw new HttpException("Invalid avatar", 400, self::AVATAR_ERROR);
 
 			sanitizeFile($files['avatar']);
 
 			$avatarName = uniqid() . '.png';
 			$avatarPath = UPLOAD_RELATIVE_PATH . $avatarName;
 			if (!move_uploaded_file($files['avatar']['tmp_name'], UPLOAD_ABSOLUTE_PATH . $avatarName))
-				throw new HttpException("Invalid avatar", 403, self::AVATAR_ERROR);
+				throw new HttpException("Invalid avatar", 400, self::AVATAR_ERROR);
 
 			$userDatas->avatar = $avatarPath;
 			$this->repository->updateUserAvatar($userDatas);
@@ -248,7 +248,7 @@ class AuthService {
 		$now = new DateTime();
 	
 		if ($now > $expiresAt)
-			throw new HttpException("Token expired", 403, "");
+			throw new HttpException("The link you used has expired. Please request a new one to proceed.", 403, "");
 
 		$userDatas->email = $newEmail;
 		$this->repository->updateUserEmail($userDatas);
@@ -267,7 +267,7 @@ class AuthService {
 		
 		if ($now > $expiresAt) {
 			$this->repository->deleteUser($userFound->id);
-			throw new HttpException("Token expired", 403, "");
+			throw new HttpException("The link you used has expired. Please request a new one to proceed.", 403, "");
 		}
 
 		$userDatas = new stdClass();
@@ -296,13 +296,13 @@ class AuthService {
 	// Verifie si la string est un email valide
 	public function parseLogin($login) {
 		if (empty($login))
-			throw new HttpException("Email or username is required", 400, self::LOGIN_ERROR);
+			throw new HttpException("Email or username is required", 403, self::LOGIN_ERROR);
 	}
 
 	// Verifie si la string est un email valide
 	public function parseEmail($email) {
 		if (empty($email))
-			throw new HttpException("Email is required", 400, self::EMAIL_ERROR);
+			throw new HttpException("Email is required", 403, self::EMAIL_ERROR);
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 			throw new HttpException("Invalid email format", 422, self::EMAIL_ERROR);
 	}
@@ -310,7 +310,7 @@ class AuthService {
 	// Verifie si la string est un username valide
 	public function parseUsername($username) {
 		if (empty($username))
-			throw new HttpException("Username is required", 400, self::USERNAME_ERROR);
+			throw new HttpException("Username is required", 403, self::USERNAME_ERROR);
 		if (strlen($username) > self::MAX_USERNAMENAME_LENGTH)
 			throw new HttpException("Username exceeds maximum length of " . self::MAX_USERNAMENAME_LENGTH . " characters", 422, self::USERNAME_ERROR);
 	}
@@ -318,7 +318,7 @@ class AuthService {
 	// Verifie si la string est un password valide
 	public function parsePassword($password, $reTypePassword) {
 		if (empty($password))
-			throw new HttpException("Password is required", 400, self::PASSWORD_ERROR);
+			throw new HttpException("Password is required", 403, self::PASSWORD_ERROR);
 		if (strlen($password) < self::MIN_PASSWORD_LENGTH)
 			throw new HttpException("Password must be at least " . self::MIN_PASSWORD_LENGTH . " characters long", 422, self::PASSWORD_ERROR);
 		if (!preg_match("/[A-Z]/", $password))

@@ -31,7 +31,8 @@ logoutButton?.addEventListener('click', () => {
 				window.location.href = "/login";
 			}
 			else {
-				console.error("ERROR", xhr.responseText);
+				const response = JSON.parse(xhr.responseText);
+				console.error(response.message);
 			}
 		}
 	}
@@ -69,7 +70,8 @@ deletePicForm?.addEventListener('submit', (event) => {
 				deletePopup.style.display = 'none';
 			}
 			else {
-				console.error("ERROR", xhr.responseText);
+				const response = JSON.parse(xhr.responseText);
+				console.error(response.message);
 			}
 		}
 	}

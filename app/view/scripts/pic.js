@@ -34,7 +34,8 @@ function postComment(pic, inputText, user) {
 			if (xhr.status === 201) {
 			}
 			else {
-				console.error("ERROR");
+				const response = JSON.parse(xhr.responseText);
+				console.error(response.message);
 			}
 		}
 	}
@@ -231,7 +232,8 @@ export function createPic(picData, user) {
 						likesCount.textContent = `${count} ${count < 2 ? 'like' : 'likes'}`
 					}
 					else {
-						console.error("ERROR");
+						const response = JSON.parse(xhr.responseText);
+						console.error(response.message);
 					}
 				}
 			}
@@ -271,7 +273,8 @@ export function createPic(picData, user) {
 							}
 						}
 						else {
-							console.error("ERROR", xhr.responseText);
+							const response = JSON.parse(xhr.responseText);
+							console.error(response.message);
 						}
 					}
 				}

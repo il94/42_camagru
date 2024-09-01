@@ -40,7 +40,8 @@ logoutButton?.addEventListener('click', () => {
 				window.location.href = "/login";
 			}
 			else {
-				console.error("ERROR", xhr.responseText);
+				const response = JSON.parse(xhr.responseText);
+				console.error(response.message);
 			}
 		}
 	}
@@ -233,6 +234,17 @@ if (form) {
 				xhr.setRequestHeader('Pragma', 'no-cache');
 				xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 				
+				xhr.onreadystatechange = () => {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 200) {
+						}
+						else {
+							const response = JSON.parse(xhr.responseText);
+							console.error(response.message);
+						}
+					}
+				};
+
 				xhr.send(`${paramName}=${paramValue}`);
 			}
 			
@@ -272,7 +284,8 @@ sendPasswordReinitialization?.addEventListener('click', () => {
 				window.location.href = `/settings/reinitialization-start?email=${encodeURIComponent(response)}`;
 			}
 			else {
-				console.error('ERROR')
+				const response = JSON.parse(xhr.responseText);
+				console.error(response.message);
 			}
 		}
 	}

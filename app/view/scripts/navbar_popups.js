@@ -59,7 +59,8 @@ if (desktopNavbarIcons && logoutHiddenButton) {
 					window.location.href = "/login";
 				}
 				else {
-					console.error("ERROR", xhr.responseText);
+					const response = JSON.parse(xhr.responseText);
+					console.error(response.message);
 				}
 			}
 		}
@@ -87,7 +88,8 @@ if (mobileLogoutButton) {
 					window.location.href = "/login";
 				}
 				else {
-					console.error("ERROR", xhr.responseText);
+					const response = JSON.parse(xhr.responseText);
+					console.error(response.message);
 				}
 			}
 		}
