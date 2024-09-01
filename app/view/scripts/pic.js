@@ -134,7 +134,7 @@ export function createPic(picData, user) {
 				${user ? `
 					<div class="pic-input">
 						<span class="placeholder">Do you like this pic ? Let us know !</span>
-						<textarea class="pic-input-text" username="${user.username}" avatar="${user.avatar}"></textarea>
+						<textarea class="pic-input-text" maxlength="255" username="${user.username}" avatar="${user.avatar}"></textarea>
 						<button class="arrow-up-button button-icon" type="submit">
 							<svg class="icon" width="32" height="34" viewBox="0 0 32 34" xmlns="http://www.w3.org/2000/svg">
 							<path fill="none" d="M2 15.8462L15.8462 2L29.6923 15.8462M15.8462 3.92308V32" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -379,7 +379,7 @@ export function createPic(picData, user) {
 				bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
 			}
 		});
-		inputText.addEventListener('input', () => {
+		inputText.addEventListener('input', (event) => {
 			// Si le texte va depasser de la zone et que la zone est inferieure a la moitie de la pic
 			if (inputText.clientHeight !== inputText.scrollHeight &&
 				input.clientHeight < pic.clientHeight / 2)
@@ -391,6 +391,10 @@ export function createPic(picData, user) {
 				footerVerso.style.height = footerNewSize + 'px'
 				bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
 			}
+			if (event.target.value.length >= 255)
+				input.classList.add('error')
+			else
+				input.classList.remove('error')
 		})
 	}
 	return pic

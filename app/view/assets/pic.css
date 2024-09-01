@@ -245,6 +245,8 @@
 	border-radius: 12.5px;
 
 	background-color: rgba(0, 0, 0, 0.25);
+
+	transition: background-color 0.5s ease;
 }
 .pic-input > button {
 	align-self: center;
@@ -253,6 +255,9 @@
 
 	height: 30px;
 	aspect-ratio: 1;
+}
+.pic-input.error {
+	background-color: var(--window-input-error);
 }
 
 .pic-input-text {
