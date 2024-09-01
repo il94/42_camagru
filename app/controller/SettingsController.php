@@ -72,12 +72,13 @@ class SettingsController {
 		http_response_code(200);
 	}
 
-	public function updateEmail($email, $token) {
+	public function updateEmail($newEmail, $token) {
 		try {
-			$this->service->authService->updateEmail($email, $token);
-			$this->get("updatedEmail", null);
+			$this->service->authService->updateEmail($newEmail, $token);
 			
 			http_response_code(200);
+			header("Location: /login/updated");
+			exit();
 		}
 		catch (HttpException $error) {
 			http_response_code($error->getCode());

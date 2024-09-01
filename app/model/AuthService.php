@@ -135,7 +135,7 @@ class AuthService {
 			$this->parseEmail($datas['email']);
 			$userDatas->email = $datas['email'];
 			$userDatas->username = $user->username;
-			$userDatas->update_email_token = $this->getEmailToken($datas['email']);
+			$userDatas->update_email_token = $this->getRandomToken();
 
 			$this->repository->updateUserUpdateEmailToken($userDatas);
 			$this->sendUpdateEmailEmail($userDatas);
@@ -212,18 +212,24 @@ class AuthService {
 	}
 
 	// Update l'email du user
-	public function updateEmail($email, $token) {
+	public function updateEmail($newEmail, $token) {
+		$userFound = !!$this->repository->findUserByEmail($newEmail);
+		if ($userFound)
+			throw new HttpException("Bad request", 400, "");
+
 		$userFound = $this->repository->findUserByUpdateEmailToken($token);
-		if (!$userFound || $this->getEmailToken($email) !== $token)
+		if (!$userFound)
 			throw new HttpException("User not found", 404, '');
 
 		$userDatas = new stdClass();
 		$userDatas->id = $userFound->id;
-		$userDatas->email = $email;
+		$userDatas->email = $newEmail;
 		$userDatas->update_email_token = '';
 
 		$this->repository->updateUserEmail($userDatas);
 		$this->repository->updateUserUpdateEmailToken($userDatas);
+
+		session_destroy();
 	}
 
 	// Active un compte

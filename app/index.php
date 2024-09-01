@@ -257,12 +257,12 @@ if ($page) {
 	// SETTINGS
 	else if ($page === 'settings') {
 
-		if (!$userId)
-			pasCo();
-		else {
+		// POST
+		if ($method === 'POST') {
 
-			// POST
-			if ($method === 'POST') {
+			if (!$userId)
+				pasCo();
+			else {
 
 				// FORGOT PASSWORD
 				if ($route === 'forgot-password') {
@@ -272,34 +272,45 @@ if ($page) {
 				else
 					notFound();
 			}
+		}
 
-			// GET
-			else if ($method === 'GET') {
+		// GET
+		else if ($method === 'GET') {
 
-				// STATE
-				if ($state) {
-					$settingsController->get($state, null);
-				}
+			// UPDATE
+			if ($token) {
 
-				// UPDATE
-				else if ($token) {
+				if ($userId)
+					Co();
+				else
 					$settingsController->updateEmail($email, $token);
-				}
+			}
+			else {
 
-				// UPDATED
-				else if ($route === 'updated') {
-					$settingsController->get(null, null);
-				}
-
-				// DEFAULT
+				if (!$userId)
+					pasCo();
 				else {
-					$settingsController->get(null, null);
+
+					// STATE
+					if ($state) {
+						$settingsController->get($state, null);
+					}
+
+					// UPDATED
+					else if ($route === 'updated') {
+						$settingsController->get(null, null);
+					}
+
+					// DEFAULT
+					else {
+						$settingsController->get(null, null);
+					}
 				}
 			}
-
-			else
-				notFound();
 		}
+
+		else
+			notFound();
 	}
 
 	else
