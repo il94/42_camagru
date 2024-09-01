@@ -223,10 +223,18 @@ trashButton.addEventListener('click', () => {
 		clearStickers()
 	else if (previewImage.style.display === 'block') {
 		const picsToRemove = [];
+
 		for (const picMini of picMinis) {
 			const preview = picMini.querySelector(".preview")
-			if (preview.src === previewImage.src)
+			if (preview.src === previewImage.src) {
 				picsToRemove.push(picMini)
+				canvasList = canvasList.filter((canvas) => canvas.id != picMini.id)
+				if (canvasList.length === 0) {
+					for (const button of publishButtons) {
+						button.classList.add('blocked')
+					}
+				}
+			}
 		}
 		picsToRemove.forEach((picMini) => picMini.remove())
 		handlePanel('onoff')
@@ -314,9 +322,10 @@ const videoRect = video.getBoundingClientRect()
 video.addEventListener('click', () => drawStickers(video, videoRect.height, videoRect.width))
 galleryImage.addEventListener('click', () => drawStickers(galleryImage, videoRect.height, videoRect.width))
 
-const canvasList = []
+let canvasList = []
 
 const previewBars = [previewBar, previewBar2]
+let picMiniId = 0;
 
 for (const cameraButton of cameraButtons) {
 	cameraButton.addEventListener("click", () => {
@@ -379,13 +388,15 @@ for (const cameraButton of cameraButtons) {
 		if (video.style.display === 'block') {
 			canvasList.push({
 				stickersData: stickersData,
-				canvas: copyCanvas(squareCanvas)
+				canvas: copyCanvas(squareCanvas),
+				id: picMiniId
 			})
 		}
 		else if (galleryImage.style.display === 'block') {
 			canvasList.push({
 				stickersData: stickersData,
-				canvas: copyCanvas(galleryCanvas)
+				canvas: copyCanvas(galleryCanvas),
+				id: picMiniId
 			})
 		}
 
@@ -408,7 +419,7 @@ for (const cameraButton of cameraButtons) {
 			imageDataPreview = galleryCanvas.toDataURL('image/png');
 
 		for (const bar of previewBars) {
-			const picMini = createPicMini(imageDataPreview)
+			const picMini = createPicMini(imageDataPreview, picMiniId)
 
 			const preview = picMini.querySelector(".preview");
 			preview.addEventListener('click', () => {
@@ -419,6 +430,7 @@ for (const cameraButton of cameraButtons) {
 
 			bar.appendChild(picMini)
 		}
+		picMiniId++
 		for (const button of publishButtons) {
 			button.classList.remove('blocked')
 		}

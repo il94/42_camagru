@@ -396,9 +396,10 @@ export function createPic(picData, user) {
 	return pic
 }
 
-export function createPicMini(image) {
+export function createPicMini(image, id) {
 	const picMini = document.createElement("div");
 	picMini.className = "pic mini"
+	picMini.id = id
 
 	picMini.innerHTML = `
 		<div class="pic-header mini"></div>
