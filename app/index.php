@@ -157,6 +157,13 @@ if ($page) {
 					$authController->logout();
 			}
 
+			else if ($route === 'update') {
+				if (!$userId)
+					Co();
+				else
+					$authController->update($userId, sanitizeUpdateDatas($_POST), $_FILES);
+			}
+
 			else {
 
 				if ($userId)
@@ -190,10 +197,6 @@ if ($page) {
 					// SIGNUP
 					else if ($route === 'signup') {
 						$authController->signup($email, $username, $password, $retypepassword);
-					}
-
-					else if ($route === 'update') {
-						$authController->update($userId, sanitizeUpdateDatas($_POST), $_FILES);
 					}
 
 					else
