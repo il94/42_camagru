@@ -47,13 +47,19 @@ class AuthService {
 		$this->parseLogin($login);
 
 		if (filter_var($login, FILTER_VALIDATE_EMAIL))
-			$userDatas = $this->repository->findUserByEmail($login);
+			$userFound = $this->repository->findUserByEmail($login);
 		else
-			$userDatas = $this->repository->findUserByUsername($login);
+			$userFound = $this->repository->findUserByUsername($login);
 
-		if (empty($userDatas))
+		if (empty($userFound))
 			throw new HttpException("User not found", 403, self::LOGIN_ERROR);
 
+		$userDatas = new stdClass();
+		$userDatas->id = $userFound->id;
+		$userDatas->email = $userFound->email;
+		$userDatas->reset_password_token = $this->getRandomToken();
+	
+		$this->repository->updateUserResetPasswordToken($userDatas);
 		$this->sendResetPasswordEmail($userDatas);
 	}
 
@@ -68,8 +74,10 @@ class AuthService {
 		$userDatas = new stdClass();
 		$userDatas->id = $userFound->id;
 		$userDatas->password = password_hash($password, PASSWORD_DEFAULT);
+		$userDatas->reset_password_token = '';
 
 		$this->repository->updateUserPassword($userDatas);
+		$this->repository->updateUserResetPasswordToken($userDatas);
 	}	
 
 	// Crée un compte
@@ -96,7 +104,7 @@ class AuthService {
 		$userDatas->notification_comment = true;
 		$userDatas->activation_token = $this->getRandomToken();
 		$userDatas->active = false;
-		$userDatas->reset_password_token = $this->getRandomToken();
+		$userDatas->reset_password_token = '';
 		$userDatas->update_email_token = '';
 
 		$this->repository->createUser($userDatas);

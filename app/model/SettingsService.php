@@ -13,14 +13,20 @@ class SettingsService {
 
 	// Envoie un mail de recuperation de mot de passe
 	public function forgotPassword($userId): string {
-		$userDatas = $this->authService->repository->findUserById($userId);
+		$userFound = $this->authService->repository->findUserById($userId);
 
-		if (empty($userDatas))
+		if (empty($userFound))
 			throw new HttpException("User not found", 403, $this->authService::LOGIN_ERROR);
 
+		$userDatas = new stdClass();
+		$userDatas->id = $userFound->id;
+		$userDatas->email = $userFound->email;
+		$userDatas->reset_password_token = $this->authService->getRandomToken();
+	
+		$this->authService->repository->updateUserResetPasswordToken($userDatas);
 		$this->authService->sendResetPasswordEmail($userDatas);
 
-		return ($userDatas->email);
+		return ($userFound->email);
 	}
 
 }

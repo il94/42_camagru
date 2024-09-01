@@ -173,7 +173,7 @@ class AuthRepository {
 		$request->execute();
 	}
 
-	// Update l'activation token d'un user
+	// Update le token d'activation d'un user
 	public function updateUserActivationToken($userDatas) {
 		$request = $this->database->prepare("UPDATE user SET activation_token = :activation_token WHERE id=:id");
 		$request->bindParam(':id', $userDatas->id, PDO::PARAM_INT);
@@ -181,7 +181,15 @@ class AuthRepository {
 		$request->execute();
 	}
 
-	// Update l'email token d'un user
+	// Update le token de reset password d'un user
+	public function updateUserResetPasswordToken($userDatas) {
+		$request = $this->database->prepare("UPDATE user SET reset_password_token = :reset_password_token WHERE id=:id");
+		$request->bindParam(':id', $userDatas->id, PDO::PARAM_INT);
+		$request->bindParam(':reset_password_token', $userDatas->reset_password_token, PDO::PARAM_STR);
+		$request->execute();
+	}
+
+	// Update le token d'update email d'un user
 	public function updateUserUpdateEmailToken($userDatas) {
 		$request = $this->database->prepare("UPDATE user SET update_email_token = :update_email_token WHERE id=:id");
 		$request->bindParam(':id', $userDatas->id, PDO::PARAM_INT);
