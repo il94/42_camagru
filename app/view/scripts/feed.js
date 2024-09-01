@@ -84,7 +84,7 @@ function handlePicObserver(entries) {
 			const cursor = pics.length ? pics[pics.length - 1].id : null
 
 			const xhr = new XMLHttpRequest();
-			xhr.open('GET', `/pics${cursor ? `?cursor=${cursor}` : ''}`, true);
+			xhr.open('GET', `/pics${encodeURIComponent(cursor ? `?cursor=${cursor}` : '')}`, true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 			xhr.setRequestHeader('Pragma', 'no-cache');

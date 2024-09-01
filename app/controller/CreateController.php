@@ -32,17 +32,11 @@ class CreateController {
 		}
 	}
 
-	public function get($state, $id) {
+	public function get() {
 
 		$headers = require_once("view/layouts/create_assets.php");
 		$user = $this->service->authService->getUserAuth($_SESSION['logged_in']);
-
-		if ($state) {
-		}
-		else {
-			$body = require_once('view/create.php');
-		}
-
+		$body = require_once('view/create.php');
 		$scripts = require_once("view/layouts/create_scripts.php");
 
 		require_once('view/layout.php');

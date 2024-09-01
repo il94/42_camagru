@@ -78,38 +78,28 @@ class HomeController {
 		}
 	}
 
-	public function get($route, $id) {
+	public function get() {
 
 		$user = $this->service->authService->getUserAuth($_SESSION['logged_in']);
 
-		if ($route && $id) {
-			echo "temp";
-		}
-		else {
-			$createButton = getRandomCreateButton();
+		$createButton = getRandomCreateButton();
 
-			$headers = require_once("view/layouts/home_assets.php");
-			$body = require_once('view/home.php');
-			$scripts = require_once("view/layouts/home_scripts.php");
+		$headers = require_once("view/layouts/home_assets.php");
+		$body = require_once('view/home.php');
+		$scripts = require_once("view/layouts/home_scripts.php");
 
-			require_once('view/layout.php');
-		}
+		require_once('view/layout.php');
 
 		http_response_code(200);
 	}
 
-	public function getGuest($route, $id) {
+	public function getGuest() {
 
-		if ($route && $id) {
-			echo "temp";
-		}
-		else {
-			$headers = require_once("view/layouts/home_assets.php");
-			$body = require_once('view/home_guest.php');
-			$scripts = require_once("view/layouts/home_scripts.php");
+		$headers = require_once("view/layouts/home_assets.php");
+		$body = require_once('view/home_guest.php');
+		$scripts = require_once("view/layouts/home_scripts.php");
 
-			require_once('view/layout.php');
-		}
+		require_once('view/layout.php');
 
 		http_response_code(200);
 	}

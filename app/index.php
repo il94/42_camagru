@@ -53,7 +53,7 @@ if ($method === 'POST' && $route !== 'login' && $route !== 'signup' && !hash_equ
 if ($page) {
 
 	if ($page === 'home_guest') {
-		$homeController->getGuest(null, null);
+		$homeController->getGuest();
 	}
 
 	// HOME
@@ -107,7 +107,7 @@ if ($page) {
 				if (!$userId)
 					pasCo();
 				else {	
-					$homeController->get(null, null);
+					$homeController->get();
 				}
 			}
 		}
@@ -135,7 +135,7 @@ if ($page) {
 
 			// GET
 			else if ($method === 'GET') {
-				$createController->get(null, null);
+				$createController->get();
 			}
 
 			else
@@ -217,7 +217,7 @@ if ($page) {
 
 					// ACTIVATE
 					if ($state) {
-						$authController->getSignup($state, null);
+						$authController->getSignup($state);
 					}
 
 					// ACTIVATION
@@ -227,7 +227,7 @@ if ($page) {
 
 					// DEFAULT
 					else {
-						$authController->getSignup(null, null);
+						$authController->getSignup(null);
 					}
 				}
 
@@ -293,17 +293,17 @@ if ($page) {
 
 					// STATE
 					if ($state) {
-						$settingsController->get($state, null);
+						$settingsController->get($state);
 					}
 
 					// UPDATED
 					else if ($route === 'updated') {
-						$settingsController->get(null, null);
+						$settingsController->get(null);
 					}
 
 					// DEFAULT
 					else {
-						$settingsController->get(null, null);
+						$settingsController->get(null);
 					}
 				}
 			}

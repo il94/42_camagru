@@ -124,7 +124,7 @@ if (form) {
 			}
 
 			const token = new URLSearchParams(window.location.search).get("token");
-			const postData = `password=${encodeURIComponent(passwordValue)}&retypepassword=${encodeURIComponent(retypePasswordValue)}&token=${token}`;
+			const postData = `password=${encodeURIComponent(passwordValue)}&retypepassword=${encodeURIComponent(retypePasswordValue)}&token=${encodeURIComponent(token)}`;
 			xhr.send(postData);
 		}		
 
@@ -146,7 +146,7 @@ if (form) {
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 201) {
-						window.location.href = `/signup/activation?email=${emailValue}`
+						window.location.href = `/signup/activation?email=${encodeURIComponent(emailValue)}`
 					}
 					else {
 						const response = JSON.parse(xhr.responseText);

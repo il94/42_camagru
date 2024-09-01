@@ -153,8 +153,6 @@ class AuthController
 				$body = require_once('view/auth_login.php');
 				header('Location: http://localhost:8080/?page=auth&route=login');
 			}
-			else
-				$body = require_once('view/not_found.php');
 		}
 		else {
 			$body = require_once('view/auth_login.php');
@@ -167,7 +165,7 @@ class AuthController
 		http_response_code(200);
 	}
 
-	public function getSignup($state, $id) {
+	public function getSignup($state) {
 
 		$header = require_once('view/layouts/auth_assets.php');
 

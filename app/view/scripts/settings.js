@@ -98,7 +98,7 @@ if (form) {
 					if (xhr.readyState === 4) {
 						if (xhr.status === 200) {
 							if (form.name === "username")
-								window.location.href = `/settings/updated?data=${form.name}`;
+								window.location.href = `/settings/updated?data=${encodeURIComponent(form.name)}`;
 							else
 								window.location.href = `/settings/update_start?email=${encodeURIComponent(value)}`;
 						}
@@ -113,7 +113,7 @@ if (form) {
 					}
 				}
 	
-				const postData = `${form.name}=${encodeURIComponent(value)}`;
+				const postData = `${encodeURIComponent(form.name)}=${encodeURIComponent(value)}`;
 				xhr.send(postData);	
 			})
 
@@ -245,7 +245,7 @@ if (form) {
 					}
 				};
 
-				xhr.send(`${paramName}=${paramValue}`);
+				xhr.send(`${encodeURIComponent(paramName)}=${encodeURIComponent(paramValue)}`);
 			}
 			
 			const notificationLikeInput = document.getElementById('notification-like-input');

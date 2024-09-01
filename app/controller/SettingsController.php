@@ -30,7 +30,7 @@ class SettingsController {
 		}
 	}
 
-	public function get($state, $id) {
+	public function get($state) {
 
 		$headers = require_once("view/layouts/settings_assets.php");
 		$user = $this->service->authService->getUserAuth($_SESSION['logged_in']);

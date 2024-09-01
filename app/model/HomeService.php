@@ -10,10 +10,10 @@ class HomeService {
 	}
 
 	public function createComment($userId, $picId, $content) {
-		if (strlen($content) > 255)
+		if (strlen($content) < 1 || strlen($content) > 255)
 			throw new HttpException("Bad request", 400, "");
 
-		$this->repository->createComment($userId, $picId, htmlspecialchars($content));
+		$this->repository->createComment($userId, $picId, $content);
 
 		$userTarget = $this->authService->repository->findUserByPicIdSecure($picId);
 		if ($userTarget->notification_comment) {

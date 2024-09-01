@@ -55,7 +55,7 @@ deletePicForm?.addEventListener('submit', (event) => {
 	const picId = deletePopup.getAttribute('picId')
 
 	const xhr = new XMLHttpRequest();
-	xhr.open('DELETE', `/?picId=${picId}`, true);
+	xhr.open('DELETE', `/?picId=${encodeURIComponent(picId)}`, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 	xhr.setRequestHeader('Pragma', 'no-cache');
