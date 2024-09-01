@@ -62,11 +62,8 @@ if ($page) {
 		// POST
 		if ($method === 'POST') {
 
-			if (!$userId) {
-				$body = require_once('view/pas_co.php');
-	
-				require_once('view/layout.php');
-			}
+			if (!$userId)
+				pasCo();
 			else {
 
 				// COMMENT
@@ -107,11 +104,8 @@ if ($page) {
 			// DEFAULT
 			else {
 
-				if (!$userId) {
-					$body = require_once('view/pas_co.php');
-		
-					require_once('view/layout.php');
-				}
+				if (!$userId)
+					pasCo();
 				else {	
 					$homeController->get(null, null);
 				}
@@ -130,11 +124,8 @@ if ($page) {
 	// CREATE
 	else if ($page === 'create') {
 
-		if (!$userId) {
-			$body = require_once('view/pas_co.php');
-
-			require_once('view/layout.php');
-		}
+		if (!$userId)
+			pasCo();
 		else {
 
 			// POST
@@ -247,11 +238,8 @@ if ($page) {
 	// SETTINGS
 	else if ($page === 'settings') {
 
-		if (!$userId) {
-			$body = require_once('view/pas_co.php');
-
-			require_once('view/layout.php');
-		}
+		if (!$userId)
+			pasCo();
 		else {
 
 			// POST

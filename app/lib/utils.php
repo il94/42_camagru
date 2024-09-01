@@ -142,3 +142,8 @@ function notFound() {
 	
 	http_response_code(404);
 }
+
+function pasCo() {
+	header("Location: /login");
+	exit();
+}
