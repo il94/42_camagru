@@ -9,6 +9,18 @@ define('STICKERS_PATH', getcwd() . '/view/assets/');
 
 define('PICSIZE', 400);
 
-define('ALLOWED_MIMETYPES', ["image/png"]);
-define('ALLOWED_EXTENSIONS', ["png"]);
+define('ALLOWED_MIMETYPES', [
+	"image/png",
+	"image/jpg",
+	"image/jpeg",
+	"image/gif",
+	"image/webp",
+]);
+define('ALLOWED_EXTENSIONS', [
+	"png",
+	"jpg",
+	"jpeg",
+	"gif",
+	"webp",
+]);
 define('MAX_FILE_SIZE', 2.5 * 1024 * 1024);

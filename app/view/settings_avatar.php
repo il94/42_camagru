@@ -14,7 +14,7 @@
 				<label for="input-file">
 					<img id="avatar-field" class="window-field-avatar" src="<?php echo $user->avatar; ?>"/>
 				</label>
-				<input type="file" id="input-file" accept="image/*"/>
+				<input type="file" id="input-file" accept="image/png, image/jpg, image/jpeg, image/gif, image/webp" />
 			</div>
 
 			<p class="window-error-message"></p>

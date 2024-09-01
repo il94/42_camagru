@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			
-			<input type="file" id="input-file" accept="image/*"/>
+			<input type="file" id="input-file" accept="image/png, image/jpg, image/jpeg, image/gif, image/webp" />
 
 			<div id="action-bar">
 				<button class="cancel-button button-icon window-button">
