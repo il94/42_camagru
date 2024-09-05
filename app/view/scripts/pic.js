@@ -257,7 +257,7 @@ export function createPic(picData, user) {
 				const cursor = comments.length ? comments[comments.length - 1].id : null
 
 				const xhr = new XMLHttpRequest();
-				xhr.open('GET', `/comments?picId=${encodeURIComponent(picData.id)}${encodeURIComponent(cursor ? `&cursor=${cursor}` : '')}`, true);
+				xhr.open('GET', `/comments?picId=${encodeURIComponent(picData.id)}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`, true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 				xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 				xhr.setRequestHeader('Pragma', 'no-cache');

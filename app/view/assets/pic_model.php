@@ -15,7 +15,9 @@
 			</div>
 		</div>
 		<div class="pic-body-recto model">
-			<video id="video"></video>
+			<div id="video-container">
+				<video id="video"></video>
+			</div>
 			<div id="camera-off">
 				<p>Camera off</p>
 			</div>

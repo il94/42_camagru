@@ -84,7 +84,6 @@ async function handlePanel(button) {
 			
 				video.srcObject = stream;
 				video.play();
-
 				video.style.display = 'block'
 				cameraOffScreen.style.display = 'none';
 				for (const button of onOffButtons) {
@@ -96,7 +95,15 @@ async function handlePanel(button) {
 				}
 			}
 			catch (error) {
-				console.error("Error accessing the camera: " + error);
+				console.error(error);
+
+				if (stream) {
+					const tracks = stream.getTracks();
+					tracks.forEach(track => track.stop());
+					stream = null
+				}
+				
+				cameraOffScreen.style.display = 'flex';	
 			}
 		}
 		else {
@@ -186,29 +193,13 @@ const previewImage = document.getElementById('preview-image');
 
 const publishButtons = document.getElementsByClassName('publish-button');
 
-let stream
-try {
-	stream = await navigator.mediaDevices.getUserMedia({ video: true })
+let stream = null
 
-	video.srcObject = stream;
-	video.play();
-	video.style.display = 'block'
-	clearStickers()
-
-	for (const button of cameraButtons) {
-		button.classList.remove('blocked')
-	}
-	for (const button of onOffButtons) {
-		button.classList.add('success')
-	}
-}
-catch (error) {
-	console.error("Error accessing the camera: " + error);
-}
+await handlePanel('onoff')
 
 for (const button of onOffButtons) {
 	button?.addEventListener('click', async () => {
-		handlePanel('onoff')
+		await handlePanel('onoff')
 	})
 }
 
@@ -221,7 +212,7 @@ for (const button of galleryButtons) {
 let picCount = 0
 
 const picMinis = document.getElementsByClassName('pic mini')
-trashButton.addEventListener('click', () => {
+trashButton.addEventListener('click', async () => {
 
 	if (video.style.display === 'block' || galleryImage.style.display === 'block')
 		clearStickers()
@@ -243,7 +234,7 @@ trashButton.addEventListener('click', () => {
 		picsToRemove.forEach((picMini) => picMini.remove())
 		picCount--
 
-		handlePanel('onoff')
+		await handlePanel('onoff')
 	}
 
 })
@@ -255,7 +246,7 @@ inputFile.addEventListener('change', (event) => {
     if (file) {
 			const reader = new FileReader();
 
-			reader.onload = function(e) {
+			reader.onload = async (e) => {
 				const img = new Image();
 				img.onload = function() {
 
@@ -274,7 +265,7 @@ inputFile.addEventListener('change', (event) => {
 					galleryImage.src = canvas.toDataURL();
 				}
 				img.src = e.target.result;
-				handlePanel('gallery')
+				await handlePanel('gallery')
 			};
 
         reader.readAsDataURL(file);
@@ -324,9 +315,10 @@ function drawStickers(element, size, size2) {
 
 	picBodyRecto.appendChild(img);
 }
-const videoRect = video.getBoundingClientRect()
-video.addEventListener('click', () => drawStickers(video, videoRect.height, videoRect.width))
-galleryImage.addEventListener('click', () => drawStickers(galleryImage, videoRect.height, videoRect.width))
+const videoRect = document.getElementById('video-container').getBoundingClientRect()
+
+video.addEventListener('click', () => drawStickers(video, videoRect.height, videoRect.height))
+galleryImage.addEventListener('click', () => drawStickers(galleryImage, videoRect.height, videoRect.height))
 
 let canvasList = []
 
@@ -428,10 +420,10 @@ for (const cameraButton of cameraButtons) {
 			const picMini = createPicMini(imageDataPreview, picMiniId)
 
 			const preview = picMini.querySelector(".preview");
-			preview.addEventListener('click', () => {
+			preview.addEventListener('click', async () => {
 				previewImage.src = imageDataPreview;
 
-				handlePanel('preview')
+				await handlePanel('preview')
 			})
 
 			bar.appendChild(picMini)
