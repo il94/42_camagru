@@ -120,9 +120,10 @@ class HomeService {
 	public function deletePic($userId, $picId) {
 		$user = $this->authService->repository->findUserByPicIdSecure($picId);
 
-		if ($user->id === $userId) {
+		if ($user->id === $userId)
 			$this->authService->repository->deletePic($picId);
-		}
+		else
+			throw new HttpException("Bad request", 400, "");
 	}
 
 	// Envoie un email de notification de like

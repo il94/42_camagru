@@ -1,4 +1,4 @@
-import { createComment } from "./comment.js";
+import { createComment, displayComment } from "./comment.js";
 
 export function getRandomColor() {
 	const r = Math.floor(Math.random() * 256);
@@ -271,7 +271,7 @@ export function createPic(picData, user) {
 								observer.unobserve(commentsObserver)
 	
 							for (const commentData of comments) {
-								const comment = createComment(commentData);
+								const comment = displayComment(commentData);
 								commentsContainer.insertBefore(comment, commentsObserver)
 							}
 						}
