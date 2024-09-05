@@ -240,36 +240,36 @@ trashButton.addEventListener('click', async () => {
 })
 
 inputFile.addEventListener('change', (event) => {
-    const fileInput = event.target;
-    const file = fileInput.files[0];
+   const fileInput = event.target;
+   const file = fileInput.files[0];
 
-    if (file) {
-			const reader = new FileReader();
+   if (file) {
+		const reader = new FileReader();
 
-			reader.onload = async (e) => {
-				const img = new Image();
-				img.onload = function() {
+		reader.onload = async (e) => {
+			const img = new Image();
+			img.onload = () => {
 
-					const canvas = document.createElement('canvas');
-					const ctx = canvas.getContext('2d');
+				const canvas = document.createElement('canvas');
+				const ctx = canvas.getContext('2d');
 
-					canvas.width = PICSIZE;
-					canvas.height = PICSIZE;
+				canvas.width = PICSIZE;
+				canvas.height = PICSIZE;
 
-					const min = Math.min(img.naturalWidth, img.naturalHeight)
+				const min = Math.min(img.naturalWidth, img.naturalHeight)
 
-					const offsetX = (img.naturalWidth - min) / 2;
-					const offsetY = (img.naturalHeight - min) / 2;
+				const offsetX = (img.naturalWidth - min) / 2;
+				const offsetY = (img.naturalHeight - min) / 2;
 
-					ctx.drawImage(img, offsetX, offsetY, min, min, 0, 0, PICSIZE, PICSIZE);
-					galleryImage.src = canvas.toDataURL();
-				}
-				img.src = e.target.result;
-				await handlePanel('gallery')
-			};
+				ctx.drawImage(img, offsetX, offsetY, min, min, 0, 0, PICSIZE, PICSIZE);
+				galleryImage.src = canvas.toDataURL();
+			}
+			img.src = e.target.result;
+			await handlePanel('gallery')
+		};
 
-        reader.readAsDataURL(file);
-    }
+		reader.readAsDataURL(file);
+	}
 });
 
 // Place les stickers sur l'image
@@ -454,29 +454,25 @@ for (const publishButton of publishButtons) {
 		const promises = [];
 
 		canvasList.forEach((canvas, index) => {
-			 // Ajouter les données des stickers
-  
-			 // Convertir le canvas en blob et ajouter au FormData
-			 const promise = new Promise((resolve, reject) => {
-					formData.append(`stickersData_${index}`, JSON.stringify(canvas.stickersData));
+			const promise = new Promise((resolve, reject) => {
+				formData.append(`stickersData_${index}`, JSON.stringify(canvas.stickersData));
 
-					canvas.canvas.toBlob((blob) => {
-						if (blob) {
-							 formData.append(`canvas_${index}`, blob, `canvas_${index}.png`);
-							 resolve();
-						} else {
-							 reject(new Error('Failed to create blob'));
-						}
-				  }, 'image/png', 1);
-			 });
+				canvas.canvas.toBlob((blob) => {
+					if (blob) {
+							formData.append(`canvas_${index}`, blob, `canvas_${index}.png`);
+							resolve();
+					}
+					else {
+						reject(new Error('Failed to create blob'));
+					}
+				}, 'image/png', 1);
+			});
   
-			 // Ajouter la promesse à la liste des promesses
-			 promises.push(promise);
+			promises.push(promise);
 		});
 
 		try {
 			await Promise.all(promises);
-
 
 			for (let [key, value] of formData.entries()) {
 				if (value instanceof Blob) {
@@ -487,37 +483,34 @@ for (const publishButton of publishButtons) {
 		  }
 
 
+			const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-		const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', `/create`, true);
+			xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+			xhr.setRequestHeader('Pragma', 'no-cache');
+			xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+		
+			xhr.onreadystatechange = () => {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 201) {
+						window.location.href = "/";
+					}
+					else {
+						const response = JSON.parse(xhr.responseText);
+						console.error(response.message);
+					}
+				}
+			};
 
-		const xhr = new XMLHttpRequest();
-		xhr.open('POST', `/create`, true);
-		xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-		xhr.setRequestHeader('Pragma', 'no-cache');
-		xhr.setRequestHeader('X-CSRF-Token', csrfToken);
-	
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState === 4) {
-				if (xhr.status === 201) {
-					window.location.href = "/";
-				}
-				else {
-					const response = JSON.parse(xhr.responseText);
-					console.error(response.message);
-				}
+			for (const entry of formData.entries()) {
+				console.log("ENRTY ", entry)
 			}
-		};
 
-		console.log("HEER")
-
-		for (const entry of formData.entries()) {
-			console.log("ENRTY ", entry)
-		}
-
-		xhr.send(formData);
+			xhr.send(formData);
 		}
 		catch (error) {
-			//jsp
+			console.error(error)
 		}
 	})
 }
@@ -527,13 +520,12 @@ function clearStickers() {
 
 	currentStickers.forEach((sticker) => {
 		picBodyRecto.removeChild(sticker);
-  });
+  	});
 
-  stickerSelected = null
+	stickerSelected = null
 
-  video.style.cursor = 'default'
-  galleryImage.style.cursor = 'default'
-
+  	video.style.cursor = 'default'
+  	galleryImage.style.cursor = 'default'
 }
 
 /* BUTTONS */
