@@ -218,6 +218,8 @@ for (const button of galleryButtons) {
 	})
 }
 
+let picCount = 0
+
 const picMinis = document.getElementsByClassName('pic mini')
 trashButton.addEventListener('click', () => {
 
@@ -239,6 +241,8 @@ trashButton.addEventListener('click', () => {
 			}
 		}
 		picsToRemove.forEach((picMini) => picMini.remove())
+		picCount--
+
 		handlePanel('onoff')
 	}
 
@@ -433,8 +437,17 @@ for (const cameraButton of cameraButtons) {
 			bar.appendChild(picMini)
 		}
 		picMiniId++
-		for (const button of publishButtons) {
-			button.classList.remove('blocked')
+		picCount++
+
+		if (picCount >= 5) {
+			for (const button of cameraButtons) {
+				button.classList.add('blocked')
+			}
+		}
+		else {
+			for (const button of publishButtons) {
+				button.classList.remove('blocked')
+			}
 		}
 	});
 }

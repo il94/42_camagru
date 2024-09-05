@@ -20,6 +20,10 @@ class CreateService {
 
 	// Crée des pics
 	public function createPics($userId, $dataPics) {
+
+		if (count($dataPics->image) < 1 || count($dataPics->image) > 5)
+			throw new HttpException("Bad request", 400, '');
+
 		$user = $this->authService->repository->findUserById($userId);
 		if (!$user)
 			throw new HttpException("User not found", 404, '');
