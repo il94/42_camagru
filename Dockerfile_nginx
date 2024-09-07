@@ -1,8 +1,4 @@
 FROM nginx:latest
 
-# Copy files
-COPY ./app /var/www/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
-# Set permissions
-RUN chmod -R 755 /var/www/html
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY app /var/www/html
