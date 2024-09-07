@@ -27,7 +27,6 @@
 				<img class="sticker" src="view/assets/s_mario.png" />
 				<img class="sticker" src="view/assets/s_rolling_stones.png" />
 				<img class="sticker" src="view/assets/s_rock.png" />
-				<img class="sticker" src="view/assets/s_risitas.png" />
 			</div>
 
 			<div id="preview-sticker-bar">
@@ -40,7 +39,6 @@
 						<img class="sticker" src="view/assets/s_mario.png" />
 						<img class="sticker" src="view/assets/s_rolling_stones.png" />
 						<img class="sticker" src="view/assets/s_rock.png" />
-						<img class="sticker" src="view/assets/s_risitas.png" />
 					</div>
 					<div id="previews"></div>
 				</div>
