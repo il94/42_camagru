@@ -10,9 +10,9 @@ class HomeController {
 		$this->service = new HomeService();
 	}
 
-	public function postComment($userId, $picId, $content) {
+	public function postComment($userId, $picId, $content, $contentSize) {
 		try {
-			$this->service->createComment($userId, $picId, $content);
+			$this->service->createComment($userId, $picId, $content, $contentSize);
 			http_response_code(201);
 		}
 		catch (HttpException $error) {

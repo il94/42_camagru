@@ -9,8 +9,8 @@ class HomeService {
 		$this->authService = new AuthService();
 	}
 
-	public function createComment($userId, $picId, $content) {
-		if (strlen($content) < 1 || strlen($content) > 255)
+	public function createComment($userId, $picId, $content, $contentSize) {
+		if (strlen($contentSize) < 1 || strlen($contentSize) > 255)
 			throw new HttpException("Bad request", 400, "");
 
 		$picFound = $this->repository->findPicById($picId);

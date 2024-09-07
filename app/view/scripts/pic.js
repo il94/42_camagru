@@ -22,7 +22,7 @@ function postComment(pic, inputText, user) {
 	xhr.setRequestHeader('Pragma', 'no-cache');
 	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 	
-	if (inputText.value < 1 || inputText.value > 255)
+	if (inputText.value < 1 || encodeURIComponent(inputText.value).length > 255)
 		return
 
 	const commentsContainer = pic.querySelector('#comments-container');
@@ -376,6 +376,9 @@ export function createPic(picData, user) {
 		const headerHeight = 52 // Height du header
 
 		inputText.addEventListener('keydown', (event) => {
+			if (encodeURIComponent(event.target.value).length > 255 && event.key !== "Backspace" && event.key !== "Delete")
+				event.preventDefault();
+
 			if (event.key === "Backspace" && event.target.value) {
 				inputText.style.height = inputText.scrollHeight - charHeight + 'px'
 				input.style.height = inputText.scrollHeight + 'px'
@@ -397,7 +400,7 @@ export function createPic(picData, user) {
 				footerVerso.style.height = footerNewSize + 'px'
 				bodyVerso.style.height = `calc(100% - ${footerNewSize + headerHeight + 'px'})`
 			}
-			if (event.target.value.length >= 255)
+			if (encodeURIComponent(event.target.value).length > 255)
 				input.classList.add('error')
 			else
 				input.classList.remove('error')

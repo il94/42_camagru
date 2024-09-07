@@ -27,6 +27,7 @@ $state = filter_input(INPUT_GET, 'state', FILTER_SANITIZE_SPECIAL_CHARS);
 $picIdGet = filter_input(INPUT_GET, 'picId', FILTER_VALIDATE_INT);
 $picIdPost = filter_input(INPUT_POST, 'picId', FILTER_VALIDATE_INT);
 $picId = $picIdGet ?? $picIdPost;
+$commentSize = strlen($comment);
 $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_SPECIAL_CHARS);
 $cursor = filter_input(INPUT_GET, 'cursor', FILTER_VALIDATE_INT);
 
@@ -68,7 +69,7 @@ if ($page) {
 
 				// COMMENT
 				if ($route === 'comment') {
-					$homeController->postComment($userId, $picId, $comment);
+					$homeController->postComment($userId, $picId, $comment, $commentSize);
 				}
 
 				// LIKE
