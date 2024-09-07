@@ -474,15 +474,6 @@ for (const publishButton of publishButtons) {
 		try {
 			await Promise.all(promises);
 
-			for (let [key, value] of formData.entries()) {
-				if (value instanceof Blob) {
-					 console.log(`${key}: [Blob]`, value);
-				} else {
-					 console.log(`${key}:`, value);
-				}
-		  }
-
-
 			const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 			const xhr = new XMLHttpRequest();
@@ -502,10 +493,6 @@ for (const publishButton of publishButtons) {
 					}
 				}
 			};
-
-			for (const entry of formData.entries()) {
-				console.log("ENRTY ", entry)
-			}
 
 			xhr.send(formData);
 		}
