@@ -161,4 +161,15 @@ class HomeRepository {
 
 		return ($commentsDatas);
 	}
+
+	// Cherche une pic par son id
+	public function findPicById($id) {
+		$request = $this->database->prepare("SELECT * FROM pic WHERE id=:id");
+		$request->bindParam(':id', $id, PDO::PARAM_INT);
+		$request->execute();
+
+		$picDatas = $request->fetch(PDO::FETCH_OBJ);
+		return ($picDatas);
+	}
+
 }

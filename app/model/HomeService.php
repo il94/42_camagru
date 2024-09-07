@@ -13,6 +13,10 @@ class HomeService {
 		if (strlen($content) < 1 || strlen($content) > 255)
 			throw new HttpException("Bad request", 400, "");
 
+		$picFound = $this->repository->findPicById($picId);
+		if (!$picFound)
+			throw new HttpException("Pic not found", 404, '');
+
 		$this->repository->createComment($userId, $picId, $content);
 
 		$userTarget = $this->authService->repository->findUserByPicIdSecure($picId);
@@ -23,6 +27,10 @@ class HomeService {
 	}
 
 	public function likePic($userId, $picId): int {
+		$picFound = $this->repository->findPicById($picId);
+		if (!$picFound)
+			throw new HttpException("Pic not found", 404, '');
+
 		if ($this->repository->hasLikedPic($userId, $picId)) {
 			$this->repository->unlikePic($userId, $picId);
 			return (200);
@@ -118,6 +126,10 @@ class HomeService {
 
 	// Supprime une pic
 	public function deletePic($userId, $picId) {
+		$picFound = $this->repository->findPicById($picId);
+		if (!$picFound)
+			throw new HttpException("Pic not found", 404, '');
+
 		$user = $this->authService->repository->findUserByPicIdSecure($picId);
 
 		if ($user->id === $userId)
