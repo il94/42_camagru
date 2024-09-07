@@ -19,7 +19,6 @@ services:
       context: .
       dockerfile: Dockerfile_php
     volumes:
-      - ./app:/var/www/html
       - uploads:/var/www/html/uploads
     env_file:
       - .env

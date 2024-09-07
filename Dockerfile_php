@@ -13,8 +13,10 @@ RUN apt-get update \
     && docker-php-ext-install gd pdo pdo_mysql zip \
     && pecl install imagick \
     && docker-php-ext-enable imagick
-
+	
 COPY php.ini /usr/local/etc/php/conf.d/custom-php.ini
+
+COPY app /var/www/html
 
 RUN chmod 777 -R /var/www/html \
 	&& chown -R www-data:www-data /var/www/html
