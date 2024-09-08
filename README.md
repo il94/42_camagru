@@ -11,14 +11,14 @@
 
 - Step 1 : Install and run Docker [Documentation](https://docs.docker.com/engine/install/)
 
-- Step 2 : Clone the project and replace the ".env-example" extension with ".env". Variables are already filled, but it's recommanded to replace them with your own values.
+- Step 2 : Clone the project and replace the ".env-example" file extensions with ".env". Variables are already filled, but it's recommanded to replace them with your own values.
 
 - Step 3 : On a terminal, go to the project folder and execute :
 ```bash
 docker compose up --build
 ```
 
-After building, your app will be running on localhost:8080 and Phpmyadmin on localhost:8081.
+After building, your app will be running on localhost:8080, and Phpmyadmin on localhost:8081.
 <div align="center">
 	<img src="other/readme_images/login.gif">
 </div>
@@ -30,7 +30,7 @@ After building, your app will be running on localhost:8080 and Phpmyadmin on loc
   <img src="other/readme_images/gallery.gif">
 </div>
 <p align="center">
-	You'll find the pics uploaded by the community. After signing up, don't hesitate to like your favorite ones ! You'll also be able to comment them, and I'm sure the creator will be thrilled to hear from you !
+	You'll find the pics uploaded by the community on the main page. After signing up and / or logging in, you'll be able to both like and comment your favorite ones. Don't hesitate to do so, as I'm sure the creator will appreciate your feedback !
 </p>
 
 ## Editor
@@ -39,7 +39,7 @@ After building, your app will be running on localhost:8080 and Phpmyadmin on loc
 	<img src="other/readme_images/editor.gif">
 </div>
 <p align="center">
-	It's time for you to create your own pics ! Using the editor, take your best selfie and bring it to life by inserting cute stickers ! =3
+	It's now time for you to create your own pics ! Take your best selfie and bring it to life by inserting cute stickers using the editor ! =3
 </p>
 
 ## Other
