@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `userId` INT NOT NULL,
     `picId` INT NOT NULL,
-    `content` TEXT NOT NULL,
+	 `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     PRIMARY KEY (`id`),
     INDEX (`userId`),
     INDEX (`picId`),
