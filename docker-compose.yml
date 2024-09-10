@@ -8,6 +8,7 @@ services:
     ports:
       - "8080:80"
     volumes:
+      # - ./app:/var/www/html
       - uploads:/var/www/html/uploads
     depends_on:
       - php
@@ -19,6 +20,7 @@ services:
       context: .
       dockerfile: Dockerfile_php
     volumes:
+      # - ./app:/var/www/html
       - uploads:/var/www/html/uploads
     env_file:
       - .env
