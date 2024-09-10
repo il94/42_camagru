@@ -1,9 +1,4 @@
 #create-button-1 {
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		display: none;
-	}
-
 	margin-bottom: 16px;
 
 	width: 468px;
@@ -167,5 +162,12 @@
 	}
 	100% {
 		color: #FDFF83;
+	}
+}
+
+/* MOBILE */
+@media screen and (max-width: 480px) {
+	#create-button-1 {
+		display: none;
 	}
 }

@@ -7,18 +7,6 @@
     padding-top: 26px;
 
     position: absolute;
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		top: 42px;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-	/* DESKTOP */
-	@media screen and (min-width: 480px) {
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
 	z-index: 999;
 
 	width: 300px;
@@ -44,4 +32,21 @@
 	width: 100%;
 	min-height: 3px;
 	max-height: 210px;
+}
+
+/* MOBILE */
+@media screen and (max-width: 480px) {
+	#search-popup {
+		top: 42px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+/* DESKTOP */
+@media screen and (min-width: 480px) {
+	#search-popup {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 }

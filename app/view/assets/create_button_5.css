@@ -1,9 +1,4 @@
 #create-button-5 {
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		display: none;
-	}
-
 	margin-bottom: 16px;
 
 	width: 468px;
@@ -78,5 +73,12 @@
 		#1F5EFF 40%, #1F5EFF 60%,
 		#AD00FF 60%, #AD00FF 80%,
 		#FF0000 80%, #FF0000 100%);
+	}
+}
+
+/* MOBILE */
+@media screen and (max-width: 480px) {
+	#create-button-5 {
+		display: none;
 	}
 }

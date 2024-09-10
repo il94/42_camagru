@@ -2,12 +2,17 @@
 	position: relative;
 
 	width: 100%;
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
+}
+
+/* MOBILE */
+@media screen and (max-width: 480px) {
+	.page {
 		height: calc(100% - 52px); /* 52px = navbar mobile 52px */
 	}
-	/* DESKTOP */
-	@media screen and (min-width: 480px) {
+}
+/* DESKTOP */
+@media screen and (min-width: 480px) {
+	.page {
 		height: 100%; /* 65px = navbar desktop 65px */
 	}
 }

@@ -1,9 +1,4 @@
 #create-button-3 {
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		display: none;
-	}
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -70,4 +65,11 @@
 
 #create-button-3:hover #create-button-3-word-5 {
 	animation: scroll-color-word-5 0.75s step-start infinite;
+}
+
+/* MOBILE */
+@media screen and (max-width: 480px) {
+	#create-button-3 {
+		display: none;
+	}
 }

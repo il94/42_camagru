@@ -1,15 +1,7 @@
 .following-list {
-	@media screen and (max-width: 762px) {
-		display: none;
-	}
-	@media screen and (min-width: 762px) {
-		display: flex;
-	}
-
 	flex-direction: column;
 
 	margin-left: 8px;
-
 
 	min-width: 286px;
 	max-width: 286px;
@@ -24,4 +16,15 @@
 
 .following-list-list {
 	overflow-y: scroll;
+}
+
+@media screen and (max-width: 762px) {
+	.following-list {
+		display: none;
+	}
+}
+@media screen and (min-width: 762px) {
+	.following-list {
+		display: flex;
+	}
 }

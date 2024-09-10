@@ -1,13 +1,4 @@
 .desktop-navbar {
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		display: none;
-	}
-	/* DESKTOP */
-	@media screen and (min-width: 480px) {
-		display: flex;
-	}
-
 	justify-content: space-between;
 	align-items: center;
 
@@ -54,4 +45,17 @@
     display: block;
     opacity: 1;
     /* transform: translateY(0); */
+}
+
+/* MOBILE */
+@media screen and (max-width: 480px) {
+	.desktop-navbar {
+		display: none;
+	}
+}
+/* DESKTOP */
+@media screen and (min-width: 480px) {
+	.desktop-navbar {
+		display: flex;
+	}
 }

@@ -4,14 +4,6 @@
 	align-items: center;
 
 	position: relative;
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		width: 97.46%;
-	}
-	/* DESKTOP */
-	@media screen and (min-width: 480px) {
-		width: 468px;
-	}
 
 	border-radius: 45px;
 
@@ -266,12 +258,6 @@
 	margin-left: 96px;
 	margin-right: 16px;
 
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		margin-left: auto;
-		margin-right: 70%;
-	}
-
 	width: 30px;
 	height: 30px;
 
@@ -347,4 +333,22 @@
 	border-radius: 45px;
 
 	background-color: red;
+}
+
+/* MOBILE */
+@media screen and (max-width: 480px) {
+	.window {
+		width: 97.46%;
+	}
+
+	.window-section > .icon {
+		margin-left: auto;
+		margin-right: 70%;
+	}
+}
+/* DESKTOP */
+@media screen and (min-width: 480px) {
+	.window {
+		width: 468px;
+	}
 }

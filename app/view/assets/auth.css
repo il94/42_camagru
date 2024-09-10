@@ -1,32 +1,33 @@
 #auth {
-	@media screen and (max-width: 1080px) { /* 1080px = logo 513px + form 468xp + marge arbitraire */
-		position: relative;
-	}
-	@media screen and (min-width: 1080px) {
-		display: flex;
-		align-items: center;
-		justify-content: space-evenly;
-	}
-
 	width: 100%;
 	height: 100%;
 }
 
-.logo {
-	@media screen and (max-width: 1080px) { /* 1080px = logo 513px + form 468xp + marge arbitraire */
+@media screen and (max-width: 1080px) { /* 1080px = logo 513px + form 468xp + marge arbitraire */
+	#auth {
+		position: relative;
+	}
+
+	.logo {
 		position: fixed;
 
 		left: 50%;
 		transform: translateX(-50%)
 	}
-}
 
-.window {
-	@media screen and (max-width: 1080px) { /* 1080px = logo 513px + form 468xp + marge arbitraire */
+	.window {
 		position: fixed;
 
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
+	}
+
+}
+@media screen and (min-width: 1080px) {
+	#auth {
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
 	}
 }

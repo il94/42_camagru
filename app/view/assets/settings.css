@@ -16,10 +16,13 @@
 	transform: translate(-50%, -50%);
 
 	max-width: 336px;
-	/* MOBILE */
-	@media screen and (max-width: 480px) {
-		top: 7%;
-	}
 
 	height: 67px;
+}
+
+/* MOBILE */
+@media screen and (max-width: 480px) {
+	#success-popup {
+		top: 7%;
+	}
 }
