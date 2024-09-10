@@ -22,32 +22,35 @@ for (const button of loginRedirectionButtons) {
 	});
 }
 
-const logoutButton = document.getElementById("logout-button");
+const logoutButtonText = document.getElementById("logout-button");
+const mobileLogoutButton = document.getElementById("mobile-logout-button");
 
-logoutButton?.addEventListener('click', () => {
-	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-	const xhr = new XMLHttpRequest();
-	xhr.open('POST', `/logout`, true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-	xhr.setRequestHeader('Pragma', 'no-cache');
-	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
-
-	xhr.onreadystatechange = () => {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 200) {
-				window.location.href = "/login";
-			}
-			else {
-				const response = JSON.parse(xhr.responseText);
-				console.error(response.message);
+for (const logoutButton of [logoutButtonText, mobileLogoutButton]) {
+	logoutButton.addEventListener('click', () => {
+		const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+	
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST', `/logout`, true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+		xhr.setRequestHeader('Pragma', 'no-cache');
+		xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+	
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					window.location.href = "/login";
+				}
+				else {
+					const response = JSON.parse(xhr.responseText);
+					console.error(response.message);
+				}
 			}
 		}
-	}
-
-	xhr.send();
-})
+	
+		xhr.send();
+	})
+}
 
 const sections = document.getElementsByClassName("window-section");
 
@@ -293,3 +296,15 @@ sendPasswordReinitialization?.addEventListener('click', () => {
 	const postData = ``;
 	xhr.send(postData);
 })
+
+const mobileHomeButton = document.getElementById("mobile-home-button");
+mobileHomeButton?.addEventListener('click', () => {
+	window.location.href = "/";
+})
+
+const createButtons = document.getElementsByClassName("create-button");
+for (const createButton of createButtons) {
+	createButton.addEventListener('click', () => {
+		window.location.href = "/create";
+	})
+}
