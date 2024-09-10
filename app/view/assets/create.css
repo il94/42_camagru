@@ -54,6 +54,12 @@
 	overflow: hidden;
 }
 
+#video-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 #preview-bar {
 	flex-direction: column;
 	align-items: center;
