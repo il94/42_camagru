@@ -18,6 +18,7 @@
 
 	<?php $headers; ?>
 
+	<link rel="icon" type="image/x-icon" href="/view/assets/favicon.ico">
 	<title>Crafty Pic</title>
 </head>
 
