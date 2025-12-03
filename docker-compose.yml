@@ -29,7 +29,7 @@ services:
     volumes:
       # - ./app:/var/www/html
       - uploads:/var/www/html/uploads
-      # - ./msmtprc:/etc/msmtprc
+      - /opt/craftypic/config/msmtprc:/etc/msmtprc:ro
     environment:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
