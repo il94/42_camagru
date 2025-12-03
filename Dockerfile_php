@@ -2,18 +2,18 @@ FROM php:7.4-fpm
 
 RUN apt-get update \
     && apt-get install -y \
-        zlib1g-dev \
-        libzip-dev \
-        libpng-dev \
-        libjpeg-dev \
-        libfreetype6-dev \
-        msmtp \
-        libmagickwand-dev \
+    zlib1g-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    msmtp \
+    libmagickwand-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql zip \
     && pecl install imagick \
     && docker-php-ext-enable imagick
-	
+
 RUN mkdir -p /var/log && \
     touch /var/log/php_errors.log && \
     chmod 777 /var/log/php_errors.log
@@ -23,12 +23,10 @@ COPY php.ini /usr/local/etc/php/conf.d/custom-php.ini
 COPY app /var/www/html
 
 RUN chmod 777 -R /var/www/html \
-	&& chown -R www-data:www-data /var/www/html
+    && chown -R www-data:www-data /var/www/html
 
 # COPY msmtprc /etc/msmtprc
-# RUN chown root:msmtp /etc/msmtprc \
-#     && chmod 640 /etc/msmtprc \
-#     && mkdir -p /var/log \
-#     && touch /var/log/msmtp.log \
-#     && chown www-data:www-data /var/log/msmtp.log \
-#     && chmod 600 /var/log/msmtp.log
+RUN mkdir -p /var/log \
+    && touch /var/log/msmtp.log \
+    && chown www-data:www-data /var/log/msmtp.log \
+    && chmod 600 /var/log/msmtp.log
