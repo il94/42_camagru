@@ -24,7 +24,7 @@ class HomeRepository {
 
 	// Like une pic
 	function likePic($userId, $picId) {
-		$request = $this->database->prepare("INSERT INTO `dbcamagru`.`user_pic_likes` (
+		$request = $this->database->prepare("INSERT INTO `database`.`user_pic_likes` (
 			`userId`, `picId`
 		) VALUES
 			(:userId, :picId)");
@@ -36,7 +36,7 @@ class HomeRepository {
 
 	// Unlike une pic
 	function unlikePic($userId, $picId) {
-		$request = $this->database->prepare("DELETE FROM `dbcamagru`.`user_pic_likes`
+		$request = $this->database->prepare("DELETE FROM `database`.`user_pic_likes`
 			WHERE `userId` = :userId 
 			AND `picId` = :picId");
 
@@ -47,7 +47,7 @@ class HomeRepository {
 
 	// Verifie si un user a like une pic
 	public function hasLikedPic($userId, $picId): bool {
-		$request = $this->database->prepare("SELECT * FROM `dbcamagru`.`user_pic_likes`
+		$request = $this->database->prepare("SELECT * FROM `database`.`user_pic_likes`
 			WHERE `userId` = :userId
 			AND `picId` = :picId");
 		
