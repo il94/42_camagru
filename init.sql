@@ -1,6 +1,6 @@
 -- Crée la base de données si elle n'existe pas déjà
-CREATE DATABASE IF NOT EXISTS dbcamagru;
-USE dbcamagru;
+CREATE DATABASE IF NOT EXISTS mysql;
+USE mysql;
 
 -- Crée la table 'user'
 CREATE TABLE IF NOT EXISTS `user` (
