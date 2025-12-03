@@ -12,8 +12,15 @@ services:
       - uploads:/var/www/html/uploads
     depends_on:
       - php
-    env_file:
-      - .env
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT: ${MYSQL_ROOT}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DSN: ${MYSQL_DSN}
+      URL: ${URL}
 
   php:
     build:
@@ -23,8 +30,15 @@ services:
       # - ./app:/var/www/html
       - uploads:/var/www/html/uploads
       - ./msmtprc:/etc/msmtprc
-    env_file:
-      - .env
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT: ${MYSQL_ROOT}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DSN: ${MYSQL_DSN}
+      URL: ${URL}
 
   mysql:
     image: mariadb
@@ -33,8 +47,15 @@ services:
       - '5002:3306'
     expose:
       - '5002'
-    env_file:
-      - .env
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT: ${MYSQL_ROOT}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DSN: ${MYSQL_DSN}
+      URL: ${URL}
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
