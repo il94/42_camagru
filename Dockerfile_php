@@ -16,13 +16,10 @@ RUN apt-get update \
 	
 COPY php.ini /usr/local/etc/php/conf.d/custom-php.ini
 
-COPY msmtprc /etc/msmtprc
-
 COPY app /var/www/html
 
 RUN chmod 777 -R /var/www/html \
-    && chown -R www-data:www-data /var/www/html \
-    && chmod 600 /etc/msmtprc  # Sécuriser le fichier de config email
+	&& chown -R www-data:www-data /var/www/html
 
 # COPY msmtprc /etc/msmtprc
 # RUN chown root:msmtp /etc/msmtprc \
