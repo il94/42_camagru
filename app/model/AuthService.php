@@ -382,8 +382,15 @@ class AuthService {
 			</body>
 			</html>
 			';
+
 			
-		mail($userDatas->email, $subject, $message, $headers);
+		$result = mail($userDatas->email, $subject, $message, $headers);
+    
+    if (!$result) {
+        error_log("Failed to send email to " . $userDatas->email);
+    }
+    
+    return $result;
 	}
 
 	// Envoie un email de recuperation de mot de passe
