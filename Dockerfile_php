@@ -16,6 +16,8 @@ RUN apt-get update \
 	
 COPY php.ini /usr/local/etc/php/conf.d/custom-php.ini
 
+COPY msmtprc /etc/msmtprc
+
 COPY app /var/www/html
 
 RUN chmod 777 -R /var/www/html \
