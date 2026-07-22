@@ -4,3 +4,4 @@
 <link rel="stylesheet" type="text/css" href="/view/assets/window.css">
 <link rel="stylesheet" type="text/css" href="/view/assets/logo.css">
 <link rel="stylesheet" type="text/css" href="/view/assets/icon.css">
+<link rel="stylesheet" type="text/css" href="/view/assets/demo.css">
