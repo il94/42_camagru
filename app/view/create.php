@@ -13,7 +13,7 @@
 
 		<!-- CREATOR -->
 
-		<div id="creator">
+		<div id="creator" demo="<?php echo isDemoSession() ? '1' : ''; ?>">
 
 			<?php require("view/assets/pic_model.php") ?>
 
@@ -119,6 +119,12 @@
 					<?php require ("view/assets/icons/arrow_up.svg"); ?>
 				</button>
 			</div>
+
+			<?php if (isDemoSession()): ?>
+				<p class="demo-notice">
+					The editor is all yours, but publishing is disabled on the shared demo account.
+				</p>
+			<?php endif; ?>
 
 		</div>
 

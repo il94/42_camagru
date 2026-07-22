@@ -1,6 +1,7 @@
 <?php
 
 require_once("lib/HttpException.php");
+require_once("lib/demo.php");
 
 class AuthService {
 	public AuthRepository $repository;
@@ -26,7 +27,16 @@ class AuthService {
 	// Connecte un compte
 	public function login($login, $password) {
 		$this->parseLogin($login);
-		$this->parsePassword($password, null);
+
+		// Le compte de demonstration affiche son mot de passe publiquement : il est
+		// volontairement court, et ne passerait pas le controle de robustesse.
+		// Celui-ci reste entier pour l'inscription et la reinitialisation.
+		if (isDemoLogin($login)) {
+			if (empty($password))
+				throw new HttpException("Password is required", 403, self::PASSWORD_ERROR);
+		}
+		else
+			$this->parsePassword($password, null);
 
 		if (filter_var($login, FILTER_VALIDATE_EMAIL))
 			$userDatas = $this->repository->findUserByEmail($login);
@@ -40,6 +50,10 @@ class AuthService {
 
 		session_regenerate_id(true);
 		$_SESSION['logged_in'] = $userDatas->id;
+
+		// Marque la session comme session de demonstration, sur le username de la
+		// base et non sur la saisie du formulaire (cf. lib/demo.php)
+		$_SESSION['demo'] = demoEnabled() && $userDatas->username === demoUsername();
 	}
 
 	// Envoie un mail de recuperation de mot de passe

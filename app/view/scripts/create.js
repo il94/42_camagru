@@ -193,6 +193,10 @@ const previewImage = document.getElementById('preview-image');
 
 const publishButtons = document.getElementsByClassName('publish-button');
 
+// Le compte de demonstration a l'editeur entier, mais ne peut pas publier
+// (cf. lib/demo.php) : ses boutons Publish restent bloques
+const demo = document.getElementById('creator').getAttribute('demo') === '1'
+
 let stream = null
 
 await handlePanel('onoff')
@@ -436,7 +440,7 @@ for (const cameraButton of cameraButtons) {
 				button.classList.add('blocked')
 			}
 		}
-		else {
+		else if (!demo) {
 			for (const button of publishButtons) {
 				button.classList.remove('blocked')
 			}
@@ -447,7 +451,7 @@ for (const cameraButton of cameraButtons) {
 for (const publishButton of publishButtons) {
 	
 	publishButton.addEventListener("click", async () => {
-		if (publishButton.classList.contains("blocked"))
+		if (demo || publishButton.classList.contains("blocked"))
 			return
 
 		const formData = new FormData()

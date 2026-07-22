@@ -1,6 +1,7 @@
 <?php
 
 require_once('config.php');
+require_once('lib/demo.php');
 
 require_once('controller/AuthController.php');
 require_once('controller/HomeController.php');
@@ -50,6 +51,9 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'POST' && $route !== 'login' && $route !== 'signup' && !hash_equals($_SESSION['csrf_token'], $csrfToken))
 	forbidden();
+
+// Bride le compte de demonstration (cf. lib/demo.php)
+demoGuard($page, $route, $method);
 
 if ($page) {
 

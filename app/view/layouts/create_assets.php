@@ -10,3 +10,4 @@
 <link rel="stylesheet" type="text/css" href="view/assets/mobile_navbar.css">
 <link rel="stylesheet" type="text/css" href="view/assets/desktop_navbar.css">
 <link rel="stylesheet" type="text/css" href="view/assets/pic.css">
+<link rel="stylesheet" type="text/css" href="view/assets/demo.css">

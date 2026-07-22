@@ -25,3 +25,4 @@
 <link rel="stylesheet" type="text/css" href="view/assets/create_button_4.css">
 <link rel="stylesheet" type="text/css" href="view/assets/create_button_5.css">
 <link rel="stylesheet" type="text/css" href="view/assets/create_button_6.css">
+<link rel="stylesheet" type="text/css" href="view/assets/demo.css">

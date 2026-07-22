@@ -8,7 +8,7 @@
 
 	<!-- FEED -->
 
-	<div id="feed" userId="<?php echo $user->id; ?>" username="<?php echo $user->username; ?>" avatar="<?php echo $user->avatar; ?>">
+	<div id="feed" userId="<?php echo $user->id; ?>" username="<?php echo $user->username; ?>" avatar="<?php echo $user->avatar; ?>" demo="<?php echo isDemoSession() ? '1' : ''; ?>">
 
 		<!-- FEED HEADER -->
 
@@ -48,7 +48,12 @@
 			<p class="window-message">This act is not reversible. Are you sure ?</p>
 			
 			<button id="delete-button" class="window-button red">Remove</button>
-			
+
 		</form>
 	</div>
+
+	<!-- DEMO DIALOG -->
+
+	<?php if (isDemoSession()) require("view/assets/demo_dialog.php"); ?>
+
 </div>

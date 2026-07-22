@@ -39,6 +39,9 @@ services:
       MYSQL_PORT: ${MYSQL_PORT}
       MYSQL_DSN: ${MYSQL_DSN}
       URL: ${URL}
+      DEMO_USERNAME: ${DEMO_USERNAME}
+      DEMO_EMAIL: ${DEMO_EMAIL}
+      DEMO_PASSWORD: ${DEMO_PASSWORD}
 
   mysql:
     image: mariadb

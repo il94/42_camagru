@@ -4,7 +4,9 @@ const feed = document.getElementById("feed")
 const user = feed.getAttribute('userId') ? {
 	id: feed.getAttribute('userId'),
 	username: feed.getAttribute('username'),
-	avatar: feed.getAttribute('avatar')
+	avatar: feed.getAttribute('avatar'),
+	// Le compte de demonstration ne peut pas commenter (cf. lib/demo.php)
+	demo: feed.getAttribute('demo') === '1'
 } : null
 
 // Gestion du header du feed

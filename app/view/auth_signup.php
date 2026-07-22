@@ -53,3 +53,5 @@
 	</div>
 
 </div>
+
+<?php require("view/assets/demo_badge.php") ?>

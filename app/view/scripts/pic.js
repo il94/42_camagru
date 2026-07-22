@@ -135,7 +135,7 @@ export function createPic(picData, user) {
 			</div>
 			</div>
 			<div class="pic-footer-verso">
-				${user ? `
+				${user && !user.demo ? `
 					<div class="pic-input">
 						<span class="placeholder">Do you like this pic ? Let us know !</span>
 						<textarea class="pic-input-text" maxlength="255" username="${user.username}" avatar="${user.avatar}"></textarea>
@@ -334,9 +334,14 @@ export function createPic(picData, user) {
 				observer.observe(commentsObserver);
 			else
 				observer.unobserve(commentsObserver)
-		
-			inputText.focus()
+
+			inputText?.focus()
 		})
+
+		// Le compte de demonstration peut lire les commentaires mais pas en poster :
+		// sa zone de saisie n'est pas rendue, il n'y a rien de plus a brancher
+		if (!inputText)
+			return pic
 
 		const arrowUpButton = pic.querySelector('.arrow-up-button');
 		arrowUpButton.addEventListener('click', () => {		
