@@ -43,12 +43,5 @@
 			</button>
 		</div>
 
-		<?php if (isDemoSession()): ?>
-			<p class="demo-notice">
-				Settings are disabled on the shared demo account : the next visitor logs in
-				with the same credentials.
-			</p>
-		<?php endif; ?>
-
 	</div>
 </div>

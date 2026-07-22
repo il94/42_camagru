@@ -18,14 +18,24 @@
 	z-index: 1000;
 }
 
-#demo-dialog .window-message {
-	margin-bottom: 14px;
+#demo-dialog .window-title {
+	margin-top: 32px;
+	margin-bottom: 26px;
+}
 
+#demo-dialog .window-message {
+	margin-bottom: 22px;
+
+	line-height: 1.5;
 	text-align: left;
 }
 
 #demo-dialog .window-message:last-of-type {
-	margin-bottom: 24px;
+	margin-bottom: 34px;
+}
+
+#demo-dialog .window-button {
+	margin-bottom: 30px;
 }
 
 /* Note affichee sur les pages ou une action est bridee (editeur, settings) */

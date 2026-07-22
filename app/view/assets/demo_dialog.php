@@ -23,8 +23,6 @@
 				Have a look around
 			</button>
 
-			<p class="window-redirect">Ready for the real thing ? <a id="demo-dialog-signup" href="/signup">Create an account</a></p>
-
 		</div>
 	</div>
 </div>

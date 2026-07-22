@@ -24,34 +24,3 @@ overlay?.addEventListener('click', (event) => {
 	if (event.target === overlay)
 		closeDialog();
 })
-
-// La page d'inscription est interdite tant qu'une session est ouverte : il faut
-// deconnecter le compte de demonstration avant d'y rediriger
-const signupLink = document.getElementById("demo-dialog-signup");
-signupLink?.addEventListener('click', (event) => {
-	event.preventDefault();
-
-	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-	const xhr = new XMLHttpRequest();
-	xhr.open('POST', `/logout`, true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-	xhr.setRequestHeader('Pragma', 'no-cache');
-	xhr.setRequestHeader('X-CSRF-Token', csrfToken);
-
-	xhr.onreadystatechange = () => {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 200) {
-				sessionStorage.removeItem(DEMO_DIALOG_STORAGE_KEY);
-				window.location.href = "/signup";
-			}
-			else {
-				const response = JSON.parse(xhr.responseText);
-				console.error(response.message);
-			}
-		}
-	}
-
-	xhr.send();
-})
